@@ -1,9 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".recipe.RecipeMainActivity">
+    tools:context=".MainActivity"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#F2F2F2"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/searchIcon"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#F2F2F2"
+            android:iconifiedByDefault="false"
+            android:layout_weight="45"
+            android:src="@drawable/ic_search_black"
+            tools:ignore="ContentDescription" />
+
+        <Button
+            android:id="@+id/searchButton"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#F2F2F2"
+            android:layout_weight="12"
+            android:hint="@string/search_hint" />
+
+
+        <ImageButton
+            android:id="@+id/SearchCriteria"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#F2F2F2"
+            android:iconifiedByDefault="false"
+            android:layout_weight="43"
+            android:src="@drawable/ic_round_filter_list_24"
+            tools:ignore="ContentDescription" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/myFavourite"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:layout_weight="50"
+            android:hint="My Favourite"
+            android:textAlignment="center"
+            tools:ignore="ContentDescription" />
+
+        <EditText
+            android:id="@+id/searchResult"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:layout_weight="50"
+            android:hint="Search Result"
+            android:textAlignment="center"
+            />
+
+
+    </LinearLayout>
+
+
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        android:layout_height="35dp"
+        android:layout_width="match_parent"
+        style="@android:style/Widget.ProgressBar.Inverse"
+        />
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="65dp"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

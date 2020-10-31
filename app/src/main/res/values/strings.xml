@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Assignment_Project_014</string>
+    <string name="search_hint">Search Recipe Here</string>
 </resources>
