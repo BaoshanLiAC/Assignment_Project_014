@@ -9,7 +9,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".recipe.RecipeMainActivity"></activity>
+        <activity
+            android:name=".recipe.SearchCriteria"
+            android:theme="@style/AppTheme.NoBar"></activity>
+
+        <activity
+            android:name=".recipe.SearchHistoryActivity"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+        </activity>
+
+
+        <activity
+            android:name=".recipe.MyFavouriteActivity"
+            android:theme="@style/AppTheme.NoBar"></activity>
+        <activity
+            android:name=".recipe.RecipeMainActivity"
+            android:theme="@style/AppTheme.NoBar"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
