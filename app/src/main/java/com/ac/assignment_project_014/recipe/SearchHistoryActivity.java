@@ -59,10 +59,8 @@ public class SearchHistoryActivity extends AppCompatActivity {
             newView.findViewById(R.id.searchHistoryItem);
             TextView text  = newView.findViewById(R.id.searchHistoryItem);
             ImageView image =   newView.findViewById(R.id.searchImage);
-
             image.setImageResource(R.drawable.ic_baseline_history_24);
             text.setText(searchHistoryText.get(position));
-
             return newView;
         }
     }
