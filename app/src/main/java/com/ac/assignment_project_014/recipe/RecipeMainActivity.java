@@ -1,25 +1,35 @@
 package com.ac.assignment_project_014.recipe;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.SearchView;
 import android.widget.TextView;
-
 import com.ac.assignment_project_014.R;
 import com.ac.assignment_project_014.recipe.JsonEntityClass.JsonRootBean;
 import com.ac.assignment_project_014.recipe.JsonEntityClass.Results;
-
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.squareup.picasso.Picasso;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,19 +39,25 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RecipeMainActivity extends AppCompatActivity {
 
     private ArrayList<Recipe> recipeArrayList = new ArrayList<>();
-    ListView lv;
-    ArrayAdapter adapter;
-    ArrayList<String> list1 = new ArrayList<String>();
-    SearchView sv;
+    ListView listView;
+    private TextView textView ;
+    public List<Results> resultsList;
+    public List<Results> favouritelist;
+    public String local_json = "";
+    MyResultAdapter adapter1;
+    MyfavouriteAdapter adapter2;
+    int dataLoadindIcator=0;
+    private ArrayList<String> searchHistorylist =new ArrayList<String>();
+    public static final String SHARED_PREFS = "shared Prefs";
+    public static final String SEARCH_HISTORY = "search_History";
 
 
-    //private TextView textView ;
-    List<Results> resultsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recipe_activity_main);
+        //Page Layout
         ImageButton searchImgBtn = findViewById(R.id.searchIcon);
         Intent goToSearchHistory  = new Intent(this, SearchHistoryActivity.class);
         Button searchBtn = findViewById(R.id.searchButton);
@@ -49,27 +65,120 @@ public class RecipeMainActivity extends AppCompatActivity {
         searchImgBtn.setOnClickListener(click -> {startActivity( goToSearchHistory );});
         searchBtn.setOnClickListener(click -> {startActivity( goToSearchHistory );});
         searchCriteriaBtn.setOnClickListener(click -> {startActivity( new Intent(this, SearchCriteria.class) );});
+
+        Button btn_myFavourite = findViewById(R.id.myFavourite);
+        Button btn_search = findViewById(R.id.searchResult);
+
+        btn_search.setOnClickListener((parent)->{
+            //Load Json from url
+            loadJasonfromUrl();
+        });
+
+        btn_myFavourite.setOnClickListener((parent)->{
+            //LoadJson from local file, prepared for favourite
+            LoadJsonfromLocal();
+        });
+
         ProgressBar progressBar = findViewById(R.id.progress_circular);
         progressBar.setVisibility(View.INVISIBLE);//隐藏进度条
+        listView = findViewById(R.id.recipe_listView);
+        adapter1 = new MyResultAdapter();
+        adapter2= new MyfavouriteAdapter();
 
-        //ListView
-
-        // 1. 创建Gson对象
-        //Gson gson = new Gson();
-
-        // 2. 创建JavaBean类的对象
-        JsonRootBean jsonRootBean = new JsonRootBean();
-
-
-        // 3. 使用Gson解析：将JSON数据转为单个类实体
-        //String json = "";
-        //jsonRootBean = gson.fromJson(json,JsonRootBean.class);
+        //Default Load Json from url
+        searchHistorylist = getPreferenceData();
+        loadJasonfromUrl();
 
 
+     //Click on each item
+        Intent goToContent  = new Intent(this, RecipeContentActivity.class);
+
+        listView.setOnItemClickListener((parent, view, pos, id) ->  {
+            if(dataLoadindIcator==0){
+                goToContent.putExtra("thumbnail", resultsList.get(pos).getThumbnail());
+                goToContent.putExtra("title", resultsList.get(pos).getTitle());
+                goToContent.putExtra("ingredients", resultsList.get(pos).getIngredients());
+
+                String url =  resultsList.get(pos).getHref();
+                goToContent.putExtra("href", url);
+
+                //default value is N: not in the favourite list;
+                goToContent.putExtra("like", "N");
+                if (favouritelist!=null)
+                    for(Results res:favouritelist)
+                        if(url.equals(resultsList.get(pos).getHref())) goToContent.putExtra("like", "Y");
+
+                startActivity( goToContent);
+            }
+            else if(dataLoadindIcator==1){
+
+                goToContent.putExtra("thumbnail", favouritelist.get(pos).getThumbnail());
+                goToContent.putExtra("title", favouritelist.get(pos).getTitle());
+                goToContent.putExtra("ingredients", favouritelist.get(pos).getIngredients());
+
+                String url =  favouritelist.get(pos).getHref();
+                goToContent.putExtra("href", url);
+
+                //default value is N: not in the favourite list;
+                goToContent.putExtra("like", "N");
+                if (favouritelist!=null)
+                    for(Results res:favouritelist)
+                        if(url.equals(favouritelist.get(pos).getHref())) goToContent.putExtra("like", "Y");
+
+                startActivity( goToContent);
+            }
 
 
 
-        //textView = findViewById(R.id.text_view_result);
+        });
+
+    }
+
+    @Override
+    protected void onStart() {
+
+        super.onStart();
+        searchHistorylist = getPreferenceData();
+        loadJasonfromUrl();
+
+    }
+
+//load data from SharedPreferences
+    private ArrayList<String> getPreferenceData(){
+        //Temperate
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString(SEARCH_HISTORY,null);
+        Type type = new TypeToken<ArrayList<String>>(){}.getType();
+        searchHistorylist = gson.fromJson(json,type);
+        if(searchHistorylist!=null)
+            return searchHistorylist;
+        else
+            return new ArrayList<String>();
+    }
+
+    public void LoadJsonfromLocal() {
+        dataLoadindIcator=1;
+        local_json = getJson(this, "favourite_result");
+        Gson gson = new Gson();
+        if(local_json!=""){
+            JsonRootBean rootClassObject = gson.fromJson(local_json, JsonRootBean.class);
+            favouritelist = rootClassObject.getResults();
+            String content = "";
+
+            for (Results post: favouritelist){
+                content += "title: " +  post.getTitle() +"\n"
+                        +  "href: " +   post.getHref()  + "\n"
+                        +  "ingredients: " + post.getIngredients() +"\n"
+                        +  "thumbnail: "   + post.getThumbnail() +"\n\n";
+            }
+            listView.setAdapter(adapter2);
+        }
+    }
+
+    //Load from Url
+    public void loadJasonfromUrl(){
+        dataLoadindIcator=0;
         Retrofit retrofit = new Retrofit.Builder()
                 //.baseUrl("http://jsonplaceholder.typicode.com/")
                 .baseUrl("http://www.recipepuppy.com/")
@@ -77,89 +186,115 @@ public class RecipeMainActivity extends AppCompatActivity {
                 .build();
 
         JsonPlaceHolderAPI jsonPlaceHolderAPI = retrofit.create(JsonPlaceHolderAPI.class);
-        Call<JsonRootBean> call = jsonPlaceHolderAPI.getPosts();
+        //Call<JsonRootBean> call = jsonPlaceHolderAPI.getPosts();
+        //Call<JsonRootBean> call = jsonPlaceHolderAPI.getPosts("onions",null);
+        Call<JsonRootBean> call = jsonPlaceHolderAPI.getPosts(searchHistorylist.get(searchHistorylist.size()-1));
 
-    call.enqueue(new Callback<JsonRootBean>() {
-
-       @Override
-       public void onResponse(Call<JsonRootBean> call, Response<JsonRootBean> response) {
-          if(!response.isSuccessful()){
-              // textView.setText("Code" + response.code());
-               return;
-           }
-          JsonRootBean results = response.body();
-               String content = "";
-               content +=  "title:"  + results.getTitle() + "\n"
-                       +   "version:" + results.getVersion() + "\n"
-                       +   "href:"     + results.getHref()+"\n\n\n";
-               resultsList = results.getResults();
-                       for (Results post: resultsList){
-                           content += "title: " +  post.getTitle() +"\n"
-                                   +  "href: " +   post.getHref()  + "\n"
-                                   +  "ingredients: " + post.getIngredients() +"\n"
-                                   +  "thumbnail: "   + post.getThumbnail() +"\n\n";
-                       }
-               // textView.append(content);
-
-           }
-
-        public void onFailure(Call<JsonRootBean> call, Throwable t) {
-        //   textView.setText(t.getMessage());
-       }
-
-/*@Override
-public void onResponse(Call<List<Results>> call, Response<List<Results>> response) {
-    if(!response.isSuccessful()){
-        textView.setText("Code" + response.code());
-        return;
+        call.enqueue(new Callback<JsonRootBean>() {
+            @Override
+            public void onResponse(Call<JsonRootBean> call, Response<JsonRootBean> response) {
+                if(!response.isSuccessful()){
+                    //textView.setText("Code" + response.code());
+                    return;
+                }
+                JsonRootBean rootBean = response.body();
+                String content = "\n";
+                //Root Class Information
+                content +=  "title:"  + rootBean.getTitle() + "\n"
+                        +   "version:" + rootBean.getVersion() + "\n"
+                        +   "href:"     + rootBean.getHref()+"\n\n\n";
+                //Recipe class information
+                resultsList = rootBean.getResults();
+                for (Results post: resultsList){
+                    content += "title: " +  post.getTitle() +"\n"
+                            +  "href: " +   post.getHref()  + "\n"
+                            +  "ingredients: " + post.getIngredients() +"\n"
+                            +  "thumbnail: "   + post.getThumbnail() +"\n\n";
+                }
+                listView.setAdapter(adapter1);
+            }
+            public void onFailure(Call<JsonRootBean> call, Throwable t) {
+                //textView.setText(t.getMessage());
+            }
+        });
     }
-    List<Results> results = response.body();
-    for (Results  result: results){
-        String content = "";
-        content +=  "ID"  + result.getTitle() + "\n"
-                +   "User ID" + result.getHref() + "\n"
-                +   "Title"     + result.getIngredients();
-        textView.append(content);
+
+    //get jason string from txt file
+    public static String getJson(Context mContext, String fileName) {
+        // TODO Auto-generated method stub
+        StringBuilder sb = new StringBuilder();
+        AssetManager am = mContext.getAssets();
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(
+                    am.open(fileName)));
+            String next = "";
+            while (null != (next = br.readLine())) {
+                sb.append(next);
+            }
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            sb.delete(0, sb.length());
+        }
+        return sb.toString().trim();
     }
-}
+
+
+    class MyResultAdapter extends BaseAdapter {
 
         @Override
-        public void onFailure(Call<List<Results>> call, Throwable t) {
-            textView.setText(t.getMessage());
-        }*/
+        public int getCount() { return resultsList.size(); }
 
+        @Override
+        public Object getItem(int position) { return resultsList.get(position); }
 
-    });
+        @Override
+        public long getItemId(int position) { return (long) position; }
 
-      /*  list1.add(results);
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            LayoutInflater inflater = getLayoutInflater();
+            View newView = inflater.inflate(R.layout.result_row, parent, false);
+            newView.findViewById(R.id.title);
+            TextView text = newView.findViewById(R.id.title);
+            ImageView imageView = newView.findViewById(R.id.resultRow_imageView);
 
-        ListView recipeListView = findViewById(R.id.recipe_listView);
-        lv = (ListView)findViewById(R.id.recipe_listView);
-        sv = (SearchView)findViewById(R.id.search_bar);
+            //set Text and image
+            //imageView.setImageResource(R.drawable.ic_baseline_history_24);
+            Picasso.get().load(resultsList.get(position).getThumbnail()).into(imageView);
+            text.setText(resultsList.get(position).getTitle());
+            return newView;
 
-       *//* list1.add("Monday");
-        list1.add("Tuesday");
-        list1.add("Wednesday");
-        list1.add("Thursday");
-        list1.add("Friday");
-        list1.add("Saturday");
-        list1.add("Sunday");*//*
-        adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,list1);
-        lv.setAdapter(adapter);
-        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
-               return false;
-            }
-        });*/
-
+        }
     }
 
+
+    class MyfavouriteAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() { return favouritelist.size(); }
+
+        @Override
+        public Object getItem(int position) { return favouritelist.get(position); }
+
+        @Override
+        public long getItemId(int position) { return (long) position; }
+
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            LayoutInflater inflater = getLayoutInflater();
+            View newView = inflater.inflate(R.layout.result_row, parent, false);
+            newView.findViewById(R.id.title);
+            TextView text = newView.findViewById(R.id.title);
+            ImageView imageView = newView.findViewById(R.id.resultRow_imageView);
+
+            //set Text and image
+            //imageView.setImageResource(R.drawable.ic_baseline_history_24);
+            Picasso.get().load(favouritelist.get(position).getThumbnail()).into(imageView);
+            text.setText(favouritelist.get(position).getTitle());
+            return newView;
+
+        }
+    }
 
 }

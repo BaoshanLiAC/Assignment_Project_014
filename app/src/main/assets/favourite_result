@@ -1,0 +1,25 @@
+{
+  "title": "Recipe Puppy",
+  "version": 0.1,
+  "href": "http://www.recipepuppy.com/",
+  "results": [
+    {
+      "title": "Baked Omelet Pie",
+      "href": "http://allrecipes.com/Recipe/Baked-Omelet-Pie/Detail.aspx",
+      "ingredients": "potato, black pepper, cheddar cheese, eggs, ham, olive oil, onions, red pepper, salt, tomato",
+      "thumbnail": "http://img.recipepuppy.com/11958.jpg"
+    },
+    {
+      "title": "Country Omelet",
+      "href": "http://www.recipezaar.com/Country-Omelet-225512",
+      "ingredients": "butter, eggs, parsley, olive oil, onions, potato, salt, sour cream, swiss cheese, walnut",
+      "thumbnail": "http://img.recipepuppy.com/325979.jpg"
+    },
+    {
+      "title": "Hungarian Omelet",
+      "href": "http://www.recipezaar.com/Hungarian-Omelet-134944",
+      "ingredients": "black pepper, butter, eggs, mushroom, onions, salt, paprika",
+      "thumbnail": "http://img.recipepuppy.com/35044.jpg"
+    }
+  ]
+}

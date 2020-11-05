@@ -15,7 +15,6 @@
         app:showAsAction="ifRoom"/>
 
 
-
     <ListView
         android:id="@+id/recipe_listView"
         android:layout_width="match_parent"

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ac.assignment_project_014">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -11,9 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".recipe.RecipeContentActivity"
+            android:theme="@style/AppTheme.NoBar"/>
+        <activity
             android:name=".recipe.SearchCriteria"
-            android:theme="@style/AppTheme.NoBar"></activity>
-
+            android:theme="@style/AppTheme.NoBar" />
         <activity
             android:name=".recipe.SearchHistoryActivity"
             android:launchMode="singleTop">
@@ -21,18 +24,15 @@
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
         </activity>
-
-
         <activity
             android:name=".recipe.MyFavouriteActivity"
-            android:theme="@style/AppTheme.NoBar"></activity>
+            android:theme="@style/AppTheme.NoBar" />
         <activity
             android:name=".recipe.RecipeMainActivity"
-            android:theme="@style/AppTheme.NoBar"></activity>
+            android:theme="@style/AppTheme.NoBar" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
