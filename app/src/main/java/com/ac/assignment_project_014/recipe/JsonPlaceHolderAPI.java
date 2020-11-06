@@ -8,7 +8,6 @@ import retrofit2.http.Query;
 
 
 public interface JsonPlaceHolderAPI {
-
     @GET ("api")
     Call<JsonRootBean> getPosts();
 

@@ -7,12 +7,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -41,15 +44,17 @@ public class RecipeMainActivity extends AppCompatActivity {
     private ArrayList<Recipe> recipeArrayList = new ArrayList<>();
     ListView listView;
     private TextView textView ;
-    public List<Results> resultsList;
-    public List<Results> favouritelist;
-    public String local_json = "";
+    public List<Results> resultsList =new ArrayList<Results>();
+    static public  List<Results> favouritelist =new ArrayList<Results>();
+    public String local_json = ""; //retrieve the favourite list
     MyResultAdapter adapter1;
     MyfavouriteAdapter adapter2;
     int dataLoadindIcator=0;
     private ArrayList<String> searchHistorylist =new ArrayList<String>();
     public static final String SHARED_PREFS = "shared Prefs";
     public static final String SEARCH_HISTORY = "search_History";
+    SQLiteDatabase db;
+    DBOpener dbOpener;// = new DBOpener(this);
 
 
 
@@ -57,7 +62,11 @@ public class RecipeMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recipe_activity_main);
-        //Page Layout
+
+        //Database initialization
+        dbOpener = new DBOpener(this);
+
+        //Layout initialization
         ImageButton searchImgBtn = findViewById(R.id.searchIcon);
         Intent goToSearchHistory  = new Intent(this, SearchHistoryActivity.class);
         Button searchBtn = findViewById(R.id.searchButton);
@@ -65,36 +74,29 @@ public class RecipeMainActivity extends AppCompatActivity {
         searchImgBtn.setOnClickListener(click -> {startActivity( goToSearchHistory );});
         searchBtn.setOnClickListener(click -> {startActivity( goToSearchHistory );});
         searchCriteriaBtn.setOnClickListener(click -> {startActivity( new Intent(this, SearchCriteria.class) );});
-
         Button btn_myFavourite = findViewById(R.id.myFavourite);
         Button btn_search = findViewById(R.id.searchResult);
-
-        btn_search.setOnClickListener((parent)->{
-            //Load Json from url
-            loadJasonfromUrl();
-        });
-
-        btn_myFavourite.setOnClickListener((parent)->{
-            //LoadJson from local file, prepared for favourite
-            LoadJsonfromLocal();
-        });
 
         ProgressBar progressBar = findViewById(R.id.progress_circular);
         progressBar.setVisibility(View.INVISIBLE);//隐藏进度条
         listView = findViewById(R.id.recipe_listView);
-        adapter1 = new MyResultAdapter();
-        adapter2= new MyfavouriteAdapter();
+        adapter1 = new MyResultAdapter(); //to show search result
+        adapter2= new MyfavouriteAdapter(); //to show favourite
+
+        //Respond to user actions,Load Json from url
+        btn_search.setOnClickListener((parent)->{ loadJasonfromUrl(); });
+
+        //LoadJson from Database, prepared for favourite
+        btn_myFavourite.setOnClickListener((parent)->{loadFavouriteRecipeformDB();});
 
         //Default Load Json from url
         searchHistorylist = getPreferenceData();
         loadJasonfromUrl();
 
-
-     //Click on each item
-        Intent goToContent  = new Intent(this, RecipeContentActivity.class);
-
+        //Click on each item to see the detailed content
         listView.setOnItemClickListener((parent, view, pos, id) ->  {
             if(dataLoadindIcator==0){
+                Intent goToContent  = new Intent(this, RecipeContentActivity.class);
                 goToContent.putExtra("thumbnail", resultsList.get(pos).getThumbnail());
                 goToContent.putExtra("title", resultsList.get(pos).getTitle());
                 goToContent.putExtra("ingredients", resultsList.get(pos).getIngredients());
@@ -107,11 +109,13 @@ public class RecipeMainActivity extends AppCompatActivity {
                 if (favouritelist!=null)
                     for(Results res:favouritelist)
                         if(url.equals(resultsList.get(pos).getHref())) goToContent.putExtra("like", "Y");
-
                 startActivity( goToContent);
             }
-            else if(dataLoadindIcator==1){
 
+            else if(dataLoadindIcator==1){
+                Intent goToContent  = new Intent(this, RecipeContentActivity.class);
+                favouritelist.clear();
+                loadFavouriteRecipeformDB();
                 goToContent.putExtra("thumbnail", favouritelist.get(pos).getThumbnail());
                 goToContent.putExtra("title", favouritelist.get(pos).getTitle());
                 goToContent.putExtra("ingredients", favouritelist.get(pos).getIngredients());
@@ -124,24 +128,11 @@ public class RecipeMainActivity extends AppCompatActivity {
                 if (favouritelist!=null)
                     for(Results res:favouritelist)
                         if(url.equals(favouritelist.get(pos).getHref())) goToContent.putExtra("like", "Y");
-
                 startActivity( goToContent);
             }
-
-
-
         });
-
     }
 
-    @Override
-    protected void onStart() {
-
-        super.onStart();
-        searchHistorylist = getPreferenceData();
-        loadJasonfromUrl();
-
-    }
 
 //load data from SharedPreferences
     private ArrayList<String> getPreferenceData(){
@@ -176,6 +167,32 @@ public class RecipeMainActivity extends AppCompatActivity {
         }
     }
 
+    //load data into ArrayList favouritelist
+    public void loadFavouriteRecipeformDB() {
+        favouritelist.clear();
+        db = dbOpener.getWritableDatabase(); //This calls onCreate() if you've never built the table before, or onUpgrade if the version here is newer
+        String [] columns = {dbOpener.COL_ID, dbOpener.COL_TITLE, dbOpener.COL_HREF, dbOpener.COL_INGREDIENT, dbOpener.COL_THUMBNAIL};
+        Cursor results = db.query(false, dbOpener.TABLE_NAME, columns, null, null, null, null, null, null);
+
+        int id_index = results.getColumnIndex(dbOpener.COL_ID);
+        int title_index = results.getColumnIndex(dbOpener.COL_TITLE);
+        int href_index = results.getColumnIndex(dbOpener.COL_HREF);
+        int ingredients_index = results.getColumnIndex(dbOpener.COL_INGREDIENT);
+        int thumbnail_index = results.getColumnIndex(dbOpener.COL_THUMBNAIL);
+
+        while(results.moveToNext()){
+            Boolean send, receive;
+            long id = results.getLong(id_index);
+            String title = results.getString(title_index);
+            String herf = results.getString(href_index);
+            String ingredients = results.getString(ingredients_index);
+            String thumbnail = results.getString(thumbnail_index);
+            favouritelist.add(new Results(title,herf,ingredients,thumbnail));
+        }
+        listView.setAdapter(adapter2);
+    }
+
+
     //Load from Url
     public void loadJasonfromUrl(){
         dataLoadindIcator=0;
@@ -186,9 +203,9 @@ public class RecipeMainActivity extends AppCompatActivity {
                 .build();
 
         JsonPlaceHolderAPI jsonPlaceHolderAPI = retrofit.create(JsonPlaceHolderAPI.class);
-        //Call<JsonRootBean> call = jsonPlaceHolderAPI.getPosts();
+        Call<JsonRootBean> call = jsonPlaceHolderAPI.getPosts();
         //Call<JsonRootBean> call = jsonPlaceHolderAPI.getPosts("onions",null);
-        Call<JsonRootBean> call = jsonPlaceHolderAPI.getPosts(searchHistorylist.get(searchHistorylist.size()-1));
+       //Call<JsonRootBean> call = jsonPlaceHolderAPI.getPosts(searchHistorylist.get(searchHistorylist.size()-1));
 
         call.enqueue(new Callback<JsonRootBean>() {
             @Override
@@ -241,16 +258,12 @@ public class RecipeMainActivity extends AppCompatActivity {
 
 
     class MyResultAdapter extends BaseAdapter {
-
         @Override
         public int getCount() { return resultsList.size(); }
-
         @Override
         public Object getItem(int position) { return resultsList.get(position); }
-
         @Override
         public long getItemId(int position) { return (long) position; }
-
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             LayoutInflater inflater = getLayoutInflater();
@@ -264,7 +277,6 @@ public class RecipeMainActivity extends AppCompatActivity {
             Picasso.get().load(resultsList.get(position).getThumbnail()).into(imageView);
             text.setText(resultsList.get(position).getTitle());
             return newView;
-
         }
     }
 

@@ -14,6 +14,14 @@ public class Results {
     private String title;
     private String href;
     private String ingredients;
+
+    public Results(String title, String href, String ingredients, String thumbnail) {
+        this.title = title;
+        this.href = href;
+        this.ingredients = ingredients;
+        this.thumbnail = thumbnail;
+    }
+
     private String thumbnail;
     public void setTitle(String title) {
          this.title = title;
