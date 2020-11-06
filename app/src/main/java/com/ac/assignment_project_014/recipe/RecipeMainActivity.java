@@ -56,8 +56,6 @@ public class RecipeMainActivity extends AppCompatActivity {
     SQLiteDatabase db;
     DBOpener dbOpener;// = new DBOpener(this);
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,10 +82,15 @@ public class RecipeMainActivity extends AppCompatActivity {
         adapter2= new MyfavouriteAdapter(); //to show favourite
 
         //Respond to user actions,Load Json from url
-        btn_search.setOnClickListener((parent)->{ loadJasonfromUrl(); });
+        btn_search.setOnClickListener((parent)->{
+            loadJasonfromUrl();
+            dataLoadindIcator=0;});
 
         //LoadJson from Database, prepared for favourite
-        btn_myFavourite.setOnClickListener((parent)->{loadFavouriteRecipeformDB();});
+        btn_myFavourite.setOnClickListener((parent)->{
+            loadFavouriteRecipeformDB();
+            dataLoadindIcator=1;
+        });
 
         //Default Load Json from url
         searchHistorylist = getPreferenceData();
@@ -133,8 +136,20 @@ public class RecipeMainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(dataLoadindIcator==0){
+                loadJasonfromUrl();
+                dataLoadindIcator=0;
+        }
+        else{
+            loadFavouriteRecipeformDB();
+            dataLoadindIcator=1;
+        }
+    }
 
-//load data from SharedPreferences
+    //load data from SharedPreferences
     private ArrayList<String> getPreferenceData(){
         //Temperate
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
