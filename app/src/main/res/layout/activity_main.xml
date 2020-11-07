@@ -19,7 +19,7 @@
         android:layout_centerHorizontal="true"
         android:text="Recipe Search page" />
     <Button
-        android:id="@+id/btn3"
+        android:id="@+id/btn_covid19"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btn_recipe"
@@ -29,7 +29,7 @@
         android:id="@+id/btn4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btn3"
+        android:layout_below="@+id/btn_covid19"
         android:layout_centerHorizontal="true"
         android:text="The Audio Database api" />
 </RelativeLayout>
