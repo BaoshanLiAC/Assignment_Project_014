@@ -3,58 +3,62 @@ package com.ac.assignment_project_014.recipe;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import com.ac.assignment_project_014.R;
-import com.ac.assignment_project_014.recipe.JsonEntityClass.JsonRootBean;
-import com.ac.assignment_project_014.recipe.JsonEntityClass.Results;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+
 
 public class RecipeMainActivity extends AppCompatActivity {
 
-    private ArrayList<Recipe> recipeArrayList = new ArrayList<>();
     ListView listView;
     private TextView textView ;
-    public List<Results> resultsList =new ArrayList<Results>();
-    static public  List<Results> favouritelist =new ArrayList<Results>();
-    public String local_json = ""; //retrieve the favourite list
-    MyResultAdapter adapter1;
-    MyfavouriteAdapter adapter2;
+    static public List<JsonResults> resultsList =new ArrayList<JsonResults>();
+    static public  List<JsonResults> favouritelist =new ArrayList<JsonResults>();
+    static public String jsonString = ""; //retrieve the favourite list
+    static MyResultAdapter adapter1;
+    static MyfavouriteAdapter adapter2;
     int dataLoadindIcator=0;
     private ArrayList<String> searchHistorylist =new ArrayList<String>();
     public static final String SHARED_PREFS = "shared Prefs";
     public static final String SEARCH_HISTORY = "search_History";
     SQLiteDatabase db;
     DBOpener dbOpener;// = new DBOpener(this);
+    public static ProgressBar progressbar;// = findViewById(R.id.progress_bar);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,15 +79,16 @@ public class RecipeMainActivity extends AppCompatActivity {
         Button btn_myFavourite = findViewById(R.id.myFavourite);
         Button btn_search = findViewById(R.id.searchResult);
 
-        ProgressBar progressBar = findViewById(R.id.progress_circular);
-        progressBar.setVisibility(View.INVISIBLE);//隐藏进度条
+        progressbar = findViewById(R.id.progress_bar);
         listView = findViewById(R.id.recipe_listView);
         adapter1 = new MyResultAdapter(); //to show search result
         adapter2= new MyfavouriteAdapter(); //to show favourite
+        //Initial recipe_listView
+        LoadJsonfromURL();
 
         //Respond to user actions,Load Json from url
         btn_search.setOnClickListener((parent)->{
-            loadJasonfromUrl();
+            LoadJsonfromURL();
             dataLoadindIcator=0;});
 
         //LoadJson from Database, prepared for favourite
@@ -94,7 +99,6 @@ public class RecipeMainActivity extends AppCompatActivity {
 
         //Default Load Json from url
         searchHistorylist = getPreferenceData();
-        loadJasonfromUrl();
 
         //Click on each item to see the detailed content
         listView.setOnItemClickListener((parent, view, pos, id) ->  {
@@ -110,7 +114,7 @@ public class RecipeMainActivity extends AppCompatActivity {
                 //default value is N: not in the favourite list;
                 goToContent.putExtra("like", "N");
                 if (favouritelist!=null)
-                    for(Results res:favouritelist)
+                    for(JsonResults res:favouritelist)
                         if(url.equals(resultsList.get(pos).getHref())) goToContent.putExtra("like", "Y");
                 startActivity( goToContent);
             }
@@ -129,7 +133,7 @@ public class RecipeMainActivity extends AppCompatActivity {
                 //default value is N: not in the favourite list;
                 goToContent.putExtra("like", "N");
                 if (favouritelist!=null)
-                    for(Results res:favouritelist)
+                    for(JsonResults res:favouritelist)
                         if(url.equals(favouritelist.get(pos).getHref())) goToContent.putExtra("like", "Y");
                 startActivity( goToContent);
             }
@@ -140,7 +144,7 @@ public class RecipeMainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if(dataLoadindIcator==0){
-                loadJasonfromUrl();
+                LoadJsonfromURL();
                 dataLoadindIcator=0;
         }
         else{
@@ -163,24 +167,7 @@ public class RecipeMainActivity extends AppCompatActivity {
             return new ArrayList<String>();
     }
 
-    public void LoadJsonfromLocal() {
-        dataLoadindIcator=1;
-        local_json = getJson(this, "favourite_result");
-        Gson gson = new Gson();
-        if(local_json!=""){
-            JsonRootBean rootClassObject = gson.fromJson(local_json, JsonRootBean.class);
-            favouritelist = rootClassObject.getResults();
-            String content = "";
 
-            for (Results post: favouritelist){
-                content += "title: " +  post.getTitle() +"\n"
-                        +  "href: " +   post.getHref()  + "\n"
-                        +  "ingredients: " + post.getIngredients() +"\n"
-                        +  "thumbnail: "   + post.getThumbnail() +"\n\n";
-            }
-            listView.setAdapter(adapter2);
-        }
-    }
 
     //load data into ArrayList favouritelist
     public void loadFavouriteRecipeformDB() {
@@ -202,73 +189,9 @@ public class RecipeMainActivity extends AppCompatActivity {
             String herf = results.getString(href_index);
             String ingredients = results.getString(ingredients_index);
             String thumbnail = results.getString(thumbnail_index);
-            favouritelist.add(new Results(title,herf,ingredients,thumbnail));
+            favouritelist.add(new JsonResults(title,herf,ingredients,thumbnail));
         }
         listView.setAdapter(adapter2);
-    }
-
-
-    //Load from Url
-    public void loadJasonfromUrl(){
-        dataLoadindIcator=0;
-        Retrofit retrofit = new Retrofit.Builder()
-                //.baseUrl("http://jsonplaceholder.typicode.com/")
-                .baseUrl("http://www.recipepuppy.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        JsonPlaceHolderAPI jsonPlaceHolderAPI = retrofit.create(JsonPlaceHolderAPI.class);
-        Call<JsonRootBean> call = jsonPlaceHolderAPI.getPosts();
-        //Call<JsonRootBean> call = jsonPlaceHolderAPI.getPosts("onions",null);
-       //Call<JsonRootBean> call = jsonPlaceHolderAPI.getPosts(searchHistorylist.get(searchHistorylist.size()-1));
-
-        call.enqueue(new Callback<JsonRootBean>() {
-            @Override
-            public void onResponse(Call<JsonRootBean> call, Response<JsonRootBean> response) {
-                if(!response.isSuccessful()){
-                    //textView.setText("Code" + response.code());
-                    return;
-                }
-                JsonRootBean rootBean = response.body();
-                String content = "\n";
-                //Root Class Information
-                content +=  "title:"  + rootBean.getTitle() + "\n"
-                        +   "version:" + rootBean.getVersion() + "\n"
-                        +   "href:"     + rootBean.getHref()+"\n\n\n";
-                //Recipe class information
-                resultsList = rootBean.getResults();
-                for (Results post: resultsList){
-                    content += "title: " +  post.getTitle() +"\n"
-                            +  "href: " +   post.getHref()  + "\n"
-                            +  "ingredients: " + post.getIngredients() +"\n"
-                            +  "thumbnail: "   + post.getThumbnail() +"\n\n";
-                }
-                listView.setAdapter(adapter1);
-            }
-            public void onFailure(Call<JsonRootBean> call, Throwable t) {
-                //textView.setText(t.getMessage());
-            }
-        });
-    }
-
-    //get jason string from txt file
-    public static String getJson(Context mContext, String fileName) {
-        // TODO Auto-generated method stub
-        StringBuilder sb = new StringBuilder();
-        AssetManager am = mContext.getAssets();
-        try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(
-                    am.open(fileName)));
-            String next = "";
-            while (null != (next = br.readLine())) {
-                sb.append(next);
-            }
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            sb.delete(0, sb.length());
-        }
-        return sb.toString().trim();
     }
 
 
@@ -322,6 +245,111 @@ public class RecipeMainActivity extends AppCompatActivity {
             return newView;
 
         }
+    }
+
+    public void LoadJsonfromURL() {
+        dataLoadindIcator=1;
+        Jsonloader loader = new Jsonloader(this,"http://www.recipepuppy.com/api/?i=onions",listView);
+        loader.execute("http://www.recipepuppy.com/api/?i=onions");
+
+    }
+
+    public class Jsonloader extends AsyncTask<String,Integer,String>{
+
+        Context context;
+        String jsonURL;
+        ListView recopelistView;
+
+        public Jsonloader(Context context, String jsonURL, ListView listView){
+            this.context = context;
+            this.jsonURL = jsonURL;
+            this.recopelistView = listView;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            RecipeMainActivity.progressbar.setVisibility(View.VISIBLE);
+
+        }
+
+        //Type 1
+        @Override
+        protected String doInBackground(String... args) {
+            for(int i = 0; i< 4; i++){
+                publishProgress((i*100) / 4); //Type2
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            try{
+                resultsList.clear();
+                //create a URL object of what server to contact:
+                URL url = new URL(args[0]);
+                //open the connection
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                //wait for data:
+                InputStream response = urlConnection.getInputStream();
+
+                //InputStream response = new BufferedInputStream(urlConnection.getInputStream());
+                if (urlConnection.getResponseCode() == urlConnection.HTTP_OK) {
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(response, "UTF-8"), 8);
+
+                    String line;
+                    StringBuffer jsonData = new StringBuffer();
+
+                    //READ
+                    while ((line = reader.readLine()) != null)
+                        jsonData.append(line + "\n");
+                    //CLOSE RESOURCES
+                    reader.close();
+                    response.close();
+                    JSONArray jsonArray;
+                    if(jsonData.toString()!=""){
+                        jsonString = jsonData.toString();
+                        JSONObject jsonObjectobj = new JSONObject(jsonString);
+                         jsonArray = jsonObjectobj.getJSONArray("results");
+                         String title,href,ingredients,thumbnail;
+                        for (int i=0; i < jsonArray.length(); i++){
+                                JSONObject anObject = jsonArray.getJSONObject(i);
+                                // Pulling items from the array
+                                title = anObject.getString("title");
+                                //anObject.getBoolean(booleanName);
+                                href = anObject.getString("href");
+                                ingredients = anObject.getString("ingredients");
+                                thumbnail= anObject.getString("thumbnail");
+                                resultsList.add(new JsonResults(title,href,ingredients,thumbnail));
+                    }
+                    }
+                    //listView.setAdapter(adapter1);
+                    return jsonString;
+                } else
+                    return "Error" + urlConnection.getResponseMessage();
+
+            }catch (IOException | JSONException e) {
+                e.printStackTrace();
+                return "Error" + e.getMessage();
+            }
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... integers) {
+            super.onProgressUpdate(integers);
+            RecipeMainActivity.progressbar.setProgress(integers[0]);
+        }
+
+        @Override //Type 3
+        protected void onPostExecute(String jsonString) {
+            super.onPostExecute(jsonString);
+            RecipeMainActivity.progressbar.setProgress(75);
+            RecipeMainActivity.progressbar.setVisibility(View.INVISIBLE);
+            if(resultsList!=null)
+                listView.setAdapter(adapter1);
+        }
+
     }
 
 }

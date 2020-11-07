@@ -12,20 +12,20 @@
         <LinearLayout
             android:id="@+id/head_layout"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="120dp"
             android:background="#F2F2F2"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="45dp"
                 android:background="#F2F2F2"
                 android:orientation="horizontal">
 
                 <ImageButton
                     android:id="@+id/searchIcon"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="45dp"
                     android:background="#F2F2F2"
                     android:iconifiedByDefault="false"
                     android:layout_weight="45"
@@ -35,7 +35,7 @@
                 <Button
                     android:id="@+id/searchButton"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="45dp"
                     android:background="#F2F2F2"
                     android:layout_weight="12"
                     android:hint="@string/search_hint" />
@@ -43,24 +43,25 @@
                 <ImageButton
                     android:id="@+id/SearchCriteria"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="45dp"
                     android:background="#F2F2F2"
                     android:iconifiedByDefault="false"
                     android:layout_weight="43"
                     android:src="@drawable/ic_round_filter_list_24"
                     tools:ignore="ContentDescription" />
+
             </LinearLayout>
 
 
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="50dp"
                 android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/myFavourite"
                     android:layout_width="100dp"
-                    android:layout_height="60dp"
+                    android:layout_height="50dp"
                     android:layout_weight="50"
                     android:text="My Favourite"
                     android:textAlignment="center"
@@ -69,21 +70,23 @@
                 <Button
                     android:id="@+id/searchResult"
                     android:layout_width="100dp"
-                    android:layout_height="60dp"
+                    android:layout_height="50dp"
                     android:layout_weight="50"
                     android:text="Search Result"
                     android:textAlignment="center"
                     />
         </LinearLayout>
 
-            <ProgressBar
-                android:id="@+id/progress_circular"
-                android:layout_height="30dp"
+        <ProgressBar
+                android:id="@+id/progress_bar"
+                style="@android:style/Widget.Holo.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
-                style="@android:style/Widget.Holo.ProgressBar.Small"
-                />
-
+                android:layout_height="10dp"
+                android:layout_margin="16dp"
+                android:visibility="invisible"
+                tools:visibility="visible" />
         </LinearLayout>
+
 
     <ListView
         android:id="@+id/recipe_listView"

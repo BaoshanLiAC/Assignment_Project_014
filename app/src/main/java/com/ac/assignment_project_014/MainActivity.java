@@ -17,7 +17,5 @@ public class MainActivity extends AppCompatActivity {
 
         Button btn_recipe = findViewById(R.id.btn_recipe);
         btn_recipe.setOnClickListener(click -> {startActivity( new Intent(this, RecipeMainActivity.class) );});
-
-
     }
 }

@@ -8,13 +8,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ac.assignment_project_014.R;
-import com.ac.assignment_project_014.recipe.JsonEntityClass.Results;
 import com.squareup.picasso.Picasso;
 
 public class RecipeContentActivity extends AppCompatActivity {
@@ -72,21 +70,21 @@ public class RecipeContentActivity extends AppCompatActivity {
                 fromRecipeMain.removeExtra("like");
                 fromRecipeMain.putExtra("like","N");
                 imageButton_like.setImageResource(R.drawable.ic_baseline_favorite_border_24);
-                removeRepipeItem(new Results(title,href,ingredients,thumbnail));
+                removeRepipeItem(new JsonResults(title,href,ingredients,thumbnail));
             }
             else{
                 fromRecipeMain.removeExtra("like");
                 fromRecipeMain.putExtra("like","Y");
                 imageButton_like.setImageResource(R.drawable.ic_baseline_favorite_24);
-                removeRepipeItem(new Results(title,href,ingredients,thumbnail));
-                addRepipeItem(new Results(title,href,ingredients,thumbnail));
+                removeRepipeItem(new JsonResults(title,href,ingredients,thumbnail));
+                addRepipeItem(new JsonResults(title,href,ingredients,thumbnail));
             }
 
         });
 
     }
 
-    public void removeRepipeItem(Results res){
+    public void removeRepipeItem(JsonResults res){
         db = dbOpener.getWritableDatabase();
 
         String [] columns = {dbOpener.COL_ID, dbOpener.COL_TITLE, dbOpener.COL_HREF, dbOpener.COL_INGREDIENT, dbOpener.COL_THUMBNAIL};
@@ -99,7 +97,7 @@ public class RecipeContentActivity extends AppCompatActivity {
     }
 
 
-    public void addRepipeItem(Results res){
+    public void addRepipeItem(JsonResults res){
         db = dbOpener.getWritableDatabase();
 
         String [] columns = {dbOpener.COL_ID, dbOpener.COL_TITLE, dbOpener.COL_HREF, dbOpener.COL_INGREDIENT, dbOpener.COL_THUMBNAIL};
