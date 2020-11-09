@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">Assignment_Project_014</string>
     <string name="search_hint">Search Recipe Here</string>
+
+
+    <string name="ticketmaster_search">Search Events</string>
+    <string name="ticketmaster_saved">Saved Events</string>
+    <string name="ticketmaster_events_found">Events Found</string>
+    <string name="ticketmaster_event_details">Events Details</string>
+    <string name="ticketmaster_starting_date">Starting Date: </string>
+    <string name="ticketmaster_price_range">Price Range: </string>
+
+
 </resources>
