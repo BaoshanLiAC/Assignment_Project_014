@@ -4,22 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -30,9 +22,6 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.zip.Inflater;
 
 public class SearchHistoryActivity extends AppCompatActivity {
 
@@ -50,7 +39,7 @@ public class SearchHistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_history);
+        setContentView(R.layout.recipe_activity_search_history);
 
         listView = (ListView)findViewById(R.id.recipe_listView);
 
@@ -149,7 +138,7 @@ public class SearchHistoryActivity extends AppCompatActivity {
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             LayoutInflater inflater = getLayoutInflater();
-            View newView = inflater.inflate(R.layout.search_history_row, parent, false );
+            View newView = inflater.inflate(R.layout.recipe_search_history_row, parent, false );
             newView.findViewById(R.id.searchHistoryItem);
             TextView text  = newView.findViewById(R.id.searchHistoryItem);
             ImageView image =   newView.findViewById(R.id.searchImage);

@@ -12,7 +12,7 @@
         <LinearLayout
             android:id="@+id/head_layout"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="105dp"
             android:background="#F2F2F2"
             android:orientation="vertical">
 
@@ -28,7 +28,7 @@
                     android:layout_height="45dp"
                     android:background="#F2F2F2"
                     android:iconifiedByDefault="false"
-                    android:layout_weight="45"
+                    android:layout_weight="85"
                     android:src="@drawable/ic_search_black"
                     tools:ignore="ContentDescription" />
 
@@ -37,19 +37,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:background="#F2F2F2"
-                    android:layout_weight="12"
-                    android:hint="@string/search_hint" />
-
-                <ImageButton
-                    android:id="@+id/SearchCriteria"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:background="#F2F2F2"
-                    android:iconifiedByDefault="false"
-                    android:layout_weight="43"
-                    android:src="@drawable/ic_round_filter_list_24"
-                    tools:ignore="ContentDescription" />
-
+                    android:layout_weight="15"
+                    android:text="@string/search_hint"
+                    android:textSize="6pt"
+                    android:textAlignment="viewStart"
+                    />
             </LinearLayout>
 
 
@@ -58,23 +50,22 @@
                 android:layout_height="50dp"
                 android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/myFavourite"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:layout_weight="50"
-                    android:text="My Favourite"
-                    android:textAlignment="center"
-                    tools:ignore="ContentDescription" />
+            <Button
+                android:id="@+id/myFavourite"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_weight="50"
+                android:text="My Favourite"
+                android:textAlignment="center"
+                tools:ignore="ContentDescription" />
 
-                <Button
-                    android:id="@+id/searchResult"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:layout_weight="50"
-                    android:text="Search Result"
-                    android:textAlignment="center"
-                    />
+            <Button
+                android:id="@+id/searchResult"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_weight="50"
+                android:text="Search Result"
+                android:textAlignment="center" />
         </LinearLayout>
 
         <ProgressBar
@@ -82,7 +73,7 @@
                 style="@android:style/Widget.Holo.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-                android:layout_margin="16dp"
+                android:layout_margin="2dp"
                 android:visibility="invisible"
                 tools:visibility="visible" />
         </LinearLayout>
@@ -93,5 +84,4 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#000"/>
-
 </LinearLayout>

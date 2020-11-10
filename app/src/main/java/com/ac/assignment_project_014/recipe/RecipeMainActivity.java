@@ -4,12 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,38 +24,29 @@ import com.ac.assignment_project_014.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.reflect.Type;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 
+
 public class RecipeMainActivity extends AppCompatActivity {
 
-    ListView listView;
-    private TextView textView ;
+    static public ListView mainlistView;
     static public List<JsonResults> resultsList =new ArrayList<JsonResults>();
     static public  List<JsonResults> favouritelist =new ArrayList<JsonResults>();
-    static public String jsonString = ""; //retrieve the favourite list
-    static MyResultAdapter adapter1;
-    static MyfavouriteAdapter adapter2;
+    static MyResultAdapter myResultAdapter;
+    static MyfavouriteAdapter myfavouriteAdapter;
+    public static ProgressBar progressbar;// = findViewById(R.id.progress_bar);
+    /*Above attributes are set to be static, can be manipulated in Jsonloader */
+
+    private TextView textView ;
     int dataLoadindIcator=0;
     private ArrayList<String> searchHistorylist =new ArrayList<String>();
     public static final String SHARED_PREFS = "shared Prefs";
     public static final String SEARCH_HISTORY = "search_History";
     SQLiteDatabase db;
     DBOpener dbOpener;// = new DBOpener(this);
-    public static ProgressBar progressbar;// = findViewById(R.id.progress_bar);
 
 
     @Override
@@ -72,17 +61,17 @@ public class RecipeMainActivity extends AppCompatActivity {
         ImageButton searchImgBtn = findViewById(R.id.searchIcon);
         Intent goToSearchHistory  = new Intent(this, SearchHistoryActivity.class);
         Button searchBtn = findViewById(R.id.searchButton);
-        ImageButton searchCriteriaBtn = findViewById(R.id.SearchCriteria);
+        //ImageButton searchCriteriaBtn = findViewById(R.id.SearchCriteria);
         searchImgBtn.setOnClickListener(click -> {startActivity( goToSearchHistory );});
         searchBtn.setOnClickListener(click -> {startActivity( goToSearchHistory );});
-        searchCriteriaBtn.setOnClickListener(click -> {startActivity( new Intent(this, SearchCriteria.class) );});
+        //searchCriteriaBtn.setOnClickListener(click -> {startActivity( new Intent(this, SearchCriteria.class) );});
         Button btn_myFavourite = findViewById(R.id.myFavourite);
         Button btn_search = findViewById(R.id.searchResult);
 
         progressbar = findViewById(R.id.progress_bar);
-        listView = findViewById(R.id.recipe_listView);
-        adapter1 = new MyResultAdapter(); //to show search result
-        adapter2= new MyfavouriteAdapter(); //to show favourite
+        mainlistView = findViewById(R.id.recipe_listView);
+        myResultAdapter = new MyResultAdapter(); //to show search result
+        myfavouriteAdapter = new MyfavouriteAdapter(); //to show favourite
         //Initial recipe_listView
         LoadJsonfromURL();
 
@@ -101,7 +90,7 @@ public class RecipeMainActivity extends AppCompatActivity {
         searchHistorylist = getPreferenceData();
 
         //Click on each item to see the detailed content
-        listView.setOnItemClickListener((parent, view, pos, id) ->  {
+        mainlistView.setOnItemClickListener((parent, view, pos, id) ->  {
             if(dataLoadindIcator==0){
                 Intent goToContent  = new Intent(this, RecipeContentActivity.class);
                 goToContent.putExtra("thumbnail", resultsList.get(pos).getThumbnail());
@@ -191,7 +180,7 @@ public class RecipeMainActivity extends AppCompatActivity {
             String thumbnail = results.getString(thumbnail_index);
             favouritelist.add(new JsonResults(title,herf,ingredients,thumbnail));
         }
-        listView.setAdapter(adapter2);
+        mainlistView.setAdapter(myfavouriteAdapter);
     }
 
 
@@ -205,7 +194,7 @@ public class RecipeMainActivity extends AppCompatActivity {
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             LayoutInflater inflater = getLayoutInflater();
-            View newView = inflater.inflate(R.layout.result_row, parent, false);
+            View newView = inflater.inflate(R.layout.recipe_result_row, parent, false);
             newView.findViewById(R.id.title);
             TextView text = newView.findViewById(R.id.title);
             ImageView imageView = newView.findViewById(R.id.resultRow_imageView);
@@ -233,7 +222,7 @@ public class RecipeMainActivity extends AppCompatActivity {
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             LayoutInflater inflater = getLayoutInflater();
-            View newView = inflater.inflate(R.layout.result_row, parent, false);
+            View newView = inflater.inflate(R.layout.recipe_result_row, parent, false);
             newView.findViewById(R.id.title);
             TextView text = newView.findViewById(R.id.title);
             ImageView imageView = newView.findViewById(R.id.resultRow_imageView);
@@ -249,107 +238,10 @@ public class RecipeMainActivity extends AppCompatActivity {
 
     public void LoadJsonfromURL() {
         dataLoadindIcator=1;
-        Jsonloader loader = new Jsonloader(this,"http://www.recipepuppy.com/api/?i=onions",listView);
+        Jsonloader loader = new Jsonloader(this,"http://www.recipepuppy.com/api/?i=onions", mainlistView);
         loader.execute("http://www.recipepuppy.com/api/?i=onions");
 
     }
 
-    public class Jsonloader extends AsyncTask<String,Integer,String>{
-
-        Context context;
-        String jsonURL;
-        ListView recopelistView;
-
-        public Jsonloader(Context context, String jsonURL, ListView listView){
-            this.context = context;
-            this.jsonURL = jsonURL;
-            this.recopelistView = listView;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            RecipeMainActivity.progressbar.setVisibility(View.VISIBLE);
-
-        }
-
-        //Type 1
-        @Override
-        protected String doInBackground(String... args) {
-            for(int i = 0; i< 4; i++){
-                publishProgress((i*100) / 4); //Type2
-                try {
-                    Thread.sleep(200);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            try{
-                resultsList.clear();
-                //create a URL object of what server to contact:
-                URL url = new URL(args[0]);
-                //open the connection
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                //wait for data:
-                InputStream response = urlConnection.getInputStream();
-
-                //InputStream response = new BufferedInputStream(urlConnection.getInputStream());
-                if (urlConnection.getResponseCode() == urlConnection.HTTP_OK) {
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(response, "UTF-8"), 8);
-
-                    String line;
-                    StringBuffer jsonData = new StringBuffer();
-
-                    //READ
-                    while ((line = reader.readLine()) != null)
-                        jsonData.append(line + "\n");
-                    //CLOSE RESOURCES
-                    reader.close();
-                    response.close();
-                    JSONArray jsonArray;
-                    if(jsonData.toString()!=""){
-                        jsonString = jsonData.toString();
-                        JSONObject jsonObjectobj = new JSONObject(jsonString);
-                         jsonArray = jsonObjectobj.getJSONArray("results");
-                         String title,href,ingredients,thumbnail;
-                        for (int i=0; i < jsonArray.length(); i++){
-                                JSONObject anObject = jsonArray.getJSONObject(i);
-                                // Pulling items from the array
-                                title = anObject.getString("title");
-                                //anObject.getBoolean(booleanName);
-                                href = anObject.getString("href");
-                                ingredients = anObject.getString("ingredients");
-                                thumbnail= anObject.getString("thumbnail");
-                                resultsList.add(new JsonResults(title,href,ingredients,thumbnail));
-                    }
-                    }
-                    //listView.setAdapter(adapter1);
-                    return jsonString;
-                } else
-                    return "Error" + urlConnection.getResponseMessage();
-
-            }catch (IOException | JSONException e) {
-                e.printStackTrace();
-                return "Error" + e.getMessage();
-            }
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... integers) {
-            super.onProgressUpdate(integers);
-            RecipeMainActivity.progressbar.setProgress(integers[0]);
-        }
-
-        @Override //Type 3
-        protected void onPostExecute(String jsonString) {
-            super.onPostExecute(jsonString);
-            RecipeMainActivity.progressbar.setProgress(75);
-            RecipeMainActivity.progressbar.setVisibility(View.INVISIBLE);
-            if(resultsList!=null)
-                listView.setAdapter(adapter1);
-        }
-
-    }
 
 }

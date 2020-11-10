@@ -16,9 +16,6 @@
             android:name=".recipe.RecipeContentActivity"
             android:theme="@style/AppTheme.NoBar"/>
         <activity
-            android:name=".recipe.SearchCriteria"
-            android:theme="@style/AppTheme.NoBar" />
-        <activity
             android:name=".recipe.SearchHistoryActivity"
             android:launchMode="singleTop">
             <intent-filter>

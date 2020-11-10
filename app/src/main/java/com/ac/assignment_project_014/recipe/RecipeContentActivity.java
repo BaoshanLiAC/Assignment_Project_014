@@ -26,7 +26,7 @@ public class RecipeContentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_content);
+        setContentView(R.layout.recipe_activity_recipe_content);
 
         Intent fromRecipeMain = getIntent();
         dbOpener = new DBOpener(this);
