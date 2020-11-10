@@ -8,7 +8,28 @@
     android:orientation="vertical"
     android:padding="8dp"
     tools:ignore="ExtraText"
-    style="?android:attr/buttonBarStyle">
+    style="?android:attr/buttonBarStyle"
+ >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <ImageView
+            android:id="@+id/back_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_baseline_arrow_back_ios_24"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/back_icon"
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp"
+            android:text="RecipeSearch Author: Chunyan Ren V.1.0"/>
+    </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/head_layout"
@@ -17,35 +38,33 @@
             android:background="#F2F2F2"
             android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:background="#F2F2F2"
                 android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/searchIcon"
-                    android:layout_width="match_parent"
+
+                <ImageView
+                    android:id="@+id/search_icon"
+                    android:layout_width="45dp"
                     android:layout_height="45dp"
+                    android:layout_centerVertical="true"
                     android:background="#FFFFFF"
-                    android:iconifiedByDefault="false"
-                    android:layout_weight="85"
-                    android:src="@drawable/ic_search_black"
-                    tools:ignore="ContentDescription" />
+                    android:src="@drawable/ic_search_black"/>
 
                 <Button
                     android:id="@+id/searchButton"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/search_icon"
                     android:background="#FFFFFF"
-                    android:layout_weight="15"
-                    android:text="@string/search_hint"
-                    android:textSize="6pt"
-                    android:textAlignment="viewStart"
                     android:textColor="#000000"
-                    style="?android:attr/buttonBarButtonStyle"
-                    />
-            </LinearLayout>
+                    android:textSize="18sp"
+                    tools:text="@string/search_hint" />
+
+            </RelativeLayout>
 
 
         <LinearLayout

@@ -58,11 +58,11 @@ public class RecipeMainActivity extends AppCompatActivity {
         dbOpener = new DBOpener(this);
 
         //Layout initialization
-        ImageButton searchImgBtn = findViewById(R.id.searchIcon);
+        //ImageButton searchImgBtn = findViewById(R.id.searchIcon);
         Intent goToSearchHistory  = new Intent(this, SearchHistoryActivity.class);
         Button searchBtn = findViewById(R.id.searchButton);
         //ImageButton searchCriteriaBtn = findViewById(R.id.SearchCriteria);
-        searchImgBtn.setOnClickListener(click -> {startActivity( goToSearchHistory );});
+        //searchImgBtn.setOnClickListener(click -> {startActivity( goToSearchHistory );});
         searchBtn.setOnClickListener(click -> {startActivity( goToSearchHistory );});
         //searchCriteriaBtn.setOnClickListener(click -> {startActivity( new Intent(this, SearchCriteria.class) );});
         Button btn_myFavourite = findViewById(R.id.myFavourite);
@@ -128,6 +128,8 @@ public class RecipeMainActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
     @Override
     protected void onResume() {
