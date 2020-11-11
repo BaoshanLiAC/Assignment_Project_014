@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ac.assignment_project_014">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!--        RECIPE ACTIVITIES   -->
+        <!-- RECIPE ACTIVITIES -->
         <activity
             android:name=".recipe.SearchCriteria"
             android:theme="@style/AppTheme.NoBar" />
@@ -23,12 +25,18 @@
         <activity
             android:name=".recipe.RecipeMainActivity"
             android:theme="@style/AppTheme.NoBar" />
-        <!--        COVID-19 ACTIVITIES   -->
-        <activity android:name="com.ac.assignment_project_014.covid19.Covid19CaseDataMainActivity" android:label="COVID-19 CASE DATA" android:theme="@style/AppTheme.NoToolBar"/>
-        <activity android:name=".covid19.Covid19SearchResultActivity" android:label="COVID-19 CASE DATA" android:theme="@style/AppTheme.NoToolBar"/>
-
-
-
+        <!-- COVID-19 ACTIVITIES -->
+        <activity
+            android:name=".covid19.Covid19CaseDataMainActivity"
+            android:label="COVID-19 CASE DATA"
+            android:theme="@style/AppTheme.NoToolBar" />
+        <activity
+            android:name=".covid19.Covid19SearchResultActivity"
+            android:label="COVID-19 CASE DATA"
+            android:theme="@style/AppTheme.NoToolBar" />
+        <activity android:name=".covid19.Covid19ArchivedActivity"
+            android:label="COVID-19 CASE DATA"
+            android:theme="@style/AppTheme.NoToolBar"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

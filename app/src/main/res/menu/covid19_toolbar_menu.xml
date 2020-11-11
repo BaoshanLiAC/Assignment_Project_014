@@ -21,11 +21,17 @@
         android:icon="@drawable/covid_icon5"
         android:orderInCategory="103"
         app:showAsAction="always" />
-
-    <item android:id="@+id/covid19_action_about"
-        android:title="about"
-        android:icon="@drawable/covid_icon6"
+    <item android:id="@+id/covid19_action_version"
+        android:title="Version"
         android:orderInCategory="104"
+        app:showAsAction="never" />
+    <item android:id="@+id/covid19_action_help"
+        android:title="Help"
+        android:orderInCategory="105"
+        app:showAsAction="never" />
+    <item android:id="@+id/covid19_action_about"
+        android:title="About"
+        android:orderInCategory="106"
         app:showAsAction="never" />
 
 

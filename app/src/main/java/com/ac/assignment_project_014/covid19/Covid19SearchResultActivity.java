@@ -1,9 +1,11 @@
 package com.ac.assignment_project_014.covid19;
 
-import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -11,14 +13,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 
 import com.ac.assignment_project_014.MainActivity;
@@ -27,9 +30,15 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
+import static android.view.View.TEXT_ALIGNMENT_TEXT_START;
+
 public class Covid19SearchResultActivity extends AppCompatActivity {
-    protected ArrayList<Covid19ProvinceData> CountryData;
+    protected ArrayList<Covid19ProvinceData>  dataList;
+    protected Covid19CountryData result;
     protected ListView listView;
+    protected Button save,back;
+    protected Covid19DateHelper data;
+    protected SQLiteDatabase db;
 
     //inner class
     private class ProvinceList extends ArrayAdapter<Covid19ProvinceData>{
@@ -38,11 +47,11 @@ public class Covid19SearchResultActivity extends AppCompatActivity {
             super(context,0);
         }
         public Covid19ProvinceData getItem(int position){
-            return CountryData.get(position);
+            return dataList.get(position);
         }
         @Override
         public int getCount(){
-            return CountryData.size();
+            return dataList.size();
         }
         @Override
         public int getPosition(@Nullable Covid19ProvinceData item) {
@@ -57,8 +66,32 @@ public class Covid19SearchResultActivity extends AppCompatActivity {
             Covid19ProvinceData item = getItem(position);
             TextView name = result.findViewById(R.id.covid19_province_data_item_province_name);
             TextView number = result.findViewById(R.id.covid19_province_data_item_province_case);
+            TextView increase = result.findViewById(R.id.covid19_province_data_item_province_change);
             name.setText(item.getName());
-            number.setText(String.valueOf(item.getCaseNumber()));
+            int cases = item.getCaseNumber();
+            number.setText(String.valueOf(cases));
+            if(cases > 10000){
+                number.setTextColor(Color.argb(255,193,44,27));
+            }
+            else if(cases > 1000){
+                number.setTextColor(Color.argb(255,224,145,27));
+            }
+            else{
+                number.setTextColor(Color.argb(255,20,151,20));
+            }
+            int inc = item.getIncrease();
+            increase.setText(String.valueOf(inc));
+            if(inc > 100){
+                increase.setTextColor(Color.argb(255,193,44,27));
+            }
+            else if(inc > 10){
+                increase.setTextColor(Color.argb(255,224,145,27));
+            }
+            else{
+                increase.setTextColor(Color.argb(255,20,151,20));
+            }
+
+
             return result;
         }
     }
@@ -68,13 +101,32 @@ public class Covid19SearchResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.covid19_activity_search_result);
+        //initial action bar
         setSupportActionBar(findViewById(R.id.covid19_toolbar));
-        CountryData = (ArrayList<Covid19ProvinceData>) getIntent().getSerializableExtra("search_result");
+        //received data from query
+        result = (Covid19CountryData) getIntent().getSerializableExtra("search_result");
+        //initial list view data
+        dataList = result.getDataList();
+        //populate country name & search date & total cases
+        TextView.class.cast(findViewById(R.id.covid_result_country)).setText(result.getCountryName());
+        TextView.class.cast(findViewById(R.id.covid_result_description)).setText(result.toString());
 
+
+        //initial list view
         final ProvinceList countryDataAdapter = new ProvinceList(this);
         listView = findViewById(R.id.covid_search_result_listView);
         listView.setAdapter(countryDataAdapter);
         countryDataAdapter.notifyDataSetChanged();
+
+        //initial database
+        data = new Covid19DateHelper(this);
+        db = data.getWritableDatabase();
+
+        //register button event handlers.
+        save = findViewById(R.id.covid_result_archive_btn);
+        back = findViewById(R.id.covid_result_back_to_search_btn);
+        save.setOnClickListener(e->saveItemToDataBase());
+        back.setOnClickListener(e->finish());
     }
 
 
@@ -89,6 +141,9 @@ public class Covid19SearchResultActivity extends AppCompatActivity {
         return true;
     }
     public boolean onOptionsItemSelected(MenuItem mi){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final View view =this.getLayoutInflater().inflate(R.layout.covid19_actionbar_dialog,null);
+        TextView text = view.findViewById(R.id.covid19_action_dialog_text);
         switch(mi.getItemId()){
             case R.id.covid19_action_home:
                 Snackbar.make(findViewById(R.id.covid19_toolbar), "Back to Home Page", Snackbar.LENGTH_LONG)
@@ -100,15 +155,70 @@ public class Covid19SearchResultActivity extends AppCompatActivity {
                 break;
             case R.id.covid19_action_archive:
                 Snackbar.make(findViewById(R.id.covid19_toolbar), "Jump to Archived Case Data", Snackbar.LENGTH_LONG)
-                        .setAction("Action", e->startActivity(new Intent(this, MainActivity.class))).show();
+                        .setAction("Action", e->startActivity(new Intent(this, Covid19ArchivedActivity.class))).show();
+                break;
+            case R.id.covid19_action_version:
+
+                text.setText("VERSION:1.0.0.1");
+                text.setTextSize(25);
+                builder.setView(view);
+                builder.create().show();
+                break;
+            case R.id.covid19_action_help:
+
+                text.setText("1. Query date from https://api.covid19api.com/country by input country and date." +
+                        "\n2. User could save result to archive for later analysis." +
+                        "\n3. User could navigate to archived tap to view saved record and manipulate data.");
+                text.setTextAlignment(TEXT_ALIGNMENT_TEXT_START);
+                builder.setView(view);
+                builder.create().show();
                 break;
             case R.id.covid19_action_about:
+                text.setText("Developed By: Li Sha Wu" +
+                        "\nStudent No: **********" +
+                        "\nSupported By: Dr. Eric");
+                text.setTextAlignment(TEXT_ALIGNMENT_TEXT_START);
+                builder.setView(view);
+                builder.create().show();
+                break;
+            default:
                 break;
         }
         return true;
     }
 
+    private void saveItemToDataBase(){
 
+        //prevent duplication
+
+        final String whereClause = data.KEY_COUNTRY + "=? AND " + data.KEY_QUERY_DATE + "=?";
+        final String[] args = {result.getCountryName(),result.getSearchDateTime()};
+        String [] columns = {data.KEY_ID, data.KEY_COUNTRY, data.KEY_TOTAL,data.KEY_DAILY,data.KEY_QUERY_DATE,data.KEY_DATA};
+        Cursor cursor = db.query(false, data.TABLE_NAME, columns, whereClause, args, null, null, null, null);
+        if(cursor.getCount() > 0){
+            Toast.makeText(this,"Data has already archived", Toast.LENGTH_LONG).show();
+        }
+        else{
+            ContentValues newRowValues = new ContentValues();
+            //Now provide a value for every database column defined in MyOpener.java:
+            //put string name in the NAME column:
+
+            newRowValues.put(Covid19DateHelper.KEY_COUNTRY, result.getCountryName());
+            newRowValues.put(Covid19DateHelper.KEY_QUERY_DATE, result.getSearchDateTime());
+            newRowValues.put(Covid19DateHelper.KEY_TOTAL, result.getTotalCase());
+            newRowValues.put(Covid19DateHelper.KEY_DAILY, result.getDailyIncrease());
+            newRowValues.put(Covid19DateHelper.KEY_DATA, Covid19Util.createByteArray(result.getDataList()));
+            long id = db.insert(Covid19DateHelper.TABLE_NAME,null, newRowValues);
+            if(id > 0){
+                Toast.makeText(this,"Data has been archived.", Toast.LENGTH_LONG).show();
+            }
+            else{
+                Snackbar.make(findViewById(R.id.covid_search_result_listView), "Data archiving failed. Please try again later.", Snackbar.LENGTH_LONG).show();
+            }
+
+        }
+
+    }
 
 
 

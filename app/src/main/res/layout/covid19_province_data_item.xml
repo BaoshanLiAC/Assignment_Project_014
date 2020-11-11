@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/covid19_province_data_item_img1"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:src="@drawable/covid_icon1" />
@@ -21,23 +21,42 @@
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/covid19_province_data_item_img1"
         android:layout_centerVertical="true"
+        android:textColor="#6200EA"
         android:text="TextView" />
+
     <ImageView
         android:id="@+id/covid19_province_data_item_img2"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_centerVertical="true"
         android:layout_marginHorizontal="10dp"
         android:layout_toEndOf="@+id/covid19_province_data_item_province_name"
-        android:layout_centerVertical="true"
         android:src="@drawable/covid_icon2" />
     <TextView
         android:id="@+id/covid19_province_data_item_province_case"
-        android:layout_width="100dp"
+        android:layout_width="80dp"
         android:layout_centerVertical="true"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/covid19_province_data_item_img2"
-        android:gravity="end"
-
+        android:gravity="center"
         android:text="TextView" />
+    <ImageView
+        android:id="@+id/covid19_province_data_item_img3"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_toEndOf="@+id/covid19_province_data_item_province_case"
+        android:src="@drawable/covid_icon7"
+        android:layout_centerVertical="true"
+        android:layout_marginHorizontal="10dp"/>
+    <TextView
+        android:id="@+id/covid19_province_data_item_province_change"
+        android:layout_width="70dp"
+        android:layout_centerVertical="true"
+
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/covid19_province_data_item_img3"
+        android:gravity="center"
+        android:text="TextView" />
+
 
 </RelativeLayout>
