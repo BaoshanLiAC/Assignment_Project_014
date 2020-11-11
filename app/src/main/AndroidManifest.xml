@@ -9,10 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ticketmaster.TicketMasterSavedEventsActivity"></activity>
-        <activity android:name=".ticketmaster.TicketMasterEventDetailsActivity" />
-        <activity android:name=".ticketmaster.TicketMasterEventListActivity" />
-        <activity android:name=".ticketmaster.TicketMasterMainActivity" />
+        <activity android:name=".TicketMaster.TicketMasterSavedEventsActivity"></activity>
+        <activity android:name=".TicketMaster.TicketMasterEventDetailsActivity" />
+        <activity android:name=".TicketMaster.TicketMasterMainActivity" />
         <activity
             android:name=".recipe.SearchCriteria"
             android:theme="@style/AppTheme.NoBar" />
