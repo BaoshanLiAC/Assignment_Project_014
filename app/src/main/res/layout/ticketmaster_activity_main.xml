@@ -8,15 +8,15 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="234dp"
-        android:src="@drawable/ticketMaster" />
+        android:src="@drawable/ticketmaster" />
 
-    <EditText
+    <EditText android:id="@+id/cityName"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="@color/colorElse"
         android:hint="Enter City Name" />
 
-    <EditText
+    <EditText android:id="@+id/radius"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="@color/colorElse"
@@ -27,39 +27,19 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <ImageButton
+        <Button android:id="@+id/searchBtn"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_weight="1" />
-
-        <ImageButton
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_weight="1" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textAlignment="center"
             android:text="@string/ticketmaster_search"
-            android:textColor="@color/colorElse"/>
+            android:layout_weight="1" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textAlignment="center"
+        <Button android:id="@+id/savedEventsBtn"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:text="@string/ticketmaster_saved"
-            android:textColor="@color/colorElse"/>
+            android:layout_weight="1" />
 
     </LinearLayout>
+
 
 </LinearLayout>
