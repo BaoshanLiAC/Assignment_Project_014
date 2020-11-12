@@ -1,11 +1,12 @@
 package com.ac.assignment_project_014;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.ac.assignment_project_014.TicketMaster.TicketMasterMainActivity;
 import com.ac.assignment_project_014.recipe.RecipeMainActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
         Button btn_recipe = findViewById(R.id.btn_recipe);
         btn_recipe.setOnClickListener(click -> {startActivity( new Intent(this, RecipeMainActivity.class) );});
 
-
+        Button btn_ticketmaster = findViewById(R.id.btn_ticketmaster);
+        btn_ticketmaster.setOnClickListener(click -> {startActivity( new Intent(this, TicketMasterMainActivity.class) );});
     }
 }

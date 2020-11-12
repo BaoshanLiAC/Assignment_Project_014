@@ -70,8 +70,6 @@ public class TicketMasterMainActivity extends AppCompatActivity implements Navig
 
     private SQLiteDatabase db;
 
-    private EditText cityNameText = null;
-    private EditText radiusText = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +108,7 @@ public class TicketMasterMainActivity extends AppCompatActivity implements Navig
         radiusEditText.setText(searchRadius);
 
         Button btnSearch = findViewById(R.id.searchBtn);
-        Button btnFavSong = findViewById(R.id.savedEventsBtn);
+        Button btnSavedEvet = findViewById(R.id.savedEventsBtn);
         progressBar = findViewById(R.id.processBar);
         eventListView = findViewById(R.id.eventListView);
 
@@ -157,7 +155,7 @@ public class TicketMasterMainActivity extends AppCompatActivity implements Navig
 
         btnSearch.setOnClickListener(v -> searchEvent(cityNameEditText.getText().toString().trim(), radiusEditText.getText().toString().trim()));
 
-        btnFavSong.setOnClickListener(v -> {
+        btnSavedEvet.setOnClickListener(v -> {
             Intent intent = new Intent(TicketMasterMainActivity.this, TicketMasterSavedEventsActivity.class);
             startActivity(intent);
         });
