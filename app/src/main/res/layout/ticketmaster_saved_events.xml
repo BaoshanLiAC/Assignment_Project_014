@@ -12,15 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="83dp"
-        android:background="@color/colorBackground"
-        android:text="@string/ticketmaster_saved"
-        android:textAlignment="center"
-        android:textColor="@color/colorElse"
-        android:textSize="40dp" />
-
     <ListView
         android:id="@+id/savedListView"
         android:layout_width="match_parent"

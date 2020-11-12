@@ -23,11 +23,11 @@
     <string name="ticketmaster_save_success">"Save successfully "</string>
     <string name="ticketmaster_save_fail">"Failed to save"</string>
 
-
+    <string name="ticketmaster_title">"Search Events"</string>
     <string name="ticketmaster_remove_confirm">"Would you like to remove this event? "</string>
     <string name="ticketmaster_remove_success">"Remove successfully "</string>
     <string name="ticketmaster_remove_fail">"Failed to Remove"</string>
-    <string name="ticketmaster_go_to_fav">"Removed successfully "</string>
+    <string name="ticketmaster_go_to_fav">"Go to Saved Events "</string>
     <string name="ticketmaster_alert_title">"Alert: "</string>
     <string name="ticketmaster_alert_message">"City Name and Radius can't be empty"</string>
     <string name="ticketmaster_search_events_searby">"Search events near city %s"</string>

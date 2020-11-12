@@ -19,46 +19,57 @@
         android:layout_height="match_parent"
         tools:openDrawer="start">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-            <ImageView
-                android:id="@+id/banner"
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="232dp"
-                android:src="@drawable/ticketmaster" />
+                android:layout_height="wrap_content"
+                android:text="City Name" />
 
             <EditText
                 android:id="@+id/cityName"
-                android:layout_below="@+id/banner"
-                android:layout_width="230dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:hint="Enter City Name" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Radius" />
+
             <EditText
                 android:id="@+id/radius"
                 android:layout_below="@+id/cityName"
-                android:layout_width="230dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
                 android:hint="Enter Radius" />
 
-            <Button android:id="@+id/searchBtn"
-                android:layout_width="85dp"
-                android:layout_height="85dp"
-                android:text="@string/ticketmaster_search"
-                android:layout_toLeftOf="@+id/savedEventsBtn"
-                android:layout_below="@+id/banner" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/searchBtn"
+                android:layout_width="0.0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:text="@string/ticketmaster_search" />
 
             <Button
                 android:id="@+id/savedEventsBtn"
-                android:layout_width="85dp"
-                android:layout_height="85dp"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@+id/banner"
+                android:layout_width="0.0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
                 android:text="@string/ticketmaster_saved"/>
+
+        </LinearLayout>
+
 
             <ListView
                 android:id="@+id/eventListView"
@@ -76,8 +87,7 @@
                 android:layout_centerInParent="true"
                 android:visibility="invisible"
                 />
-
-        </RelativeLayout>
+        </LinearLayout>
 
 
         <com.google.android.material.navigation.NavigationView

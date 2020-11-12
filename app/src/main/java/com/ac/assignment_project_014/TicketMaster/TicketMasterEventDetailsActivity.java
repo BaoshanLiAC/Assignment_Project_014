@@ -15,10 +15,11 @@ public class TicketMasterEventDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ticketmaster_event_details);
+        setTitle("Event Details");
 
         //toolbar
         Toolbar toolBar = findViewById(R.id.ticketmaster_toolbar);
-        setSupportActionBar(toolBar);
+        //setSupportActionBar(toolBar);
 
         Bundle msgInfo = getIntent().getBundleExtra(EVENT_DETAIL);
 

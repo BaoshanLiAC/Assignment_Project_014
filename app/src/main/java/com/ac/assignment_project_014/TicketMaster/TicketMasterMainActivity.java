@@ -1,6 +1,5 @@
 package com.ac.assignment_project_014.TicketMaster;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +15,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -49,6 +47,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class TicketMasterMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -75,10 +74,11 @@ public class TicketMasterMainActivity extends AppCompatActivity implements Navig
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ticketmaster_activity_main);
+        setTitle(getString(R.string.ticketmaster_title));
 
         //toolbar
         Toolbar toolBar = findViewById(R.id.ticketmaster_toolbar);
-        setSupportActionBar(toolBar);
+        //setSupportActionBar(toolBar);
 
         //navigation bar
         DrawerLayout drawerLayout = findViewById(R.id.ticketmaster_drawer_layout);
@@ -93,7 +93,7 @@ public class TicketMasterMainActivity extends AppCompatActivity implements Navig
         prefsCity = getSharedPreferences("city", Context.MODE_PRIVATE);
         prefsRadius = getSharedPreferences("radius", Context.MODE_PRIVATE);
         String searchCity = prefsCity.getString(SEARCH_CITY, "");
-        String searchRadius = prefsCity.getString(SEARCH_RADIUS, "");
+        String searchRadius = prefsRadius.getString(SEARCH_RADIUS, "");
 
         /**
          * init components
@@ -107,8 +107,8 @@ public class TicketMasterMainActivity extends AppCompatActivity implements Navig
         cityNameEditText.setText(searchCity);
         radiusEditText.setText(searchRadius);
 
-        Button btnSearch = findViewById(R.id.searchBtn);
-        Button btnSavedEvet = findViewById(R.id.savedEventsBtn);
+        Button searchBtn = findViewById(R.id.searchBtn);
+        Button savedEventsBtn = findViewById(R.id.savedEventsBtn);
         progressBar = findViewById(R.id.processBar);
         eventListView = findViewById(R.id.eventListView);
 
@@ -153,9 +153,9 @@ public class TicketMasterMainActivity extends AppCompatActivity implements Navig
             }
         });
 
-        btnSearch.setOnClickListener(v -> searchEvent(cityNameEditText.getText().toString().trim(), radiusEditText.getText().toString().trim()));
+        searchBtn.setOnClickListener(v -> searchEvent(cityNameEditText.getText().toString().trim(), radiusEditText.getText().toString().trim()));
 
-        btnSavedEvet.setOnClickListener(v -> {
+        savedEventsBtn.setOnClickListener(v -> {
             Intent intent = new Intent(TicketMasterMainActivity.this, TicketMasterSavedEventsActivity.class);
             startActivity(intent);
         });
@@ -172,11 +172,6 @@ public class TicketMasterMainActivity extends AppCompatActivity implements Navig
             return;
         }
 
-        // hide keyboard when start searching.
-        // reference to: https://stackoverflow.com/questions/1109022/how-do-you-close-hide-the-android-soft-keyboard-using-java
-        InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-
         SharedPreferences.Editor editorCity = prefsCity.edit();
         SharedPreferences.Editor editorRadius = prefsRadius.edit();
         editorCity.putString(SEARCH_CITY, cityName);
@@ -189,7 +184,6 @@ public class TicketMasterMainActivity extends AppCompatActivity implements Navig
                 Snackbar.LENGTH_LONG);
         snackbar.show();
 
-        // search Artist first
         progressBar.setVisibility(View.VISIBLE);
 
         QueryEvent queryEvent = new QueryEvent();
@@ -226,16 +220,16 @@ public class TicketMasterMainActivity extends AppCompatActivity implements Navig
 //    public boolean onOptionsItemSelected(MenuItem item) {
 //        switch (item.getItemId()) {
 //            case R.id.A_toolbar:
-//                Intent goToGeo = new Intent(this, A.class);
-//                startActivity(goToGeo);
+//                Intent goToA = new Intent(this, A.class);
+//                startActivity(goToA);
 //                break;
 //            case R.id.B_toolbar:
-//                Intent goToLyrics = new Intent(this, B.class);
-//                startActivity(goToLyrics);
+//                Intent goToB = new Intent(this, B.class);
+//                startActivity(goToB);
 //                break;
 //            case R.id.C:
-//                Intent goToSoccer = new Intent(this, C.class);
-//                startActivity(goToSoccer);
+//                Intent goToC = new Intent(this, C.class);
+//                startActivity(goToC);
 //                break;
 //            case R.id.ticketmaster_menu_item_about:
 //                Toast.makeText(this, "This is the Ticket Master search project using TicketMaster api, written by Xingan Wang", Toast.LENGTH_SHORT).show();
@@ -271,7 +265,7 @@ public class TicketMasterMainActivity extends AppCompatActivity implements Navig
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setTitle(title);
         alertDialogBuilder.setMessage(message);
-        alertDialogBuilder.setPositiveButton("Ok", (v, arg) -> {
+        alertDialogBuilder.setPositiveButton("OK", (v, arg) -> {
         });
 
         alertDialogBuilder.create().show();
@@ -284,12 +278,9 @@ public class TicketMasterMainActivity extends AppCompatActivity implements Navig
         protected List<Event> doInBackground(String... strings) {
             List<Event> eventList = new ArrayList<>();
             try {
-                URL url;
-                HttpURLConnection urlConnection;
-                InputStream response;
-                url = new URL(strings[0]);
-                urlConnection = (HttpURLConnection) url.openConnection();
-                response = urlConnection.getInputStream();
+                URL url = new URL(strings[0]);
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                InputStream response = urlConnection.getInputStream();
 
                 BufferedReader reader = new BufferedReader(new InputStreamReader(response, StandardCharsets.UTF_8), 8);
                 StringBuilder sb = new StringBuilder();
@@ -305,20 +296,22 @@ public class TicketMasterMainActivity extends AppCompatActivity implements Navig
 
                 // get event info and store it in eventList
                 JSONObject jsonObject = new JSONObject(result);
-                if (jsonObject.getInt("totalElements") > 0) {
-                    JSONArray eventArray = (JSONArray) jsonObject.getJSONArray("events");
+                if(jsonObject.getJSONObject("page").getInt("size") > 0){
+                    JSONObject embeddedObj = jsonObject.getJSONObject("_embedded");
+                    JSONArray eventArray = (JSONArray) embeddedObj.getJSONArray("events");
                     for (int i = 0; i < eventArray.length(); i++) {
                         JSONObject eventObj = (JSONObject) eventArray.get(i);
 
                         Event event = new Event();
                         event.setName(eventObj.getString("name"));
-                        event.setURL(eventObj.getString("URL"));
+                        event.setURL(eventObj.getString("url"));
 
                         JSONObject dataObj = eventObj.getJSONObject("dates");
                         JSONObject startObj = dataObj.getJSONObject("start");
                         event.setDate(startObj.getString("localDate"));
 
-                        JSONObject priceRageObj = eventObj.getJSONObject("priceRange");
+                        JSONArray priceRageArray = (JSONArray)eventObj.getJSONArray("priceRanges");
+                        JSONObject priceRageObj = (JSONObject)priceRageArray.get(0);
                         event.setMinPrice(priceRageObj.getString("min"));
                         event.setMaxPrice(priceRageObj.getString("max"));
 
@@ -331,7 +324,7 @@ public class TicketMasterMainActivity extends AppCompatActivity implements Navig
                     }
                 }
             } catch (IOException | JSONException e) {
-                Log.e("DSS", e.getMessage());
+                Log.e("TicketMaster", e.getMessage());
             }
 
             return eventList;
@@ -387,13 +380,12 @@ public class TicketMasterMainActivity extends AppCompatActivity implements Navig
             TextView eventNameTV = convertView.findViewById(R.id.event_name_tv);
 
             Event event = getItem(position);
-            eventNameTV.setText(event.getName());
+            eventNameTV.setText(String.format(Locale.getDefault(), "%d. %s", position + 1, event.getName()));
             eventDateTV.setText(event.getDate());
 
             return convertView;
         }
     }
-
 
 }
 

@@ -16,7 +16,7 @@ public class EventOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + Event.TABLE_NAME_FAVORITE + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+        db.execSQL("CREATE TABLE " + Event.TABLE_NAME_SAVED + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + Event.COL_NAME + " text,"
                 + Event.COL_DATE  + " text,"
                 + Event.COL_MINPRICE  + " text,"
@@ -37,7 +37,7 @@ public class EventOpenHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //Drop the old table:
         db.execSQL( "DROP TABLE IF EXISTS " + Event.TABLE_NAME_SEARCH_RESULT);
-        db.execSQL( "DROP TABLE IF EXISTS " + Event.TABLE_NAME_FAVORITE);
+        db.execSQL( "DROP TABLE IF EXISTS " + Event.TABLE_NAME_SAVED);
 
         //Create the new table:
         onCreate(db);

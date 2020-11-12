@@ -2,8 +2,8 @@ package com.ac.assignment_project_014.TicketMaster;
 
 public class Event {
 
-    public final static String TABLE_NAME_SEARCH_RESULT = "EVENT_LIST";
-    public final static String TABLE_NAME_FAVORITE = "EVENT_FAV";
+    public final static String TABLE_NAME_SEARCH_RESULT = "TICKET_MASTER_EVENT_LIST";
+    public final static String TABLE_NAME_SAVED = "EVENT_SAVED";
 
     public final static String COL_ID = "_id";
     public final static String COL_NAME = "NAME";

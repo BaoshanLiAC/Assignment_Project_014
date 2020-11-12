@@ -1,5 +1,6 @@
 package com.ac.assignment_project_014.TicketMaster;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -30,10 +31,10 @@ public class TicketMasterSavedEventsActivity extends AppCompatActivity implement
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ticketmaster_saved_events);
-
+        setTitle("My Favorite Events");
         // tool bar
         Toolbar toolBar = findViewById(R.id.deezer_toolbar);
-        setSupportActionBar(toolBar);
+        //setSupportActionBar(toolBar);
 
         boolean isTablet = findViewById(R.id.fragment_event_detail) != null;
 
@@ -43,6 +44,40 @@ public class TicketMasterSavedEventsActivity extends AppCompatActivity implement
         myEventsAdapter = new EventsAdapter();
         savedEventsLV.setAdapter(myEventsAdapter);
 
+        savedEventsLV.setOnItemClickListener((parent, view, position, id) -> {
+            view.setSelected(true);
+
+            Event event = events.get(position);
+            // view detail
+            Bundle bundle = new Bundle();
+            bundle.putBoolean(EventDetailFragment.KEY_IS_TABLET, isTablet);
+            bundle.putBoolean(EventDetailFragment.KEY_IS_FAVORITE, true);
+            bundle.putLong(EventDetailFragment.KEY_EVENT_ID, event.getId());
+            bundle.putString(EventDetailFragment.KEY_EVENT_NAME, event.getName());
+            bundle.putString(EventDetailFragment.KEY_EVENT_DATE, event.getDate());
+            bundle.putString(EventDetailFragment.KEY_EVENT_MIN_PRICE, event.getMinPrice());
+            bundle.putString(EventDetailFragment.KEY_EVENT_MAX_PRICE, event.getMaxPrice());
+            bundle.putString(EventDetailFragment.KEY_EVENT_URL, event.getURL());
+            bundle.putString(EventDetailFragment.KEY_EVENT_IMAGE, event.getImage());
+
+            if (isTablet) {
+                // init fragment
+                EventDetailFragment songDetailFragment = new EventDetailFragment();
+                songDetailFragment.setArguments( bundle );
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_event_detail, songDetailFragment) //Add the fragment in FrameLayout
+                        .commit(); //actually load the fragment. Calls onCreate() in DetailFragment
+
+            } else {
+                Intent intent = new Intent(TicketMasterSavedEventsActivity.this, TicketMasterEventDetailsActivity.class);
+                intent.putExtra(TicketMasterEventDetailsActivity.EVENT_DETAIL, bundle);
+                startActivity(intent);
+            }
+        });
+
+        EventOpenHelper eventDB = new EventOpenHelper(this);
+        db = eventDB.getWritableDatabase();
     }
 
     @Override
@@ -57,7 +92,7 @@ public class TicketMasterSavedEventsActivity extends AppCompatActivity implement
     private void loadSavedEvent() {
         events.clear();
         String[] columns = {Event.COL_ID, Event.COL_NAME, Event.COL_DATE, Event.COL_MINPRICE, Event.COL_MAXPRICE,Event.COL_URL,Event.COL_IMAGE};
-        Cursor results = db.query(false, Event.TABLE_NAME_FAVORITE, columns,
+        Cursor results = db.query(false, Event.TABLE_NAME_SAVED, columns,
                 null, null, null, null, null, null);
 
         int idColIndex = results.getColumnIndex(Event.COL_ID);
@@ -116,7 +151,7 @@ public class TicketMasterSavedEventsActivity extends AppCompatActivity implement
 
 
     /**
-     * song adapter used by list view for songs display
+     * event adapter used by list view for events display
      */
     class EventsAdapter extends BaseAdapter {
 
