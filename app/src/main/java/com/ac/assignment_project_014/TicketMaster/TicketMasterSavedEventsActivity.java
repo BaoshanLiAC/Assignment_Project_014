@@ -62,11 +62,11 @@ public class TicketMasterSavedEventsActivity extends AppCompatActivity implement
 
             if (isTablet) {
                 // init fragment
-                EventDetailFragment songDetailFragment = new EventDetailFragment();
-                songDetailFragment.setArguments( bundle );
+                EventDetailFragment eventDetailFragment = new EventDetailFragment();
+                eventDetailFragment.setArguments( bundle );
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_event_detail, songDetailFragment) //Add the fragment in FrameLayout
+                        .replace(R.id.fragment_event_detail, eventDetailFragment) //Add the fragment in FrameLayout
                         .commit(); //actually load the fragment. Calls onCreate() in DetailFragment
 
             } else {
