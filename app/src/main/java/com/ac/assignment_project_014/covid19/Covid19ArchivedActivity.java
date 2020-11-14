@@ -2,13 +2,7 @@ package com.ac.assignment_project_014.covid19;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -16,25 +10,18 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ac.assignment_project_014.MainActivity;
 import com.ac.assignment_project_014.R;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
-import static android.view.View.TEXT_ALIGNMENT_TEXT_START;
-
-public class Covid19ArchivedActivity extends AppCompatActivity {
+public class Covid19ArchivedActivity extends DrawerBase {
     protected ArrayList<Covid19CountryData> datalist = new ArrayList<>();
     protected ListView listView;
     protected CountryList dataAdapter;
@@ -43,11 +30,10 @@ public class Covid19ArchivedActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.covid19_activity_archived_data);
 
-        //initial action bar
-        setSupportActionBar(findViewById(R.id.covid19_toolbar));
+
+        super.onCreate(savedInstanceState);
+
 
         //initial list view
         dataAdapter = new CountryList(this);
@@ -76,6 +62,13 @@ public class Covid19ArchivedActivity extends AppCompatActivity {
         });
 
 
+    }
+
+
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.covid19_activity_archived_data;
     }
 
 
@@ -175,56 +168,8 @@ public class Covid19ArchivedActivity extends AppCompatActivity {
     }
 
 
-    public boolean onCreateOptionsMenu(Menu m){
 
-        getMenuInflater().inflate(R.menu.covid19_toolbar_menu, m );
-        return true;
-    }
-    public boolean onOptionsItemSelected(MenuItem mi){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        final View view =this.getLayoutInflater().inflate(R.layout.covid19_actionbar_dialog,null);
-        TextView text = view.findViewById(R.id.covid19_action_dialog_text);
-        switch(mi.getItemId()){
-            case R.id.covid19_action_home:
-                Snackbar.make(findViewById(R.id.covid19_toolbar), "Back to Home Page", Snackbar.LENGTH_LONG)
-                        .setAction("Action", e->startActivity(new Intent(this, MainActivity.class))).show();
-                break;
-            case R.id.covid19_action_search:
-                finish();
 
-                break;
-            case R.id.covid19_action_archive:
-                Toast.makeText(this,"Already in Archived Tab", Toast.LENGTH_LONG).show();
-                break;
-            case R.id.covid19_action_version:
-
-                text.setText("VERSION:1.0.0.1");
-                text.setTextSize(25);
-                builder.setView(view);
-                builder.create().show();
-                break;
-            case R.id.covid19_action_help:
-
-                text.setText("1. Query date from https://api.covid19api.com/country by input country and date." +
-                        "\n2. User could save result to archive for later analysis." +
-                        "\n3. User could navigate to archived tap to view saved record and manipulate data.");
-                text.setTextAlignment(TEXT_ALIGNMENT_TEXT_START);
-                builder.setView(view);
-                builder.create().show();
-                break;
-            case R.id.covid19_action_about:
-                text.setText("Developed By: Li Sha Wu" +
-                        "\nStudent No: **********" +
-                        "\nSupported By: Dr. Eric");
-                text.setTextAlignment(TEXT_ALIGNMENT_TEXT_START);
-                builder.setView(view);
-                builder.create().show();
-                break;
-            default:
-                break;
-        }
-        return true;
-    }
 
     public void clearDb(View view) {
         db.execSQL("delete from "+ data.TABLE_NAME);
@@ -232,7 +177,5 @@ public class Covid19ArchivedActivity extends AppCompatActivity {
         Toast.makeText(this, "DataBase has wiped all records out.", Toast.LENGTH_LONG).show();
     }
 
-    public void showChart(View view) {
 
-    }
 }

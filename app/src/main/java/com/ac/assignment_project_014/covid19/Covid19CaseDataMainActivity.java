@@ -1,29 +1,27 @@
 package com.ac.assignment_project_014.covid19;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 
-import com.ac.assignment_project_014.MainActivity;
 import com.ac.assignment_project_014.R;
+import com.ac.assignment_project_014.recipe.RecipeMainActivity;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -34,19 +32,22 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import static android.view.View.TEXT_ALIGNMENT_TEXT_START;
 
-public class Covid19CaseDataMainActivity extends AppCompatActivity {
+public class Covid19CaseDataMainActivity extends DrawerBase {
     private String url;
     private String countryName;
     private String date;
     protected Button search;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.covid19_activity_main);
 
-        setSupportActionBar(findViewById(R.id.covid19_toolbar));
+
+        super.onCreate(savedInstanceState);
+
+
         search = findViewById(R.id.covid_data_search_btn);
         search.setOnClickListener(e->{
             EditText name = findViewById(R.id.covid19_search_country_name);
@@ -56,11 +57,16 @@ public class Covid19CaseDataMainActivity extends AppCompatActivity {
             setUrl("https://api.covid19api.com/country/{0}/status/confirmed/live?from={1}T00:00:00Z&to={2}T00:00:00Z");
             Covid19Server server = new Covid19Server();
             server.execute();
-           // startActivity(new Intent(this, Covid19SearchResultActivity.class));
         });
 
 
     }
+
+
+
+
+
+
 
     public String getUrl() {
         return url;
@@ -103,62 +109,7 @@ public class Covid19CaseDataMainActivity extends AppCompatActivity {
         return result;
     }
 
-    /**
-     * TOOL BAR
-     *
-     */
-    public boolean onCreateOptionsMenu(Menu m){
 
-        getMenuInflater().inflate(R.menu.covid19_toolbar_menu, m );
-        return true;
-    }
-    public boolean onOptionsItemSelected(MenuItem mi){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        final View view =this.getLayoutInflater().inflate(R.layout.covid19_actionbar_dialog,null);
-        TextView text = view.findViewById(R.id.covid19_action_dialog_text);
-        switch(mi.getItemId()){
-            case R.id.covid19_action_home:
-                Snackbar.make(findViewById(R.id.covid19_toolbar), "Back to Home Page", Snackbar.LENGTH_LONG)
-                        .setAction("Action", e->startActivity(new Intent(this, MainActivity.class))).show();
-                break;
-            case R.id.covid19_action_search:
-
-                    Toast.makeText(this,"Already in Search Tab", Toast.LENGTH_LONG).show();
-
-                break;
-            case R.id.covid19_action_archive:
-                Snackbar.make(findViewById(R.id.covid19_toolbar), "Jump to Archived Case Data", Snackbar.LENGTH_LONG)
-                        .setAction("Action", e->startActivity(new Intent(this, Covid19ArchivedActivity.class))).show();
-                break;
-            case R.id.covid19_action_version:
-
-                text.setText("VERSION:1.0.0.1");
-                text.setTextSize(25);
-                builder.setView(view);
-                builder.create().show();
-                break;
-            case R.id.covid19_action_help:
-
-                text.setText("1. Query date from https://api.covid19api.com/country by input country and date." +
-                            "\n2. User could save result to archive for later analysis." +
-                            "\n3. User could navigate to archived tap to view saved record and manipulate data.");
-                text.setTextAlignment(TEXT_ALIGNMENT_TEXT_START);
-                builder.setView(view);
-                builder.create().show();
-                break;
-            case R.id.covid19_action_about:
-                text.setText("Developed By: Li Sha Wu" +
-                        "\nStudent No: **********" +
-                        "\nSupported By: Dr. Eric");
-                text.setTextAlignment(TEXT_ALIGNMENT_TEXT_START);
-                builder.setView(view);
-                builder.create().show();
-                break;
-            default:
-                break;
-        }
-        return true;
-    }
 
 
 
@@ -183,9 +134,19 @@ public class Covid19CaseDataMainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        return false;
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.covid19_activity_main;
+    }
+
 
     //inner class
-    class Covid19Server extends AsyncTask< String,JSONArray, JSONArray >
+     class Covid19Server extends AsyncTask< String,JSONArray, JSONArray >
     {
         private final ProgressDialog dialog = new ProgressDialog(Covid19CaseDataMainActivity.this);
 

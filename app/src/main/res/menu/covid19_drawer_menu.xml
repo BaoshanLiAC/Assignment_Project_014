@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/covid_nav_search"
+            android:icon="@drawable/ic_search_black"
+            android:title="Search Data" />
+        <item
+            android:id="@+id/covid_nav_review"
+            android:icon="@drawable/ic_baseline_history_24"
+            android:title="Last Review" />
+        <item
+            android:id="@+id/covid_nav_archive"
+            android:icon="@drawable/ic_db"
+            android:title="Archived Data" />
+
+    </group>
+
+    <item android:title="Description">
+        <menu>
+            <item
+                android:id="@+id/covid_nav_help"
+                android:icon="@drawable/ic_help"
+                android:title="Help" />
+            <item
+                android:id="@+id/covid_nav_about"
+                android:icon="@drawable/ic_baseline_cloud_queue_24"
+                android:title="About" />
+            <item
+                android:id="@+id/covid_nav_version"
+                android:icon="@drawable/ic_baseline_invert_colors_24"
+                android:title="Version" />
+        </menu>
+    </item>
+
+</menu>

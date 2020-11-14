@@ -26,12 +26,21 @@ android {
     }
     sourceSets {
         main {
-            res {
-                srcDirs 'src/main/res', 'src/main/res/layout/COVID-19'
+            res.srcDirs =
+                [
+                        'src/main/res/layouts/covid19',
+                        'src/main/res/layouts/recipe',
+                        'src/main/res/layouts/ticket',
+                        'src/main/res/layouts/audio',
+                        'src/main/res/layouts/shared',
+                        'src/main/res/layouts',
+                        'src/main/res'
+
+                ]
             }
         }
     }
-}
+
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])

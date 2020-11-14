@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.drawerlayout.widget.DrawerLayout
+
+    android:id="@+id/covid_drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:openDrawer="start"
+
+    tools:context="com.ac.assignment_project_014.covid19.Covid19CaseDataMainActivity"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+<LinearLayout
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#091450"
-    tools:context="com.ac.assignment_project_014.covid19.Covid19CaseDataMainActivity">
+    >
 
 
-    <include layout="@layout/covid19_actionbar"/>
+    <include layout="@layout/toolbar"/>
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -83,4 +95,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+
+
 </LinearLayout>
+
+<com.google.android.material.navigation.NavigationView
+android:layout_height="match_parent"
+android:layout_width="wrap_content"
+android:layout_gravity="start"
+android:fitsSystemWindows="true"
+    app:headerLayout="@layout/covid19_nav_header"
+app:menu="@menu/covid19_drawer_menu"
+android:id="@+id/nav_view"/>
+</androidx.drawerlayout.widget.DrawerLayout>

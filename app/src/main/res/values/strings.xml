@@ -1,6 +1,14 @@
 <resources>
     <string name="app_name">Assignment_Project_014</string>
     <string name="search_hint">Search Recipe Here</string>
+
+    <!--    RECIPE STRING  -->
+    <string name="my_favourite">My Favourite</string>
+    <string name= "search_text_button">Search</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
     <!--    COVID STRING  -->
     <string name="covid_search_btn">Query Data</string>
     <string name="covid_show_archived_btn">Archived</string>

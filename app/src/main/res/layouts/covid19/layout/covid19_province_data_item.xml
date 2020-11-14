@@ -13,7 +13,7 @@
         android:layout_height="24dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/covid_icon1" />
+        android:src="@drawable/ic_baseline_location_on_24" />
     <TextView
         android:id="@+id/covid19_province_data_item_province_name"
         android:layout_width="100dp"
@@ -31,7 +31,7 @@
         android:layout_centerVertical="true"
         android:layout_marginHorizontal="10dp"
         android:layout_toEndOf="@+id/covid19_province_data_item_province_name"
-        android:src="@drawable/covid_icon2" />
+        android:src="@drawable/ic_baseline_coronavirus_24" />
     <TextView
         android:id="@+id/covid19_province_data_item_province_case"
         android:layout_width="80dp"
@@ -45,7 +45,7 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_toEndOf="@+id/covid19_province_data_item_province_case"
-        android:src="@drawable/covid_icon7"
+        android:src="@drawable/ic_baseline_arrow_upward_24"
         android:layout_centerVertical="true"
         android:layout_marginHorizontal="10dp"/>
     <TextView
