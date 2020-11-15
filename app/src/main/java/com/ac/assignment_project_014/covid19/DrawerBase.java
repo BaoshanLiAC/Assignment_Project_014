@@ -36,7 +36,7 @@ public abstract class DrawerBase extends ToolBarBase implements NavigationView.O
         drawer.addDrawerListener(drawerToggle);
 
         drawerToggle.syncState();
-        navigationView = (NavigationView)findViewById(R.id.nav_view);
+        navigationView = (NavigationView)findViewById(R.id.covid_nav_view);
         navigationView.setNavigationItemSelectedListener(menuItem->{
             menuItem.setChecked(true);
             drawer.closeDrawers();

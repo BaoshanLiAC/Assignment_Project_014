@@ -97,11 +97,20 @@ public class Covid19SearchResultActivity extends DrawerBase {
 
         //received data from query
         result = (Covid19CountryData) getIntent().getSerializableExtra("search_result");
-        //initial list view data
-        dataList = result.getDataList();
+        if(result == null){
+            Toast.makeText(this, "null data", Toast.LENGTH_LONG).show();
+            dataList = new ArrayList<>();
+        }else{
+            //initial list view data
+            dataList = result.getDataList();
+            //populate country name & search date & total cases
+            TextView.class.cast(findViewById(R.id.covid_result_country)).setText(result.getCountryName());
+            TextView.class.cast(findViewById(R.id.covid_result_description)).setText(result.toString());
+        }
+
         //populate country name & search date & total cases
-        TextView.class.cast(findViewById(R.id.covid_result_country)).setText(result.getCountryName());
-        TextView.class.cast(findViewById(R.id.covid_result_description)).setText(result.toString());
+//        TextView.class.cast(findViewById(R.id.covid_result_country)).setText(result.getCountryName());
+//        TextView.class.cast(findViewById(R.id.covid_result_description)).setText(result.toString());
 
 
         //initial list view

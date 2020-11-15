@@ -43,11 +43,7 @@ public class Covid19CaseDataMainActivity extends DrawerBase {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
-
-
         search = findViewById(R.id.covid_data_search_btn);
         search.setOnClickListener(e->{
             EditText name = findViewById(R.id.covid19_search_country_name);
@@ -61,11 +57,6 @@ public class Covid19CaseDataMainActivity extends DrawerBase {
 
 
     }
-
-
-
-
-
 
 
     public String getUrl() {

@@ -1,26 +1,24 @@
 package com.ac.assignment_project_014;
 
 import android.content.Intent;
-import android.content.res.Configuration;
+
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
+
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.ac.assignment_project_014.covid19.Covid19ArchivedActivity;
+
+
 import com.ac.assignment_project_014.covid19.Covid19CaseDataMainActivity;
 import com.ac.assignment_project_014.recipe.RecipeMainActivity;
-import com.google.android.material.navigation.NavigationView;
+
 import com.google.android.material.snackbar.Snackbar;
 
 import static android.view.View.TEXT_ALIGNMENT_TEXT_START;
