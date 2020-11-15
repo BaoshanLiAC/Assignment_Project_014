@@ -14,7 +14,7 @@ public class Recipe {
         this.isSent = isSent;
         this.isRecieved = isReceived;
     }
-
+/// this is for test
     public String getName() {
         return name;
     }
