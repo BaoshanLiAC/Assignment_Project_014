@@ -91,9 +91,7 @@ public class Covid19SearchResultActivity extends CovidDrawerBase {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
         super.onCreate(savedInstanceState);
-
         //received data from query
         result = (Covid19CountryData) getIntent().getSerializableExtra("search_result");
         //initial list view data
@@ -112,7 +110,6 @@ public class Covid19SearchResultActivity extends CovidDrawerBase {
         //initial database
         data = new Covid19DateHelper(this);
         db = data.getWritableDatabase();
-
         //register button event handlers.
         save = findViewById(R.id.covid_result_archive_btn);
         back = findViewById(R.id.covid_result_back_to_search_btn);

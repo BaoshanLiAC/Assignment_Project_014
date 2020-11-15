@@ -49,8 +49,8 @@ public abstract class CovidDrawerBase extends ToolBarBase implements NavigationV
             menuItem.setChecked(true);
             drawer.closeDrawers();
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            final View view =this.getLayoutInflater().inflate(R.layout.covid19_actionbar_dialog,null);
-            TextView text = view.findViewById(R.id.covid19_action_dialog_text);
+            final View view =this.getLayoutInflater().inflate(R.layout.actionbar_dialog,null);
+            TextView text = view.findViewById(R.id.action_dialog_text);
             switch (menuItem.getItemId()){
                 case R.id.covid_nav_search:
                     startActivity(new Intent(this, Covid19CaseDataMainActivity.class));
@@ -71,7 +71,6 @@ public abstract class CovidDrawerBase extends ToolBarBase implements NavigationV
                     text.setTextAlignment(TEXT_ALIGNMENT_TEXT_START);
                     builder.setView(view);
                     builder.create().show();
-
                     break;
                 case R.id.covid_nav_about:
                     text.setText("Developed By: Li Sha Wu\nStudent No: **********");
@@ -104,8 +103,8 @@ public abstract class CovidDrawerBase extends ToolBarBase implements NavigationV
         menuItem.setChecked(true);
         drawer.closeDrawers();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        final View view =this.getLayoutInflater().inflate(R.layout.covid19_actionbar_dialog,null);
-        TextView text = view.findViewById(R.id.covid19_action_dialog_text);
+        final View view =this.getLayoutInflater().inflate(R.layout.actionbar_dialog,null);
+        TextView text = view.findViewById(R.id.action_dialog_text);
         switch (menuItem.getItemId()){
             case R.id.covid_nav_search:
                 startActivity(new Intent(this, Covid19CaseDataMainActivity.class));

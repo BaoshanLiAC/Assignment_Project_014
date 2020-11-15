@@ -1,36 +1,26 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.drawerlayout.widget.DrawerLayout
+    android:id="@+id/Recipe_drawer_layout"
+    tools:context=".recipe.RecipeMainActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:openDrawer="start"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".MainActivity"
-    android:orientation="vertical">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <Toolbar
-        android:id="@+id/main_toolbar"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        app:contentInsetStart="0dp"
-        android:layout_gravity="center">
-        <ImageView
-            android:id="@+id/back_icon"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_baseline_arrow_back_ios_24"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:gravity="center_vertical|left"
-            android:layout_toRightOf="@+id/search_icon"
-            android:text="RecipeSearch_Chunyan Ren_V1.0"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp" />
-    </Toolbar>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/recipe_toolbar" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </EditText>
 
     <SearchView
         android:id="@+id/search_bar"
@@ -45,5 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/search_bar"/>
+    </LinearLayout>
 
-</LinearLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>

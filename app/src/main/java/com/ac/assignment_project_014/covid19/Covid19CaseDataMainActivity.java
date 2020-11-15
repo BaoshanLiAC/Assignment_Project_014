@@ -34,8 +34,6 @@ public class Covid19CaseDataMainActivity extends CovidDrawerBase {
     private String date;
     protected Button search;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,9 +50,6 @@ public class Covid19CaseDataMainActivity extends CovidDrawerBase {
         });
 
     }
-
-
-
 
 
 

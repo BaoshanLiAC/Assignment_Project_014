@@ -15,7 +15,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.ac.assignment_project_014.covid19.Covid19CaseDataMainActivity;
 import com.ac.assignment_project_014.recipe.RecipeMainActivity;
-import com.google.android.material.snackbar.Snackbar;
 
 public abstract class ToolBarBase extends AppCompatActivity {
     protected Toolbar toolbar;
@@ -37,28 +36,43 @@ public abstract class ToolBarBase extends AppCompatActivity {
 
     public boolean onOptionsItemSelected(MenuItem mi){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        final View view =this.getLayoutInflater().inflate(R.layout.covid19_actionbar_dialog,null);
-        TextView text = view.findViewById(R.id.covid19_action_dialog_text);
+        final View view =this.getLayoutInflater().inflate(R.layout.actionbar_dialog,null);
+        TextView text = view.findViewById(R.id.action_dialog_text);
         switch(mi.getItemId()){
 
             case R.id.audio:
-                //ToDo: change Acitivity class
-                Snackbar.make(findViewById(R.id.shared_action_bar), "Go to Audio Activity.", Snackbar.LENGTH_LONG)
-                        .setAction("GO", e->startActivity(new Intent(this, RecipeMainActivity.class))).show();
+                builder.setTitle("Switch Channel")
+                        .setMessage("You are going to Audio channel")
+                        .setPositiveButton("Yes", (click, arg) -> {
+                            startActivity(new Intent(this, RecipeMainActivity.class)); })
+                        .setNegativeButton("Go Back",(click, arg) -> {; })
+                        .create().show();
                 break;
             case R.id.covid:
-                Snackbar.make(findViewById(R.id.shared_action_bar), "Go to COVID-19 Activity.", Snackbar.LENGTH_LONG)
-                        .setAction("GO", e->startActivity(new Intent(this, Covid19CaseDataMainActivity.class))).show();
+                builder.setTitle("Switch Channel")
+                        .setMessage("You are going to Covid19 Channel")
+                        .setPositiveButton("YES", (click, arg) -> {
+                            startActivity(new Intent(this, Covid19CaseDataMainActivity.class)); })
+                        .setNegativeButton("Go Back",(click, arg) -> {; })
+                        .create().show();
                 break;
             case R.id.recipes:
-                Snackbar.make(findViewById(R.id.shared_action_bar), "Go to Recipe Activity.", Snackbar.LENGTH_LONG)
-                        .setAction("GO", e->startActivity(new Intent(this, RecipeMainActivity.class))).show();
+                builder.setTitle("Switch Channel")
+                        .setMessage("You are going to Recipe channel")
+                        .setPositiveButton("Yes", (click, arg) -> {
+                            startActivity(new Intent(this, RecipeMainActivity.class)); })
+                        .setNegativeButton("Go Back",(click, arg) -> {; })
+                        .create().show();
                 break;
             case R.id.ticket:
-                //ToDo: change Acitivity class
-                Snackbar.make(findViewById(R.id.shared_action_bar), "Go to Ticket Master Activity.", Snackbar.LENGTH_LONG)
-                        .setAction("GO", e->startActivity(new Intent(this, RecipeMainActivity.class))).show();
+                builder.setTitle("Switch Channel")
+                        .setMessage("You are going to ticket channel")
+                        .setPositiveButton("Yes", (click, arg) -> {
+                            startActivity(new Intent(this, RecipeMainActivity.class)); })
+                        .setNegativeButton("Go Back",(click, arg) -> {; })
+                        .create().show();
                 break;
+
             default:
                 break;
         }
