@@ -16,12 +16,12 @@
 
         <include layout="@layout/recipe_toolbar" />
 
+        <!--
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
     </EditText>
-
+-->
     <SearchView
         android:id="@+id/search_bar"
         android:layout_width="match_parent"

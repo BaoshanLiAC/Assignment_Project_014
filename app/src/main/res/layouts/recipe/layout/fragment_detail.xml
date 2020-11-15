@@ -5,12 +5,18 @@
     android:id="@+id/fragmentLocation"
     >
 
+    <include
+        android:id="@+id/recipe_toolbar"
+        layout="@layout/recipe_toolbar" />
+
     <RelativeLayout
         android:id="@+id/layout_id"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:gravity="center"
-        android:layout_marginBottom="20dp">
+        android:layout_marginBottom="20dp"
+        android:layout_below="@id/recipe_toolbar"
+        >
 
         <ImageView
             android:id="@+id/image_large"
@@ -66,7 +72,6 @@
             android:text="Recipe"
             android:textColor="#000"
             android:textSize="18sp"
-
             android:layout_below="@id/textView_title"
             android:layout_centerInParent="true"
             />
@@ -103,7 +108,7 @@
             android:id="@+id/textView_url"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:text="URL"
+            android:text="@string/recipe_URL"
             android:textColor="#000"
             android:textSize="18sp"
             android:layout_margin="5dp"

@@ -39,7 +39,6 @@ public abstract class ToolBarBase extends AppCompatActivity {
         final View view =this.getLayoutInflater().inflate(R.layout.actionbar_dialog,null);
         TextView text = view.findViewById(R.id.action_dialog_text);
         switch(mi.getItemId()){
-
             case R.id.audio:
                 builder.setTitle("Switch Channel")
                         .setMessage("You are going to Audio channel")

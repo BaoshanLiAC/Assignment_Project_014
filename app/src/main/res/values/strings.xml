@@ -35,6 +35,10 @@
     <string name="covid_country_change_header">Daily</string>
     <string name="covid_date_header">Date</string>
     <string name="covid_archived_data_description">Click to see detail and Long click to delete item.</string>
+    <string name="recipe_title">Title</string>
+
+    <string name="recipe_URL">URL</string>
+
 
 
 </resources>
