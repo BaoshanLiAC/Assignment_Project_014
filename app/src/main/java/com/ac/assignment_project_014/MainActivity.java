@@ -1,11 +1,12 @@
 package com.ac.assignment_project_014;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.ac.assignment_project_014.covid19.Covid19CaseDataMainActivity;
 import com.ac.assignment_project_014.recipe.RecipeMainActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,5 +18,9 @@ public class MainActivity extends AppCompatActivity {
 
         Button btn_recipe = findViewById(R.id.btn_recipe);
         btn_recipe.setOnClickListener(click -> {startActivity( new Intent(this, RecipeMainActivity.class) );});
+
+        Button btn_covid19 = findViewById(R.id.btn_covid19);
+        btn_covid19.setOnClickListener(click -> {startActivity( new Intent(this, Covid19CaseDataMainActivity.class) );});
+
     }
 }

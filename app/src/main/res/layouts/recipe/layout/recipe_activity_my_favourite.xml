@@ -6,7 +6,30 @@
         android:layout_height="match_parent"
         tools:context=".recipe.RecipeMyFavouriteActivity"
         android:orientation="vertical">
+    <Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp">
 
+        <ImageView
+            android:id="@+id/back_icon"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_baseline_arrow_back_ios_24"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical|left"
+            android:layout_toRightOf="@+id/search_icon"
+            android:text="RecipeSearch_Chunyan Ren_V.1.0"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+    </Toolbar>
 
         <LinearLayout
             android:layout_width="match_parent"

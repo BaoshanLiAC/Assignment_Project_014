@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/audio"
+        android:title="Search"
+        android:icon="@drawable/ic_audio"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:id="@+id/recipes"
+        android:title="Search"
+        android:icon="@drawable/ic_recipes"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:id="@+id/covid"
+        android:title="Search"
+        android:icon="@drawable/ic_virus"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:id="@+id/ticket"
+        android:title="Search"
+        android:icon="@drawable/ic_ticket"
+        app:showAsAction="always"
+        />
+
+</menu>
