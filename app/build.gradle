@@ -24,6 +24,21 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    sourceSets {
+        main {
+            res.srcDirs =
+                    [
+                            'src/main/res/layouts/covid19',
+                            'src/main/res/layouts/recipe',
+                            'src/main/res/layouts/ticket',
+                            'src/main/res/layouts/audio',
+                            'src/main/res/layouts/shared',
+                            'src/main/res/layouts',
+                            'src/main/res'
+                    ]
+        }
+    }
 }
 
 dependencies {

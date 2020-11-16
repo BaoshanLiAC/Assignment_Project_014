@@ -33,7 +33,7 @@ public class TicketMasterSavedEventsActivity extends AppCompatActivity implement
         setContentView(R.layout.ticketmaster_saved_events);
         setTitle(getString(R.string.ticketmaster_favorite_title));
         // tool bar
-        Toolbar toolBar = findViewById(R.id.deezer_toolbar);
+        Toolbar toolBar = findViewById(R.id.ticketmaster_toolbar);
         //setSupportActionBar(toolBar);
 
         boolean isTablet = findViewById(R.id.fragment_event_details) != null;
