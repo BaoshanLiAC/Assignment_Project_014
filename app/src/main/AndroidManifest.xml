@@ -45,6 +45,19 @@
             android:theme="@style/AppTheme.NoToolBar"
             tools:ignore="Instantiatable" />
 
+        <!-- TICKET ACTIVITIES -->
+        <activity android:name=".TicketMaster.TicketMasterSavedEventsActivity"
+            android:label="TicketMaster"
+            android:theme="@style/AppTheme.NoToolBar"/>
+        <activity android:name=".TicketMaster.TicketMasterEventDetailsActivity"
+            android:label="TicketMaster"
+            android:theme="@style/AppTheme.NoToolBar"/>
+        <activity android:name=".TicketMaster.TicketMasterMainActivity"
+            android:label="TicketMaster"
+            android:theme="@style/AppTheme.NoToolBar"/>
+
+
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
