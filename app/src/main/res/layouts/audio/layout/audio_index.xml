@@ -1,0 +1,79 @@
+<androidx.drawerlayout.widget.DrawerLayout
+    android:id="@+id/audio_drawer_layout"
+    tools:context=".audio.AudioIndexActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:openDrawer="start"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/toolbar"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <RadioGroup
+                android:id="@+id/radio_group"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_alignParentBottom="true"
+                android:background="#fff"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rd_new"
+                    style="@style/tab_menu_item"
+                    android:drawableTop="@drawable/selector_audio_searchnew"
+                    android:text="New Album"
+                    android:textColor="@drawable/selector_audio_text"/>
+                <RadioButton
+                    android:id="@+id/rd_local"
+                    style="@style/tab_menu_item"
+                    android:drawableTop="@drawable/selector_audio_local"
+                    android:text="Local Album"
+                    android:textColor="@drawable/selector_audio_text"/>
+                <RadioButton
+                    android:id="@+id/rd_album"
+                    style="@style/tab_menu_item"
+                    android:drawableTop="@drawable/selector_audio_album"
+                    android:text="Album Detail"
+                    android:textColor="@drawable/selector_audio_text"/>
+                <RadioButton
+                    android:id="@+id/rd_song"
+                    style="@style/tab_menu_item"
+                    android:drawableTop="@drawable/selector_audio_song"
+                    android:text="Song Info."
+                    android:textColor="@drawable/selector_audio_text"/>
+
+            </RadioGroup>
+
+            <FrameLayout
+                android:id="@+id/fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/radio_group"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+    <com.google.android.material.navigation.NavigationView
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/audio_nav_head"
+        app:menu="@menu/audio_drawer_menu"
+        android:id="@+id/audio_nav_view"/>
+
+</androidx.drawerlayout.widget.DrawerLayout>

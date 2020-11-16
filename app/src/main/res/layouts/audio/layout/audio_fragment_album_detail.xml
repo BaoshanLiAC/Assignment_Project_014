@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <ImageView
+        android:id="@+id/img_album"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="6dip" />
+    <TextView
+        android:id="@+id/text_album"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+    </TextView>
+
+    <Button
+        android:text="Save/Remove"
+        android:id="@+id/btn_store"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_toRightOf="@+id/text_album"
+        android:layout_weight="2">
+    </Button>
+
+
+    <ListView
+        android:id="@+id/list_track"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/btn_search"
+        android:layout_weight="3"
+        android:headerDividersEnabled="false"></ListView>
+
+
+</LinearLayout>

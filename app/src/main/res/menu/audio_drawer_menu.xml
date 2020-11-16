@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <!--
+        <item
+            android:id="@+id/recipe_favourite_list"
+            android:icon="@drawable/ic_baseline_favorite_24"
+            android:title="My favourite recipes" />
+         -->
+<!--        <item
+            android:id="@+id/recipe_goto_search"
+            android:icon="@drawable/ic_search"
+            android:title="Search Recipe" />-->
+
+    </group>
+
+    <item android:title="Description">
+        <menu>
+            <item
+                android:id="@+id/audio_help"
+                android:icon="@drawable/ic_help"
+                android:title="Help" />
+            <item
+                android:id="@+id/audio_about"
+                android:icon="@drawable/ic_baseline_cloud_queue_24"
+                android:title="About" />
+            <item
+                android:id="@+id/audio_version"
+                android:icon="@drawable/ic_baseline_invert_colors_24"
+                android:title="Version" />
+        </menu>
+    </item>
+
+</menu>

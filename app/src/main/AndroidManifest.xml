@@ -28,8 +28,6 @@
         <activity android:name=".recipe.EmptyActivity"
             android:theme="@style/AppTheme.NoBar"/>
 
-        <activity android:name=".recipe.RecipeContentActivity"/>
-
         <!-- COVID-19 ACTIVITIES -->
         <activity
             android:name=".covid19.Covid19CaseDataMainActivity"
@@ -44,6 +42,12 @@
             android:label="COVID-19 CASE DATA"
             android:theme="@style/AppTheme.NoToolBar"
             tools:ignore="Instantiatable" />
+
+        <!-- COVID-19 ACTIVITIES -->
+        <activity android:name=".audio.AudioIndexActivity"
+            android:label="Audio Search API"
+            android:theme="@style/AppTheme.NoToolBar"/>
+
 
         <activity android:name=".MainActivity">
             <intent-filter>
