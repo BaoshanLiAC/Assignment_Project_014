@@ -19,12 +19,15 @@
             android:name=".recipe.SearchHistoryActivity"
             android:label="Recipe"
             android:theme="@style/AppTheme.NoToolBar" />
+
         <activity
             android:name=".recipe.RecipeMainActivity"
             android:label="Recipe"
             android:theme="@style/AppTheme.NoToolBar" />
+
         <activity android:name=".recipe.EmptyActivity"
             android:theme="@style/AppTheme.NoBar"/>
+
         <activity android:name=".recipe.RecipeContentActivity"/>
 
         <!-- COVID-19 ACTIVITIES -->

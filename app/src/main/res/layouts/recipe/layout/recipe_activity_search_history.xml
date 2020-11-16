@@ -22,15 +22,16 @@
         android:layout_height="wrap_content">
     </EditText>
 -->
-    <SearchView
-        android:id="@+id/search_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:actionViewClass="android.support.v7.widget.SearchView"
-        app:showAsAction="ifRoom" />
 
 
-    <ListView
+        <SearchView
+            android:id="@+id/search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:actionViewClass="android.support.v7.widget.SearchView"
+            app:showAsAction="ifRoom" />
+
+        <ListView
         android:id="@+id/recipe_listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

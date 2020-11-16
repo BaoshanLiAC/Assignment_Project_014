@@ -136,7 +136,7 @@ public class RecipeMainActivity extends RecipeDrawerBase {
 
             if(isTablet) {
                 DetailFragment dFragment = new DetailFragment(); //add a DetailFragment
-                //dFragment.setArguments( dataToPass ); //pass it a bundle for information
+                dFragment.setArguments( dataToPass ); //pass it a bundle for information
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragmentLocation, dFragment) //Add the fragment in FrameLayout
