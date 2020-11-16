@@ -208,7 +208,7 @@ public class TicketMasterMainActivity extends AppCompatActivity implements Navig
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu items for use in the action bar
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.ticketmaster_toolbar, menu);
+        inflater.inflate(R.menu.shared_toolbar_menu, menu);
         return true;
     }
 

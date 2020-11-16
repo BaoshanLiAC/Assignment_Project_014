@@ -9,9 +9,12 @@
     tools:context=".TicketMaster.TicketMasterMainActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/ticketmaster_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="#B4EEB4"
+        android:id="@+id/ticketmaster_toolbar"
+        android:elevation="4dp"
+        app:titleTextAppearance="@style/Toolbar.TitleText"/>
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/ticketmaster_drawer_layout"
@@ -97,7 +100,7 @@
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
             app:headerLayout="@layout/ticketmaster_navigation_header_layout"
-            app:menu="@menu/ticketmaster_navigation_items" />
+            app:menu="@menu/ticketmaster_drawer_menu" />
 
     </androidx.drawerlayout.widget.DrawerLayout>
 

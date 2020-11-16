@@ -105,7 +105,7 @@
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
             app:headerLayout="@layout/ticketmaster_navigation_header_layout"
-            app:menu="@menu/ticketmaster_navigation_items" />
+            app:menu="@menu/ticketmaster_drawer_menu" />
 
     </androidx.drawerlayout.widget.DrawerLayout>
 
