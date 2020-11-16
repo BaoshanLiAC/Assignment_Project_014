@@ -27,13 +27,13 @@ public abstract class AudioDrawerBase extends ToolBarBase implements NavigationV
         setContentView(getLayoutId());
         super.onCreate(savedInstanceState);
 
-        drawer = findViewById(R.id.audio_drawer_layout);
+        drawer = findViewById(R.id.Recipe_drawer_layout);
         drawerToggle
                 = new ActionBarDrawerToggle(this,drawer,toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(drawerToggle);
 
         drawerToggle.syncState();
-        navigationView = (NavigationView)findViewById(R.id.audio_nav_view);
+        navigationView = (NavigationView)findViewById(R.id.recipe_nav_view);
 
 
     }
