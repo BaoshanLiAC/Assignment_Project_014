@@ -23,10 +23,8 @@ import androidx.fragment.app.Fragment;
 import com.ac.assignment_project_014.R;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 public class EventDetailFragment extends Fragment {
@@ -57,7 +55,7 @@ public class EventDetailFragment extends Fragment {
     private AppCompatActivity parentActivity;
 
     public EventDetailFragment() {
-
+        // Required empty public constructor
     }
 
     /**
@@ -220,10 +218,6 @@ public class EventDetailFragment extends Fragment {
                 if (responseCode == 200) {
                     image = BitmapFactory.decodeStream(urlConnection.getInputStream());
                 }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -74,7 +74,7 @@ public class TicketMasterMainActivity extends AppCompatActivity implements Navig
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ticketmaster_activity_main);
-        setTitle(getString(R.string.ticketmaster_title));
+        setTitle(getString(R.string.ticketmaster_search_title));
 
         //toolbar
         Toolbar toolBar = findViewById(R.id.ticketmaster_toolbar);
@@ -112,7 +112,7 @@ public class TicketMasterMainActivity extends AppCompatActivity implements Navig
         progressBar = findViewById(R.id.processBar);
         eventListView = findViewById(R.id.eventListView);
 
-        isTablet = (findViewById(R.id.fragment_event_detail) != null);
+        isTablet = findViewById(R.id.fragment_event_details) != null;
 
 /**
  * init data holder and adapter
@@ -138,12 +138,11 @@ public class TicketMasterMainActivity extends AppCompatActivity implements Navig
 
             if (isTablet) {
                 // init fragment
-                // show fragment -- referenced professor Islam's work
                 EventDetailFragment eventDetailFragment = new EventDetailFragment();
                 eventDetailFragment.setArguments(bundle);
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_event_detail, eventDetailFragment) //Add the fragment in FrameLayout
+                        .replace(R.id.fragment_event_details, eventDetailFragment) //Add the fragment in FrameLayout
                         .commit(); //actually load the fragment. Calls onCreate() in DetailFragment
 
             } else {
@@ -180,7 +179,7 @@ public class TicketMasterMainActivity extends AppCompatActivity implements Navig
         editorRadius.apply();
 
         Snackbar snackbar = Snackbar.make(eventListView,
-                String.format(getString(R.string.ticketmaster_search_events_searby), cityName),
+                String.format(getString(R.string.ticketmaster_search_events_nearby), cityName),
                 Snackbar.LENGTH_LONG);
         snackbar.show();
 
@@ -246,7 +245,7 @@ public class TicketMasterMainActivity extends AppCompatActivity implements Navig
 
         switch (item.getItemId()) {
             case R.id.ticketmaster_nav_item_help:
-                showAlertMessageWithTitle(getString(R.string.ticketmaster_help_itle), getString(R.string.ticketmaster_help_infor));
+                showAlertMessageWithTitle(getString(R.string.ticketmaster_help_title), getString(R.string.ticketmaster_help_infor));
                 break;
             case R.id.ticketmaster_nav_item_about:
                 String apiLink = "https://developer-acct.ticketmaster.com";

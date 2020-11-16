@@ -31,12 +31,12 @@ public class TicketMasterSavedEventsActivity extends AppCompatActivity implement
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ticketmaster_saved_events);
-        setTitle("My Favorite Events");
+        setTitle(getString(R.string.ticketmaster_favorite_title));
         // tool bar
         Toolbar toolBar = findViewById(R.id.deezer_toolbar);
         //setSupportActionBar(toolBar);
 
-        boolean isTablet = findViewById(R.id.fragment_event_detail) != null;
+        boolean isTablet = findViewById(R.id.fragment_event_details) != null;
 
         ListView savedEventsLV = findViewById(R.id.savedListView);
 
@@ -66,7 +66,7 @@ public class TicketMasterSavedEventsActivity extends AppCompatActivity implement
                 eventDetailFragment.setArguments( bundle );
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_event_detail, eventDetailFragment) //Add the fragment in FrameLayout
+                        .replace(R.id.fragment_event_details, eventDetailFragment) //Add the fragment in FrameLayout
                         .commit(); //actually load the fragment. Calls onCreate() in DetailFragment
 
             } else {
@@ -133,7 +133,7 @@ public class TicketMasterSavedEventsActivity extends AppCompatActivity implement
 
     @Override
     public void removeEvent(long eventId) {
-        // TODO remove song from songs and update list view
+        // TODO remove event from events and update list view
         Event event = null;
         for (Event e : events) {
             if (e.getId() == eventId) {

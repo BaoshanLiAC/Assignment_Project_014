@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <string name="ticketmaster_search_title">搜索</string>
+    <string name="ticketmaster_details_title">活动详情</string>
+    <string name="ticketmaster_favorite_title">我的收藏</string>
+    <string name="ticketmaster_city_name">城市</string>
+    <string name="ticketmaster_city_name_tv">输入城市名字</string>
+    <string name="ticketmaster_radius">半径</string>
+    <string name="ticketmaster_radius_tv">输入半径</string>
+    <string name="ticketmaster_search">搜索</string>
+    <string name="ticketmaster_saved">我的收藏</string>
+    <string name="ticketmaster_name">活动: %s</string>
+    <string name="ticketmaster_date">开始时间: %s</string>
+    <string name="ticketmaster_min_price">最低价格: %s</string>
+    <string name="ticketmaster_max_price">最高价格: %s</string>
+    <string name="ticketmaster_url">链接: %s</string>
+    <string name="ticketmaster_navigation_open">打开</string>
+    <string name="ticketmaster_navigation_close">关闭</string>
+    <string name="ticketmaster_event_image">图片</string>
+    <string name="ticketmaster_event_remove_from_fav">从我的收藏移除 </string>
+    <string name="ticketmaster_event_add_to_fav">添加到我的收藏 </string>
+    <string name="ticketmaster_confirm">确认 </string>
+    <string name="ticketmaster_yes">是</string>
+    <string name="ticketmaster_no">否</string>
+    <string name="ticketmaster_save_success">保存成功 </string>
+    <string name="ticketmaster_save_fail">保存失败</string>
+    <string name="ticketmaster_remove_confirm">确认移除此活动吗? </string>
+    <string name="ticketmaster_remove_success">移除成功 </string>
+    <string name="ticketmaster_remove_fail">移除失败</string>
+    <string name="ticketmaster_go_to_fav">去收藏夹 </string>
+    <string name="ticketmaster_alert_title">警告: </string>
+    <string name="ticketmaster_alert_message">城市名字或半径不能为空</string>
+    <string name="ticketmaster_search_events_nearby">搜索 %s 附近的活动</string>
+    <string name="ticketmaster_help_title">帮助</string>
+    <string name="ticketmaster_help_infor">请输入城市名字和半径</string>
+    <string name="ticketmaster_find_events_number">找到 %d 个活动</string>
+
+
+
+
+
+</resources>

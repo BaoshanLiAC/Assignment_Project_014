@@ -2,37 +2,39 @@
     <string name="app_name">Assignment_Project_014</string>
     <string name="search_hint">Search Recipe Here</string>
 
-
-    <string name="ticketmaster_search">Search</string>
+    <string name="ticketmaster_search_title">Search Events</string>
+    <string name="ticketmaster_details_title">Event Details</string>
+    <string name="ticketmaster_favorite_title">My Favorite Events</string>
+    <string name="ticketmaster_city_name">City Name</string>
+    <string name="ticketmaster_city_name_tv">Enter City Name</string>
+    <string name="ticketmaster_radius">Radius</string>
+    <string name="ticketmaster_radius_tv">Enter Radius</string>
+    <string name="ticketmaster_search">Search Events</string>
     <string name="ticketmaster_saved">Saved Events</string>
-    <string name="ticketmaster_events_found">Events Found</string>
-    <string name="ticketmaster_event_details">Events Details</string>
     <string name="ticketmaster_name">Name: %s</string>
     <string name="ticketmaster_date">Starting Date: %s</string>
     <string name="ticketmaster_min_price">Min Price: %s</string>
     <string name="ticketmaster_max_price">Max Price: %s</string>
     <string name="ticketmaster_url">URL: %s</string>
-    <string name="ticketmaster_navigation_open">"Open"</string>
-    <string name="ticketmaster_navigation_close">"Close"</string>
-    <string name="ticketmaster_event_image">"Promotion Image"</string>
-    <string name="ticketmaster_event_remove_from_fav">"Remove from favourite "</string>
-    <string name="ticketmaster_event_add_to_fav">"Add to favourite "</string>
-    <string name="ticketmaster_confirm">"Confirm "</string>
-    <string name="ticketmaster_yes">"Yes"</string>
-    <string name="ticketmaster_no">"No"</string>
-    <string name="ticketmaster_save_success">"Save successfully "</string>
-    <string name="ticketmaster_save_fail">"Failed to save"</string>
-
-    <string name="ticketmaster_title">"Search Events"</string>
-    <string name="ticketmaster_remove_confirm">"Would you like to remove this event? "</string>
-    <string name="ticketmaster_remove_success">"Remove successfully "</string>
-    <string name="ticketmaster_remove_fail">"Failed to Remove"</string>
-    <string name="ticketmaster_go_to_fav">"Go to Saved Events "</string>
-    <string name="ticketmaster_alert_title">"Alert: "</string>
-    <string name="ticketmaster_alert_message">"City Name and Radius can't be empty"</string>
-    <string name="ticketmaster_search_events_searby">"Search events near city %s"</string>
-    <string name="ticketmaster_help_itle">"Help"</string>
-    <string name="ticketmaster_help_infor">"Please enter city name and radius to search the events"</string>
-    <string name="ticketmaster_find_events_number">"Find %d events"</string>
+    <string name="ticketmaster_navigation_open">Open</string>
+    <string name="ticketmaster_navigation_close">Close</string>
+    <string name="ticketmaster_event_image">Promotion Image</string>
+    <string name="ticketmaster_event_remove_from_fav">Remove from favourite </string>
+    <string name="ticketmaster_event_add_to_fav">Add to favourite </string>
+    <string name="ticketmaster_confirm">Confirm </string>
+    <string name="ticketmaster_yes">Yes</string>
+    <string name="ticketmaster_no">No</string>
+    <string name="ticketmaster_save_success">Save successfully </string>
+    <string name="ticketmaster_save_fail">Failed to save</string>
+    <string name="ticketmaster_remove_confirm">Would you like to remove this event? </string>
+    <string name="ticketmaster_remove_success">Remove successfully </string>
+    <string name="ticketmaster_remove_fail">Failed to Remove</string>
+    <string name="ticketmaster_go_to_fav">Go to Saved Events </string>
+    <string name="ticketmaster_alert_title">Alert: </string>
+    <string name="ticketmaster_alert_message">City Name and Radius can not be empty</string>
+    <string name="ticketmaster_search_events_nearby">Search events near city %s</string>
+    <string name="ticketmaster_help_title">Help</string>
+    <string name="ticketmaster_help_infor">Please enter city name and radius to search the events</string>
+    <string name="ticketmaster_find_events_number">Find %d events</string>
 
 </resources>

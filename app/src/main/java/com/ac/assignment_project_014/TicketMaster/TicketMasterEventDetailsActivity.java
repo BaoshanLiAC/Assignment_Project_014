@@ -15,7 +15,7 @@ public class TicketMasterEventDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ticketmaster_event_details);
-        setTitle("Event Details");
+        setTitle(getString(R.string.ticketmaster_details_title));
 
         //toolbar
         Toolbar toolBar = findViewById(R.id.ticketmaster_toolbar);
@@ -27,7 +27,7 @@ public class TicketMasterEventDetailsActivity extends AppCompatActivity {
         eventDetailFragment.setArguments( msgInfo );
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragment_event_detail, eventDetailFragment) //Add the fragment in FrameLayout
+                .replace(R.id.fragment_event_details, eventDetailFragment) //Add the fragment in FrameLayout
                 .commit(); //actually load the fragment. Calls onCreate() in DetailFragment
     }
 
