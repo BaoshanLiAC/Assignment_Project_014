@@ -13,6 +13,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.ac.assignment_project_014.TicketMaster.TicketMasterMainActivity;
 import com.ac.assignment_project_014.covid19.Covid19CaseDataMainActivity;
 import com.ac.assignment_project_014.recipe.RecipeMainActivity;
 
@@ -65,9 +66,9 @@ public abstract class ToolBarBase extends AppCompatActivity {
                 break;
             case R.id.ticket:
                 builder.setTitle("Switch Channel")
-                        .setMessage("You are going to ticket channel")
+                        .setMessage("You are going to Ticket Master channel")
                         .setPositiveButton("Yes", (click, arg) -> {
-                            startActivity(new Intent(this, RecipeMainActivity.class)); })
+                            startActivity(new Intent(this, TicketMasterMainActivity.class)); })
                         .setNegativeButton("Go Back",(click, arg) -> {; })
                         .create().show();
                 break;

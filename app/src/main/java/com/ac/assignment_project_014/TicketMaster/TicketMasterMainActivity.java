@@ -5,14 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -23,15 +21,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.ac.assignment_project_014.R;
-import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
@@ -49,7 +41,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class TicketMasterMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class TicketMasterMainActivity extends TicketMasterDrawerBase {
 
     private static final String SEARCH_CITY = "SEARCH_CITY";
     private static final String SEARCH_RADIUS = "SEARCH_RADIUS";
@@ -73,22 +65,22 @@ public class TicketMasterMainActivity extends AppCompatActivity implements Navig
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ticketmaster_activity_main);
-        setTitle(getString(R.string.ticketmaster_search_title));
+//        setContentView(R.layout.ticketmaster_activity_main);
+//        setTitle(getString(R.string.ticketmaster_search_title));
 
-        //toolbar
-        Toolbar toolBar = findViewById(R.id.ticketmaster_toolbar);
-        //setSupportActionBar(toolBar);
-
-        //navigation bar
-        DrawerLayout drawerLayout = findViewById(R.id.ticketmaster_drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolBar, R.string.ticketmaster_navigation_open, R.string.ticketmaster_navigation_close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = findViewById(R.id.ticketmaster_navigation_view);
-        navigationView.setItemIconTintList(null);
-        navigationView.setNavigationItemSelectedListener(this);
+//        //toolbar
+//        Toolbar toolBar = findViewById(R.id.ticketmaster_toolbar);
+//        //setSupportActionBar(toolBar);
+//
+//        //navigation bar
+//        DrawerLayout drawerLayout = findViewById(R.id.ticketmaster_drawer_layout);
+//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolBar, R.string.ticketmaster_navigation_open, R.string.ticketmaster_navigation_close);
+//        drawerLayout.addDrawerListener(toggle);
+//        toggle.syncState();
+//
+//        NavigationView navigationView = findViewById(R.id.ticketmaster_navigation_view);
+//        navigationView.setItemIconTintList(null);
+//        navigationView.setNavigationItemSelectedListener(this);
 
         prefsCity = getSharedPreferences("city", Context.MODE_PRIVATE);
         prefsRadius = getSharedPreferences("radius", Context.MODE_PRIVATE);
@@ -164,6 +156,16 @@ public class TicketMasterMainActivity extends AppCompatActivity implements Navig
         //loadLastSearchResult();
     }
 
+    @Override
+    protected int getLayoutId() {
+        return R.layout.ticketmaster_activity_main;
+    }
+
+//    @Override
+//    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+//        return false;
+//    }
+
     private void searchEvent(String cityName, String radius) {
         if (cityName.isEmpty() || radius.isEmpty()) {
             // show alert to tell user input something
@@ -212,56 +214,32 @@ public class TicketMasterMainActivity extends AppCompatActivity implements Navig
         return true;
     }
 
+
 //    /**
-//     * handle toolbar menu item click event
+//     * Implement interface method, to reactive with navigation items
 //     */
 //    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
+//    public boolean onNavigationItemSelected(MenuItem item) {
+//
 //        switch (item.getItemId()) {
-//            case R.id.A_toolbar:
-//                Intent goToA = new Intent(this, A.class);
-//                startActivity(goToA);
+//            case R.id.ticketmaster_help:
+//                showAlertMessageWithTitle(getString(R.string.ticketmaster_help_title), getString(R.string.ticketmaster_help_infor));
 //                break;
-//            case R.id.B_toolbar:
-//                Intent goToB = new Intent(this, B.class);
-//                startActivity(goToB);
+//            case R.id.ticketmaster_about:
+//                String apiLink = "https://developer-acct.ticketmaster.com";
+//                Intent launchBrower = new Intent(Intent.ACTION_VIEW, Uri.parse(apiLink));
+//                startActivity(launchBrower);
 //                break;
-//            case R.id.C:
-//                Intent goToC = new Intent(this, C.class);
-//                startActivity(goToC);
-//                break;
-//            case R.id.ticketmaster_menu_item_about:
-//                Toast.makeText(this, "This is the Ticket Master search project using TicketMaster api, written by Xingan Wang", Toast.LENGTH_SHORT).show();
+//            case R.id.ticketmaster_version:
+//                showAlertMessageWithTitle("Version", "1.0");
 //                break;
 //        }
-//        return true;
+//
+//        DrawerLayout drawerLayout = findViewById(R.id.ticketmaster_drawer_layout);
+//        drawerLayout.closeDrawer(GravityCompat.START);
+//
+//        return false;
 //    }
-
-    /**
-     * Implement interface method, to reactive with navigation items
-     */
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.ticketmaster_help:
-                showAlertMessageWithTitle(getString(R.string.ticketmaster_help_title), getString(R.string.ticketmaster_help_infor));
-                break;
-            case R.id.ticketmaster_about:
-                String apiLink = "https://developer-acct.ticketmaster.com";
-                Intent launchBrower = new Intent(Intent.ACTION_VIEW, Uri.parse(apiLink));
-                startActivity(launchBrower);
-                break;
-            case R.id.ticketmaster_version:
-                showAlertMessageWithTitle("Version", "1.0");
-                break;
-        }
-
-        DrawerLayout drawerLayout = findViewById(R.id.ticketmaster_drawer_layout);
-        drawerLayout.closeDrawer(GravityCompat.START);
-
-        return false;
-    }
 
     private void showAlertMessageWithTitle(String title, String message) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);

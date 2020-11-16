@@ -8,13 +8,7 @@
     android:orientation="vertical"
     tools:context=".TicketMaster.TicketMasterMainActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#B4EEB4"
-        android:id="@+id/ticketmaster_toolbar"
-        android:elevation="4dp"
-        app:titleTextAppearance="@style/Toolbar.TitleText"/>
+    <include layout="@layout/toolbar"/>
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/ticketmaster_drawer_layout"
