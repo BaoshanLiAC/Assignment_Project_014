@@ -21,20 +21,18 @@ public class AudioIndexActivity extends AudioDrawerBase {
     private  AlbumDetailFragment albumDetailFragment;
     private SongDetailFragment songDetailFragment;
     private String albumId;
-    //private AlbumItem currentAlbum;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.audio_index);
         initView();
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.recipe_activity_main;
+        return R.layout.audio_index;
     }
 
     private void initView() {
