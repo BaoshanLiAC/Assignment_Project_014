@@ -1,38 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:background="#B4EEB4"
+    android:gravity="center">
+
+
+    <ImageView
+        android:id="@+id/ticketmaster_nav_image"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ticketmaster" />
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/nav_tv_name"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="cst2335_final_project" />
+        android:text="Ticket Master Event Search"
+        android:layout_toRightOf="@+id/ticketmaster_nav_image"
+        android:textColor="#000000"
+        android:textSize="18dp"/>
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/nav_tv_mail"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="TicketMaster Event Search" />
+        android:text="wang0778@Algonquinlive.com"
+        android:layout_below="@id/nav_tv_authername"
+        android:layout_toRightOf="@+id/ticketmaster_nav_image"
+        android:textColor="#000000"
+        android:textSize="18dp"/>
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/nav_tv_authername"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="Author: Xingan Wang" />
+        android:text="Xingan Wang"
+        android:layout_below="@id/nav_tv_name"
+        android:layout_toRightOf="@+id/ticketmaster_nav_image"
+        android:textColor="#000000"
+        android:textSize="18dp"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="Version:1.0" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="12dp"
-        android:background="#aaaaaa"/>
-
-</LinearLayout>
+</RelativeLayout>

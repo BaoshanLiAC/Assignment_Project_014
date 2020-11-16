@@ -244,13 +244,16 @@ public class TicketMasterMainActivity extends AppCompatActivity implements Navig
     public boolean onNavigationItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.ticketmaster_nav_item_help:
+            case R.id.ticketmaster_help:
                 showAlertMessageWithTitle(getString(R.string.ticketmaster_help_title), getString(R.string.ticketmaster_help_infor));
                 break;
-            case R.id.ticketmaster_nav_item_about:
+            case R.id.ticketmaster_about:
                 String apiLink = "https://developer-acct.ticketmaster.com";
                 Intent launchBrower = new Intent(Intent.ACTION_VIEW, Uri.parse(apiLink));
                 startActivity(launchBrower);
+                break;
+            case R.id.ticketmaster_version:
+                showAlertMessageWithTitle("Version", "1.0");
                 break;
         }
 
