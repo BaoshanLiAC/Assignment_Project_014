@@ -4,6 +4,7 @@
     >
 
 
+
     <item
         android:id="@+id/audio"
         android:title="Search"
@@ -24,24 +25,13 @@
         android:icon="@drawable/ic_virus"
         app:showAsAction="always"
         />
+
     <item
         android:id="@+id/ticket"
         android:title="Search"
         android:icon="@drawable/ic_ticket"
         app:showAsAction="always"
         />
-
-
-
-    <!--
-    <item
-        android:id="@+id/searchIcon"
-        android:title="Search"
-        android:icon="@drawable/ic_search_black"
-        app:showAsAction="never"
-        />
-        -->
-
 
 
 </menu>

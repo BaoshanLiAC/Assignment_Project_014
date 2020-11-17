@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.ac.assignment_project_014">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -10,21 +11,23 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
 
         <!-- RECIPE ACTIVITIES -->
         <activity
-            android:name=".recipe.SearchCriteria"
-            android:theme="@style/AppTheme.NoBar" />
-        <activity
             android:name=".recipe.SearchHistoryActivity"
-            android:theme="@style/AppTheme.NoBar" />
-        <activity
-            android:name=".recipe.MyFavouriteActivity"
-            android:theme="@style/AppTheme.NoBar" />
+            android:label="Recipe"
+            android:theme="@style/AppTheme.NoToolBar" />
+
         <activity
             android:name=".recipe.RecipeMainActivity"
-            android:theme="@style/AppTheme.NoBar" />
+            android:label="Recipe"
+            android:theme="@style/AppTheme.NoToolBar" />
+
+        <activity android:name=".recipe.EmptyActivity"
+            android:theme="@style/AppTheme.NoBar"/>
+
         <!-- COVID-19 ACTIVITIES -->
         <activity
             android:name=".covid19.Covid19CaseDataMainActivity"
@@ -34,9 +37,22 @@
             android:name=".covid19.Covid19SearchResultActivity"
             android:label="COVID-19 CASE DATA"
             android:theme="@style/AppTheme.NoToolBar" />
+
         <activity android:name=".covid19.Covid19ArchivedActivity"
             android:label="COVID-19 CASE DATA"
+            android:theme="@style/AppTheme.NoToolBar"
+            tools:ignore="Instantiatable" />
+
+        <!-- Audio ACTIVITIES-->
+        <activity android:name=".audio.AudioIndexActivity"
+            android:label="Audio Search API"
             android:theme="@style/AppTheme.NoToolBar"/>
+
+        <!-- TicketMaster ACTIVITIES -->
+        <activity android:name=".TicketMaster.TicketMasterSavedEventsActivity" />
+        <activity android:name=".TicketMaster.TicketMasterEventDetailsActivity" />
+        <activity android:name=".TicketMaster.TicketMasterMainActivity" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,6 +60,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

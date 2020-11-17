@@ -17,11 +17,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+
+
 import com.ac.assignment_project_014.R;
 
 import java.util.ArrayList;
 
-public class Covid19ArchivedActivity extends DrawerBase {
+
+public class Covid19ArchivedActivity extends CovidDrawerBase {
+
     protected ArrayList<Covid19CountryData> datalist = new ArrayList<>();
     protected ListView listView;
     protected CountryList dataAdapter;

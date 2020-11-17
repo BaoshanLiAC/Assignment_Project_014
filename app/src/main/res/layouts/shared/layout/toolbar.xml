@@ -7,9 +7,14 @@
     android:id="@+id/shared_action_bar"
     app:navigationIcon="@drawable/ic_baseline_menu_24"
     android:elevation="4dp"
+<<<<<<< HEAD
     app:titleTextAppearance="@style/Toolbar.TitleText">
 
 
+=======
+    app:menu="@menu/shared_toolbar_menu"
+    app:titleTextAppearance="@style/Toolbar.TitleText">
+>>>>>>> d8e0c1553fa43925d70b8c3d89b278b74041bfc7
 </androidx.appcompat.widget.Toolbar>
 
 

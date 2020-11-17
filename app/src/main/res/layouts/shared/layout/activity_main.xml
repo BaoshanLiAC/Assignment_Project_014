@@ -6,18 +6,33 @@
     android:paddingRight="10dp">
 
     <Button
+<<<<<<< HEAD:app/src/main/res/layouts/shared/layout/activity_main.xml
         android:id="@+id/btn1"
+=======
+        android:id="@+id/btn_ticketmaster"
+>>>>>>> d8e0c1553fa43925d70b8c3d89b278b74041bfc7:app/src/main/res/layout/activity_main.xml
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:text="TicketMaster event search" />
+<<<<<<< HEAD:app/src/main/res/layouts/shared/layout/activity_main.xml
+=======
+
+>>>>>>> d8e0c1553fa43925d70b8c3d89b278b74041bfc7:app/src/main/res/layout/activity_main.xml
     <Button
         android:id="@+id/btn_recipe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+<<<<<<< HEAD:app/src/main/res/layouts/shared/layout/activity_main.xml
         android:layout_below="@+id/btn1"
         android:layout_centerHorizontal="true"
         android:text="Recipe Search page" />
+=======
+        android:layout_below="@+id/btn_ticketmaster"
+        android:layout_centerHorizontal="true"
+        android:text="Recipe Search page" />
+
+>>>>>>> d8e0c1553fa43925d70b8c3d89b278b74041bfc7:app/src/main/res/layout/activity_main.xml
     <Button
         android:id="@+id/btn_covid19"
         android:layout_width="match_parent"
@@ -25,8 +40,14 @@
         android:layout_below="@+id/btn_recipe"
         android:layout_centerHorizontal="true"
         android:text="Covid-19 case data" />
+<<<<<<< HEAD:app/src/main/res/layouts/shared/layout/activity_main.xml
     <Button
         android:id="@+id/btn4"
+=======
+
+    <Button
+        android:id="@+id/btn_audio"
+>>>>>>> d8e0c1553fa43925d70b8c3d89b278b74041bfc7:app/src/main/res/layout/activity_main.xml
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btn_covid19"

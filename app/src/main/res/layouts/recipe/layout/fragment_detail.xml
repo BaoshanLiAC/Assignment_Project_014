@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/fragmentLocation"
+    >
+
+    <include
+        android:id="@+id/recipe_toolbar"
+        layout="@layout/recipe_toolbar" />
+
+    <RelativeLayout
+        android:id="@+id/layout_id"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"
+        android:layout_below="@id/recipe_toolbar"
+        >
+
+        <ImageView
+            android:id="@+id/image_large"
+            android:layout_width="200dp"
+            android:layout_height="200dp"/>
+
+        <ImageButton
+            android:id="@+id/btn_like"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:background="#FFFFFF"
+            android:layout_alignBottom="@id/image_large"
+            android:layout_alignRight="@id/image_large"
+            android:src="@drawable/ic_baseline_favorite_border_24" />
+    </RelativeLayout>
+
+
+
+
+    <TextView
+        android:id="@+id/textView_title"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="This is the default title"
+        android:textStyle="bold"
+        android:textColor="#000"
+        android:textSize="25sp"
+        android:layout_margin="20dp"
+        android:layout_below="@id/layout_id" />
+
+    <LinearLayout
+        android:id="@+id/layout_id2"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_below="@id/textView_title"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp">
+
+        <ImageView
+            android:id="@+id/recipe_icon"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:background="#FFFFFF"
+            android:src="@drawable/ic_food_recipe"
+/>
+
+        <TextView
+            android:id="@+id/recipe_title"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Recipe"
+            android:textColor="#000"
+            android:textSize="18sp"
+            android:layout_below="@id/textView_title"
+            android:layout_centerInParent="true"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView_recipe"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text=" this is the recipe content"
+        android:textColor="#000"
+        android:textSize="18sp"
+        android:layout_margin="5dp"
+        android:layout_below="@id/layout_id2"
+        android:layout_centerInParent="true"/>
+
+    <LinearLayout
+        android:id="@+id/layout_id3"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_below="@id/textView_recipe"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/link"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:background="#FFFFFF"
+            android:src="@drawable/ic_link"
+            />
+        <TextView
+            android:id="@+id/textView_url"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="@string/recipe_URL"
+            android:textColor="#000"
+            android:textSize="18sp"
+            android:layout_margin="5dp"
+            android:autoLink="all|web"
+            />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,12 +1,13 @@
 package com.ac.assignment_project_014.covid19;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+
+
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+
 import java.util.ArrayList;
-import java.util.List;
+
+
 
 public class Covid19CountryData implements Serializable {
     private Long id;

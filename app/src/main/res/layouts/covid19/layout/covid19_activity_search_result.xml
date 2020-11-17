@@ -117,5 +117,9 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/covid19_nav_header"
         app:menu="@menu/covid19_drawer_menu"
+<<<<<<< HEAD
         android:id="@+id/covid_nav_view"/>
+=======
+        android:id="@+id/nav_view"/>
+>>>>>>> d8e0c1553fa43925d70b8c3d89b278b74041bfc7
     </androidx.drawerlayout.widget.DrawerLayout>

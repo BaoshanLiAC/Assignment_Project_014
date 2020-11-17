@@ -1,7 +1,5 @@
 package com.ac.assignment_project_014.covid19;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 
 import java.io.Serializable;
 

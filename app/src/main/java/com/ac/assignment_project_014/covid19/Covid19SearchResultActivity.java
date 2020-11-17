@@ -18,13 +18,20 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> d8e0c1553fa43925d70b8c3d89b278b74041bfc7
 import com.ac.assignment_project_014.R;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
+<<<<<<< HEAD
 public class Covid19SearchResultActivity extends DrawerBase {
+=======
+public class Covid19SearchResultActivity extends CovidDrawerBase {
+>>>>>>> d8e0c1553fa43925d70b8c3d89b278b74041bfc7
     protected ArrayList<Covid19ProvinceData>  dataList;
     protected Covid19CountryData result;
     protected ListView listView;
@@ -92,6 +99,7 @@ public class Covid19SearchResultActivity extends DrawerBase {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+<<<<<<< HEAD
 
         super.onCreate(savedInstanceState);
 
@@ -111,6 +119,16 @@ public class Covid19SearchResultActivity extends DrawerBase {
         //populate country name & search date & total cases
 //        TextView.class.cast(findViewById(R.id.covid_result_country)).setText(result.getCountryName());
 //        TextView.class.cast(findViewById(R.id.covid_result_description)).setText(result.toString());
+=======
+        super.onCreate(savedInstanceState);
+        //received data from query
+        result = (Covid19CountryData) getIntent().getSerializableExtra("search_result");
+        //initial list view data
+        dataList = result.getDataList();
+        //populate country name & search date & total cases
+        TextView.class.cast(findViewById(R.id.covid_result_country)).setText(result.getCountryName());
+        TextView.class.cast(findViewById(R.id.covid_result_description)).setText(result.toString());
+>>>>>>> d8e0c1553fa43925d70b8c3d89b278b74041bfc7
 
 
         //initial list view
@@ -122,7 +140,10 @@ public class Covid19SearchResultActivity extends DrawerBase {
         //initial database
         data = new Covid19DateHelper(this);
         db = data.getWritableDatabase();
+<<<<<<< HEAD
 
+=======
+>>>>>>> d8e0c1553fa43925d70b8c3d89b278b74041bfc7
         //register button event handlers.
         save = findViewById(R.id.covid_result_archive_btn);
         back = findViewById(R.id.covid_result_back_to_search_btn);

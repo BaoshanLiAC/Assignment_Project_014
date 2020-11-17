@@ -6,19 +6,12 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
+
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
-
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-
 import com.ac.assignment_project_014.R;
-import com.ac.assignment_project_014.recipe.RecipeMainActivity;
-import com.google.android.material.snackbar.Snackbar;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,17 +26,17 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 
-public class Covid19CaseDataMainActivity extends DrawerBase {
+public class Covid19CaseDataMainActivity extends CovidDrawerBase {
+
     private String url;
     private String countryName;
     private String date;
     protected Button search;
 
 
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         search = findViewById(R.id.covid_data_search_btn);
         search.setOnClickListener(e->{
             EditText name = findViewById(R.id.covid19_search_country_name);
@@ -55,8 +48,8 @@ public class Covid19CaseDataMainActivity extends DrawerBase {
             server.execute();
         });
 
-
     }
+
 
 
     public String getUrl() {

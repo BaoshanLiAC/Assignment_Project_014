@@ -6,7 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:openDrawer="start"
+<<<<<<< HEAD
 
+=======
+>>>>>>> d8e0c1553fa43925d70b8c3d89b278b74041bfc7
     tools:context="com.ac.assignment_project_014.covid19.Covid19CaseDataMainActivity"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
