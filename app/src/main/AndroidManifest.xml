@@ -43,11 +43,15 @@
             android:theme="@style/AppTheme.NoToolBar"
             tools:ignore="Instantiatable" />
 
-        <!-- COVID-19 ACTIVITIES -->
+        <!-- Audio ACTIVITIES-->
         <activity android:name=".audio.AudioIndexActivity"
             android:label="Audio Search API"
             android:theme="@style/AppTheme.NoToolBar"/>
 
+        <!-- TicketMaster ACTIVITIES -->
+        <activity android:name=".TicketMaster.TicketMasterSavedEventsActivity" />
+        <activity android:name=".TicketMaster.TicketMasterEventDetailsActivity" />
+        <activity android:name=".TicketMaster.TicketMasterMainActivity" />
 
         <activity android:name=".MainActivity">
             <intent-filter>

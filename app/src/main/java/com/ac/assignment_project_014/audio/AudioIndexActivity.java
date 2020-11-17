@@ -5,12 +5,10 @@ import android.os.Bundle;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.ac.assignment_project_014.R;
-import com.ac.assignment_project_014.recipe.RecipeDrawerBase;
 
 public class AudioIndexActivity extends AudioDrawerBase {
 
@@ -18,23 +16,21 @@ public class AudioIndexActivity extends AudioDrawerBase {
     private RadioGroup mRadioGroup;
     private SearchnewFragment searchnewFragment;
     private LocalAlbumListFragment localAlbumListFragment;
-    private  AlbumDetailFragment albumDetailFragment;
+    private AlbumDetailFragment albumDetailFragment;
     private SongDetailFragment songDetailFragment;
     private String albumId;
-    //private AlbumItem currentAlbum;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.audio_index);
         initView();
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.recipe_activity_main;
+        return R.layout.audio_index;
     }
 
     private void initView() {

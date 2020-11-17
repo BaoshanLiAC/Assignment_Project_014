@@ -85,6 +85,7 @@ public abstract class RecipeDrawerBase extends ToolBarBase implements Navigation
     protected boolean stayInSameActivity(int id){
         return getLayoutId() == id;
     }
+
     @Override
     public boolean onNavigationItemSelected(MenuItem menuItem) {
         menuItem.setChecked(true);

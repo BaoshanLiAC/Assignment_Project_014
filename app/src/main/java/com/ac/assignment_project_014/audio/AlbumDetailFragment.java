@@ -38,10 +38,10 @@ public class AlbumDetailFragment  extends Fragment {
     private TextView text_album;
     private ImageView img_album;
     private String gURL;
-    private  ArrayList<com.ac.assignment_project_014.audio.TrackItem> tlist;
+    private  ArrayList<TrackItem> tlist;
     private ListView listView;
     private Button btnStore;
-    private com.ac.assignment_project_014.audio.AudioOpener dbOpener;
+    private AudioOpener dbOpener;
     private SQLiteDatabase sqldb;
 
 
@@ -58,12 +58,12 @@ public class AlbumDetailFragment  extends Fragment {
             if(currentAlbum!=null) {
                 text_album.setText(currentAlbum.getAlbumName() + " / " + currentAlbum.getArtistName());
                 img_album = (ImageView) view.findViewById(R.id.img_album);
-                new com.ac.assignment_project_014.audio.DownloadImageHelper(img_album).execute(currentAlbum.getAlbumImgUrl());
+                new DownloadImageHelper(img_album).execute(currentAlbum.getAlbumImgUrl());
                 listView = view.findViewById(R.id.list_track);
                 btnStore=view.findViewById(R.id.btn_store);
 
                 gURL = "https://theaudiodb.com/api/v1/json/1/track.php?m=" + currentAlbum.getAlbumId();
-                tlist = new ArrayList<com.ac.assignment_project_014.audio.TrackItem>();
+                tlist = new ArrayList<TrackItem>();
                 new fetchTrack().execute();
 
                 btnStore.setOnClickListener( click -> {
@@ -113,7 +113,7 @@ public class AlbumDetailFragment  extends Fragment {
                 gURL = "https://theaudiodb.com/api/v1/json/1/track.php?m=" + currentAlbum.getAlbumId();
                 new fetchTrack().execute();
                 text_album.setText(currentAlbum.getAlbumName() + " / " + currentAlbum.getArtistName());
-                new com.ac.assignment_project_014.audio.DownloadImageHelper(img_album).execute(currentAlbum.getAlbumImgUrl());
+                new DownloadImageHelper(img_album).execute(currentAlbum.getAlbumImgUrl());
 
 
             }
@@ -123,7 +123,7 @@ public class AlbumDetailFragment  extends Fragment {
 
     private void connDataBase(){
         if(dbOpener==null) {
-            dbOpener=new com.ac.assignment_project_014.audio.AudioOpener(getActivity());
+            dbOpener=new AudioOpener(getActivity());
         }
 
         if(sqldb==null) {
@@ -138,8 +138,8 @@ public class AlbumDetailFragment  extends Fragment {
         //get a database connection:
         connDataBase();
         // We want to get all of the columns. Look at AudioOpener.java for the definitions:
-        String [] columns = {com.ac.assignment_project_014.audio.AudioOpener.COL_ALBUMID, com.ac.assignment_project_014.audio.AudioOpener.COL_ALBUMNAME,
-                com.ac.assignment_project_014.audio.AudioOpener.COL_ARTIST, com.ac.assignment_project_014.audio.AudioOpener.COL_ALBUMIMGURL, com.ac.assignment_project_014.audio.AudioOpener.COL_ALBUMSTYLE};
+        String [] columns = {AudioOpener.COL_ALBUMID, AudioOpener.COL_ALBUMNAME,
+                AudioOpener.COL_ARTIST, AudioOpener.COL_ALBUMIMGURL, AudioOpener.COL_ALBUMSTYLE};
         //query all the results from the database:
         //Cursor results = db.query(false, AudioOpener.TABLE_NAME, columns, null, null, null, null, null, null);
 
@@ -199,7 +199,7 @@ public class AlbumDetailFragment  extends Fragment {
     class TrackAdapter extends BaseAdapter {// implements Filterable
 
         private Activity activity;
-        private List<com.ac.assignment_project_014.audio.TrackItem> trackList;
+        private List<TrackItem> trackList;
         private LayoutInflater inflater;
 
         private TextView textview_track;
@@ -208,7 +208,7 @@ public class AlbumDetailFragment  extends Fragment {
 
         }
 
-        public TrackAdapter(List<com.ac.assignment_project_014.audio.TrackItem> ti) {
+        public TrackAdapter(List<TrackItem> ti) {
             // super();
             trackList=ti;
 
@@ -244,7 +244,7 @@ public class AlbumDetailFragment  extends Fragment {
         View newView = inflater.inflate(R.layout.audio_tracklistview, null);
         textview_track = (TextView) newView.findViewById(R.id.textview_track);
 
-        com.ac.assignment_project_014.audio.TrackItem item = trackList.get(position);
+        TrackItem item = trackList.get(position);
         textview_track.setText(item.getTrackName() + " / "+ item.getArtistName() + " / "+ item.getTrackGenre());
 
         return newView;
@@ -312,7 +312,7 @@ public class AlbumDetailFragment  extends Fragment {
                     String strGenre = jsonObject.getString("strGenre");
 
                     //todo:
-                    com.ac.assignment_project_014.audio.TrackItem model = new com.ac.assignment_project_014.audio.TrackItem(idAlbum,idTrack,strTrack,strArtist,strGenre);
+                    TrackItem model = new TrackItem(idAlbum,idTrack,strTrack,strArtist,strGenre);
                     tlist.add(model);
                 }
             } catch (JSONException e) {

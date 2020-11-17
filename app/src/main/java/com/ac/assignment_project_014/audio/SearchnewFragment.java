@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -35,7 +35,7 @@ public class SearchnewFragment  extends Fragment {
     private  ArrayList<AlbumItem> alist;
     private String gArtistURL;
     private ListView listView;
-    private Button btn_search;
+    private ImageButton btn_search;
     private EditText text_search;
 
     //SwipeRefreshLayout swipeRefresh;
@@ -142,7 +142,7 @@ public class SearchnewFragment  extends Fragment {
 
             AlbumItem item = albumList.get(position);
             textview_album.setText(item.getAlbumName());
-            new com.ac.assignment_project_014.audio.DownloadImageHelper(img_album).execute(item.getAlbumImgUrl());
+            new DownloadImageHelper(img_album).execute(item.getAlbumImgUrl());
 
             return newView;
 

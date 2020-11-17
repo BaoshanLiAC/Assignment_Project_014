@@ -108,7 +108,7 @@ public class LocalAlbumListFragment  extends Fragment {
         this.connDataBase();
         // We want to get all of the columns. Look at AudioOpener.java for the definitions:
         String [] columns = {AudioOpener.COL_ALBUMID, AudioOpener.COL_ALBUMNAME,
-                AudioOpener.COL_ARTIST, AudioOpener.COL_ALBUMIMGURL,AudioOpener.COL_ALBUMSTYLE};
+                AudioOpener.COL_ARTIST, AudioOpener.COL_ALBUMIMGURL, AudioOpener.COL_ALBUMSTYLE};
         //query all the results from the database:
         //Cursor results = db.query(false, AudioOpener.TABLE_NAME, columns, null, null, null, null, null, null);
         String selection="";
@@ -215,7 +215,7 @@ public class LocalAlbumListFragment  extends Fragment {
 
             AlbumItem item = albumList.get(position);
             textview_album.setText(item.getAlbumName());
-            new com.ac.assignment_project_014.audio.DownloadImageHelper(img_album).execute(item.getAlbumImgUrl());
+            new DownloadImageHelper(img_album).execute(item.getAlbumImgUrl());
 
 
             return newView;
