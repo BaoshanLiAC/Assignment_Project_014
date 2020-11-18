@@ -75,6 +75,23 @@ public class AlbumDetailFragment  extends Fragment {
             img_album = (ImageView) view.findViewById(R.id.img_album);
             listView = view.findViewById(R.id.list_track);
             btnStore=view.findViewById(R.id.btn_store);
+
+            btnStore.setOnClickListener( click -> {
+                if(currentAlbum!=null) {
+
+
+
+                    if (btnStore.getText().equals("Save")) {
+                        this.saveLocalAlbum(this.currentAlbum);
+                        btnStore.setText("Remove");
+                    } else if (btnStore.getText().equals("Remove")) {
+                        this.removeLocalAlbum(this.currentAlbum);
+                        btnStore.setText("Save");
+                    }
+                } else
+                    btnStore.setText("Please select one album.");
+            });
+
             if(currentAlbum!=null) {
                 text_album.setText(currentAlbum.getAlbumName() + " / " + currentAlbum.getArtistName());
 
@@ -83,24 +100,6 @@ public class AlbumDetailFragment  extends Fragment {
                 gURL = "https://theaudiodb.com/api/v1/json/1/track.php?m=" + currentAlbum.getAlbumId();
 
                 new fetchTrack().execute();
-
-                btnStore.setOnClickListener( click -> {
-                    if(currentAlbum!=null) {
-
-
-
-                        if (btnStore.getText().equals("Save")) {
-                            this.saveLocalAlbum(this.currentAlbum);
-                            btnStore.setText("Remove");
-                        } else if (btnStore.getText().equals("Remove")) {
-                            this.removeLocalAlbum(this.currentAlbum);
-                            btnStore.setText("Save");
-                        }
-                    } else
-                        btnStore.setText("Please select one album.");
-                });
-
-
 
                 if(this.checkSave())
                     //btnStore.setImageResource(R.drawable.ic_star);
