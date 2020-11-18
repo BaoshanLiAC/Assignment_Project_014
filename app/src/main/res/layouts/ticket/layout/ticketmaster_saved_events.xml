@@ -16,6 +16,13 @@
         android:elevation="4dp"
         app:titleTextAppearance="@style/Toolbar.TitleText"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ticketmaster_favorite_title"
+        android:textSize="30dp"
+        android:paddingBottom="20dp"/>
+
     <ListView
         android:id="@+id/savedListView"
         android:layout_width="match_parent"

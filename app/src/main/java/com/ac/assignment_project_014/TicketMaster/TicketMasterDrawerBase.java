@@ -19,9 +19,10 @@ import com.google.android.material.navigation.NavigationView;
 import static android.view.View.TEXT_ALIGNMENT_TEXT_START;
 
 /**
- *
+ *subclass of toolBarBase, to implement the toolbar and drawer function
  */
 public abstract class TicketMasterDrawerBase extends ToolBarBase implements NavigationView.OnNavigationItemSelectedListener{
+
     /**
      *
      */
@@ -88,10 +89,10 @@ public abstract class TicketMasterDrawerBase extends ToolBarBase implements Navi
     }
 
 
-
     protected boolean stayInSameActivity(int id){
         return getLayoutId() == id;
     }
+
     @Override
     public boolean onNavigationItemSelected(MenuItem menuItem) {
         menuItem.setChecked(true);
