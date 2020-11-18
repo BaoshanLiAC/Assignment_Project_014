@@ -6,21 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#B4EEB4"
-        android:id="@+id/ticketmaster_toolbar"
-        android:elevation="4dp"
-        app:titleTextAppearance="@style/Toolbar.TitleText"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/ticketmaster_details_title"
-        android:textSize="30dp"
-        android:paddingBottom="20dp"/>
-
+    <include layout="@layout/toolbar"/>
 
 
     <FrameLayout android:id="@+id/fragment_event_details"
