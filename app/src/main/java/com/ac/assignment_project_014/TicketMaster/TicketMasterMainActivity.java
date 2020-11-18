@@ -5,14 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -23,15 +21,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.ac.assignment_project_014.R;
-import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
@@ -49,46 +41,63 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class TicketMasterMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+/**
+ * Main activity of the Ticket Master Event Search api to search events by city name and radius
+ */
+public class TicketMasterMainActivity extends TicketMasterDrawerBase {
+
+    /**
+     * data holder of events
+     */
+    private List<Event> events;
+
+    /**
+     * database to save the seach result.
+     */
+    private SQLiteDatabase db;
+
+    /**
+     * the progress bar to show that the app is fetching data from server
+     */
+    private ProgressBar progressBar;
+
+    /**
+     *the listview to show the events
+     */
+    private ListView eventListView;
+
+    /**
+     * the adapter used to show events in the listview
+     */
+    private EventsAdapter eventsAdapter;
+
+    /**
+     * shared preference to store the city name that the user typed last time
+     */
+    private SharedPreferences prefsCity;
+
+    /**
+     * shared preference to store the radius that the user typed last time
+     */
+    private SharedPreferences prefsRadius;
+
+    /**
+     * to check if the device is Tablet
+     */
+    private boolean isTablet;
+
 
     private static final String SEARCH_CITY = "SEARCH_CITY";
     private static final String SEARCH_RADIUS = "SEARCH_RADIUS";
 
-    private ProgressBar progressBar;
 
-    private ListView eventListView;
-
-    private EventsAdapter eventsAdapter;
-
-    private List<Event> events;
-
-    private SharedPreferences prefsCity;
-    private SharedPreferences prefsRadius;
-
-    private boolean isTablet;
-
-    private SQLiteDatabase db;
-
-
+    /**
+     * onCreate method
+     * @param savedInstanceState saved instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ticketmaster_activity_main);
-        setTitle(getString(R.string.ticketmaster_search_title));
-
-        //toolbar
-        Toolbar toolBar = findViewById(R.id.ticketmaster_toolbar);
-        //setSupportActionBar(toolBar);
-
-        //navigation bar
-        DrawerLayout drawerLayout = findViewById(R.id.ticketmaster_drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolBar, R.string.ticketmaster_navigation_open, R.string.ticketmaster_navigation_close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = findViewById(R.id.ticketmaster_navigation_view);
-        navigationView.setItemIconTintList(null);
-        navigationView.setNavigationItemSelectedListener(this);
 
         prefsCity = getSharedPreferences("city", Context.MODE_PRIVATE);
         prefsRadius = getSharedPreferences("radius", Context.MODE_PRIVATE);
@@ -114,9 +123,9 @@ public class TicketMasterMainActivity extends AppCompatActivity implements Navig
 
         isTablet = findViewById(R.id.fragment_event_details) != null;
 
-/**
- * init data holder and adapter
- */
+        /**
+        * init data holder and adapter
+        */
         events = new ArrayList<>();
         eventsAdapter = new EventsAdapter();
         eventListView.setAdapter(eventsAdapter);
@@ -161,12 +170,15 @@ public class TicketMasterMainActivity extends AppCompatActivity implements Navig
 
         EventOpenHelper eventDB = new EventOpenHelper(this);
         db = eventDB.getWritableDatabase();
-        //loadLastSearchResult();
     }
 
+    /**
+     * search events by city name and radius
+     * @param cityName city name that user entered
+     * @param radius radius that user entered
+     */
     private void searchEvent(String cityName, String radius) {
         if (cityName.isEmpty() || radius.isEmpty()) {
-            // show alert to tell user input something
             showAlertMessageWithTitle(getString(R.string.ticketmaster_alert_title), getString(R.string.ticketmaster_alert_message));
             return;
         }
@@ -189,6 +201,10 @@ public class TicketMasterMainActivity extends AppCompatActivity implements Navig
         queryEvent.execute(String.format("https://app.ticketmaster.com/discovery/v2/events.json?apikey=7UF99kWXsCJZmFLtlXGJ11mx77gM2v1D&city=%s&radius=%s", cityName, radius));
     }
 
+    /**
+     * add event to the search result
+     * @param event event
+     */
     private void addToSearchResult(Event event) {
         ContentValues newRowValue = new ContentValues();
         newRowValue.put(Event.COL_NAME, event.getName());
@@ -202,7 +218,9 @@ public class TicketMasterMainActivity extends AppCompatActivity implements Navig
     }
 
     /**
-     * Initialize menu here
+     * Initialize menu
+     * @param menu menu
+     * @return true if succeed
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -212,57 +230,21 @@ public class TicketMasterMainActivity extends AppCompatActivity implements Navig
         return true;
     }
 
-//    /**
-//     * handle toolbar menu item click event
-//     */
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.A_toolbar:
-//                Intent goToA = new Intent(this, A.class);
-//                startActivity(goToA);
-//                break;
-//            case R.id.B_toolbar:
-//                Intent goToB = new Intent(this, B.class);
-//                startActivity(goToB);
-//                break;
-//            case R.id.C:
-//                Intent goToC = new Intent(this, C.class);
-//                startActivity(goToC);
-//                break;
-//            case R.id.ticketmaster_menu_item_about:
-//                Toast.makeText(this, "This is the Ticket Master search project using TicketMaster api, written by Xingan Wang", Toast.LENGTH_SHORT).show();
-//                break;
-//        }
-//        return true;
-//    }
 
     /**
-     * Implement interface method, to reactive with navigation items
+     * override the getLayoutId() method of the TicketMasterDrawerBase class
+     * @return layout of the ticketmaster_activity_main
      */
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.ticketmaster_help:
-                showAlertMessageWithTitle(getString(R.string.ticketmaster_help_title), getString(R.string.ticketmaster_help_infor));
-                break;
-            case R.id.ticketmaster_about:
-                String apiLink = "https://developer-acct.ticketmaster.com";
-                Intent launchBrower = new Intent(Intent.ACTION_VIEW, Uri.parse(apiLink));
-                startActivity(launchBrower);
-                break;
-            case R.id.ticketmaster_version:
-                showAlertMessageWithTitle("Version", "1.0");
-                break;
-        }
-
-        DrawerLayout drawerLayout = findViewById(R.id.ticketmaster_drawer_layout);
-        drawerLayout.closeDrawer(GravityCompat.START);
-
-        return false;
+    protected int getLayoutId() {
+        return R.layout.ticketmaster_activity_main;
     }
 
+    /**
+     * method to show alert message
+     * @param title title of the alert message
+     * @param message alert message
+     */
     private void showAlertMessageWithTitle(String title, String message) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setTitle(title);
@@ -273,9 +255,16 @@ public class TicketMasterMainActivity extends AppCompatActivity implements Navig
         alertDialogBuilder.create().show();
     }
 
-
+    /**
+     * subclass of AsyncTask to query events
+     */
     private class QueryEvent extends AsyncTask<String, Integer, List<Event>> {
 
+        /**
+         * fetch data in the backgroud thread
+         * @param strings url
+         * @return the search result as an event list
+         */
         @Override
         protected List<Event> doInBackground(String... strings) {
             List<Event> eventList = new ArrayList<>();
@@ -332,11 +321,16 @@ public class TicketMasterMainActivity extends AppCompatActivity implements Navig
             return eventList;
         }
 
+
         @Override
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
         }
 
+        /**
+         * this method is called after the doInBcakground method
+         * @param eventList search result
+         */
         @Override
         protected void onPostExecute(List<Event> eventList) {
             super.onPostExecute(eventList);
@@ -355,23 +349,47 @@ public class TicketMasterMainActivity extends AppCompatActivity implements Navig
     }
 
 
+    /**
+     * event adapter used by list view for event display
+     */
     class EventsAdapter extends BaseAdapter {
 
+        /**
+         * getter of the size of the events
+         * @return size of the events
+         */
         @Override
         public int getCount() {
             return events.size();
         }
 
+        /**
+         * getter for event instance
+         * @param position index in event list
+         * @return the event instance with the index passed
+         */
         @Override
         public Event getItem(int position) {
             return events.get(position);
         }
 
+        /**
+         * getter for database id
+         * @param position the index in event list
+         * @return the database id
+         */
         @Override
         public long getItemId(int position) {
             return position;
         }
 
+        /**
+         * getter for view
+         * @param position index
+         * @param convertView view
+         * @param parent parent view
+         * @return the view
+         */
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null) {

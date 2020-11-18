@@ -27,6 +27,10 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/**
+ * A simple {@link Fragment} subclass
+ * creat an instance of this fragment
+ */
 public class EventDetailFragment extends Fragment {
 
     public static final String KEY_IS_TABLET = "IS_TABLET";
@@ -39,6 +43,9 @@ public class EventDetailFragment extends Fragment {
     public static final String KEY_EVENT_URL = "EVENT_URL";
     public static final String KEY_EVENT_IMAGE = "EVENT_IMAGE";
 
+    /**
+     *
+     */
     private boolean isTablet;
     private boolean isFav;
     private long id;
@@ -54,8 +61,10 @@ public class EventDetailFragment extends Fragment {
 
     private AppCompatActivity parentActivity;
 
+    /**
+     * Required empty public constructor
+     */
     public EventDetailFragment() {
-        // Required empty public constructor
     }
 
     /**
@@ -95,7 +104,6 @@ public class EventDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.ticketmaster_fragment_event_details, container, false);
 
         progressBar = view.findViewById(R.id.processBar);
@@ -205,9 +213,21 @@ public class EventDetailFragment extends Fragment {
         snackbar.show();
     }
 
-
+    /**
+     * a class used to get image from the server
+     */
     class GetImage extends AsyncTask<String, Integer, String> {
+
+        /**
+         * the image that will get from the server
+         */
         private Bitmap image = null;
+
+        /**
+         * get image form the server in background
+         * @param strings url
+         * @return "done" if succeed
+         */
         @Override
         protected String doInBackground(String... strings) {
             try {
