@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,7 +27,7 @@ import java.util.List;
 public class LocalAlbumListFragment  extends Fragment {
 
 
-    private AudioAdapter Adapter = null;
+    private SearchnewFragment.AudioAdapter Adapter = null;
 
 
     private ArrayList<AlbumItem> beanArrayList = new ArrayList<>();
@@ -39,7 +40,7 @@ public class LocalAlbumListFragment  extends Fragment {
     private SQLiteDatabase sqldb;
     private EditText text_search;
     private ListView listView;
-    private Button btn_search;
+    private ImageButton btn_search;
     private String gCondition="";
 
     @Override
@@ -115,7 +116,8 @@ public class LocalAlbumListFragment  extends Fragment {
         Cursor results;
         if(!condition.equals("")&&condition!=null){
             results = sqldb.query("ALBUM_TABLE", new String[]{"_albumid,albumName,artist,imgURL,Style"},
-                    "artist = ? or albumName=?", new String[]{text_search.getText().toString(), text_search.getText().toString()}, null, null, null, null);
+                    "albumName like ?", new String[]{"%"+text_search.getText().toString()+"%"},
+                    null, null, null, null);
         } else {
             results = sqldb.query("ALBUM_TABLE", new String[]{"_albumid,albumName,artist,imgURL,Style"},
                     null, null, null, null, null, null);
@@ -136,6 +138,7 @@ public class LocalAlbumListFragment  extends Fragment {
         int urlIndex = results.getColumnIndex(AudioOpener.COL_ALBUMIMGURL);
         int styleIndex = results.getColumnIndex(AudioOpener.COL_ALBUMSTYLE);
 
+        if(this.alist!=null)
         this.alist.clear();
         //iterate over the results, return true if there is a next item:
         while(results.moveToNext())

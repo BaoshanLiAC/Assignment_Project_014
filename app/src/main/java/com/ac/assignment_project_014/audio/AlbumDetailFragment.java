@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.ac.assignment_project_014.R;
+import com.ac.assignment_project_014.recipe.RecipeMainActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,25 +51,43 @@ public class AlbumDetailFragment  extends Fragment {
         this.currentAlbum = item;
     }
 
+    public ArrayList<TrackItem> getTlist(){
+        if(this.tlist==null)
+            tlist = new ArrayList<TrackItem>();
+
+        return this.tlist;
+    }
+
+  /*  private ListView getListView(){
+        if(listView==null) {
+            View view=inflater.inflate(R.layout.audio_fragment_album_detail,container,false);
+            listView = view.findViewById(R.id.list_track);
+        }
+
+    }*/
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View view=inflater.inflate(R.layout.audio_fragment_album_detail,container,false);
 
         //if(this.currentAlbum!=null){
             text_album=view.findViewById(R.id.text_album);
+            img_album = (ImageView) view.findViewById(R.id.img_album);
+            listView = view.findViewById(R.id.list_track);
+            btnStore=view.findViewById(R.id.btn_store);
             if(currentAlbum!=null) {
                 text_album.setText(currentAlbum.getAlbumName() + " / " + currentAlbum.getArtistName());
-                img_album = (ImageView) view.findViewById(R.id.img_album);
+
                 new DownloadImageHelper(img_album).execute(currentAlbum.getAlbumImgUrl());
-                listView = view.findViewById(R.id.list_track);
-                btnStore=view.findViewById(R.id.btn_store);
 
                 gURL = "https://theaudiodb.com/api/v1/json/1/track.php?m=" + currentAlbum.getAlbumId();
-                tlist = new ArrayList<TrackItem>();
+
                 new fetchTrack().execute();
 
                 btnStore.setOnClickListener( click -> {
                     if(currentAlbum!=null) {
+
+
 
                         if (btnStore.getText().equals("Save")) {
                             this.saveLocalAlbum(this.currentAlbum);
@@ -82,10 +102,12 @@ public class AlbumDetailFragment  extends Fragment {
 
 
 
-             /*   if(this.checkSave())
+                if(this.checkSave())
+                    //btnStore.setImageResource(R.drawable.ic_star);
                     btnStore.setText("Remove");
                 else
-                    btnStore.setText("Save");*/
+                    //btnStore.setImageResource(R.drawable.ic_star_line);
+                    btnStore.setText("Save");
             }
    // }
 
@@ -260,13 +282,15 @@ public class AlbumDetailFragment  extends Fragment {
         @Override
         public void onPreExecute() {
             super.onPreExecute();
+
         }
 
         @Override
         protected String doInBackground(String... params) {
             String result = null;
             if(gURL!=null ) {
-                tlist.clear();
+
+                getTlist().clear();
 
                 try {
                     URL url = new URL(gURL);
@@ -313,19 +337,19 @@ public class AlbumDetailFragment  extends Fragment {
 
                     //todo:
                     TrackItem model = new TrackItem(idAlbum,idTrack,strTrack,strArtist,strGenre);
-                    tlist.add(model);
+                    getTlist().add(model);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            TrackAdapter trackAdapter = new TrackAdapter(tlist);
+            TrackAdapter trackAdapter = new TrackAdapter(getTlist());
             listView.setAdapter(trackAdapter);
 
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                    ((AudioIndexActivity)getActivity()).showGoogleFragment(tlist.get(position));
+                    ((AudioIndexActivity)getActivity()).showGoogleFragment(getTlist().get(position));
 
                 }
             });
