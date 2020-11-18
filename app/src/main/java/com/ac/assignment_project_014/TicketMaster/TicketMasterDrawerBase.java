@@ -88,7 +88,6 @@ public abstract class TicketMasterDrawerBase extends ToolBarBase implements Navi
 
     }
 
-
     protected boolean stayInSameActivity(int id){
         return getLayoutId() == id;
     }
