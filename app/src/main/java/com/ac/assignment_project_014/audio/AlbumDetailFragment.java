@@ -34,6 +34,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * this class shows the details of an Album
+ */
 public class AlbumDetailFragment  extends Fragment {
     private String albumId;
     private AlbumItem currentAlbum;
@@ -46,7 +49,9 @@ public class AlbumDetailFragment  extends Fragment {
     private AudioOpener dbOpener;
     private SQLiteDatabase sqldb;
 
-
+    /**
+     * To get the current Album
+     */
     public void setCurrentAlbum(AlbumItem item) {
         this.currentAlbum = item;
     }
@@ -58,13 +63,7 @@ public class AlbumDetailFragment  extends Fragment {
         return this.tlist;
     }
 
-  /*  private ListView getListView(){
-        if(listView==null) {
-            View view=inflater.inflate(R.layout.audio_fragment_album_detail,container,false);
-            listView = view.findViewById(R.id.list_track);
-        }
 
-    }*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){

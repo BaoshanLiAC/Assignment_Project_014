@@ -24,6 +24,10 @@ public abstract class RecipeDrawerBase extends ToolBarBase implements Navigation
     protected ActionBarDrawerToggle drawerToggle;
     protected NavigationView navigationView;
 
+    /**
+     * Called when initializing the Drawer, and set the response to the button on the drawer
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         setContentView(getLayoutId());
@@ -43,9 +47,7 @@ public abstract class RecipeDrawerBase extends ToolBarBase implements Navigation
             final View view =this.getLayoutInflater().inflate(R.layout.actionbar_dialog,null);
             TextView text = view.findViewById(R.id.action_dialog_text);
             switch (menuItem.getItemId()){
-                /*case R.id.recipe_favourite_list:
-                    startActivity(new Intent(this, RecipeMainActivity.class));
-                    break;*/
+
                 case R.id.recipe_goto_search:
                     startActivity(new Intent(this, SearchHistoryActivity.class));
                     break;
@@ -86,6 +88,10 @@ public abstract class RecipeDrawerBase extends ToolBarBase implements Navigation
         return getLayoutId() == id;
     }
 
+    /**
+     * set the response to the button on the drawer
+     * @param menuItem
+     */
     @Override
     public boolean onNavigationItemSelected(MenuItem menuItem) {
         menuItem.setChecked(true);
@@ -94,9 +100,6 @@ public abstract class RecipeDrawerBase extends ToolBarBase implements Navigation
         final View view =this.getLayoutInflater().inflate(R.layout.actionbar_dialog,null);
         TextView text = view.findViewById(R.id.action_dialog_text);
         switch (menuItem.getItemId()){
-/*            case R.id.recipe_favourite_list:
-                startActivity(new Intent(this, RecipeMainActivity.class));
-                break;*/
             case R.id.recipe_goto_search:
                 startActivity(new Intent(this, SearchHistoryActivity.class));
                 break;

@@ -16,14 +16,16 @@ import com.ac.assignment_project_014.R;
 import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
+
+
 public class RecipeContentActivity extends AppCompatActivity {
-    String title;// = fromRecipeMain.getStringExtra("title");
-    String thumbnail;// = fromRecipeMain.getStringExtra("thumbnail");
-    String ingredients;// = fromRecipeMain.getStringExtra("ingredients");
-    String href;// = fromRecipeMain.getStringExtra("href");
-    String like;// = fromRecipeMain.getStringExtra("like");
+    String title;
+    String thumbnail;
+    String ingredients;
+    String href;
+    String like;
     SQLiteDatabase db;
-    DBOpener dbOpener;// = new DBOpener(this);
+    DBOpener dbOpener;
     Intent fromRecipeMain;
     ImageButton imageButton_like;
     @Override

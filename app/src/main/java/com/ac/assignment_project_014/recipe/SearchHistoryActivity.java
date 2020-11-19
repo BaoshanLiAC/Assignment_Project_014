@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -37,10 +38,6 @@ public class SearchHistoryActivity extends AppCompatActivity {
     public static final String SHARED_PREFS = "shared Prefs";
     public static final String SEARCH_HISTORY = "search_History";
 
-   // @Override
-   // protected int getLayoutId() {
-    //    return R.layout.recipe_activity_search_history;
-   // }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,16 +52,15 @@ public class SearchHistoryActivity extends AppCompatActivity {
 
         listView.setOnItemClickListener((parent, view, pos, id)->{
             searchView.setQuery(searchHistorylist.get(pos),true);
-
-
         });
 
         searchView = (SearchView)findViewById(R.id.search_bar);
-        //searchView.setIconified(false);
         searchView.onActionViewExpanded();
+        /* Used to accept user input */
+        EditText searchText = findViewById(R.id.edit_text);
+        searchText.getText();
 
         searchView.setQueryHint("Search Here");
-        //searchView.setSubmitButtonEnabled(true);
         Intent goToSearchResult  = new Intent(getBaseContext(), RecipeMainActivity.class);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             ArrayList<String> temp = new ArrayList<String>(searchHistorylist);
