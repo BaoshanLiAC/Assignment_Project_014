@@ -24,8 +24,7 @@
     <style name="covid19_Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">18sp</item>
     </style>
-<<<<<<< HEAD
-=======
+
 
 
 
@@ -40,6 +39,6 @@
         <item name="android:textColor">#cdcdcd</item>
         <item name="android:textSize">15sp</item>
     </style>
->>>>>>> d8e0c1553fa43925d70b8c3d89b278b74041bfc7
+
 
 </resources>

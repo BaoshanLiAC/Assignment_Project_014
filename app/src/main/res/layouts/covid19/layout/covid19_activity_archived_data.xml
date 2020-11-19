@@ -4,7 +4,7 @@
     tools:context=".covid19.Covid19ArchivedActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:openDrawer="start"
+    tools:openDrawer="end"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
@@ -38,7 +38,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
+        <Button
+            android:id="@+id/covid_archived_country_btn"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:text="@string/covid_country_header"
@@ -46,7 +47,8 @@
             android:background="#2F45BF"
             android:textAlignment="center"
             />
-        <TextView
+        <Button
+            android:id="@+id/covid_archived_confirmed_btn"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:text="@string/covid_total_header"
@@ -54,7 +56,8 @@
             android:background="#2F45BF"
             android:textAlignment="center"
             />
-        <TextView
+        <Button
+            android:id="@+id/covid_archived_daily_btn"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:text="@string/covid_country_change_header"
@@ -62,7 +65,8 @@
             android:background="#2F45BF"
             android:textAlignment="center"
             />
-        <TextView
+        <Button
+            android:id="@+id/covid_archived_date_btn"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:text="@string/covid_date_header"
@@ -89,9 +93,6 @@
         app:headerLayout="@layout/covid19_nav_header"
         android:fitsSystemWindows="true"
         app:menu="@menu/covid19_drawer_menu"
-<<<<<<< HEAD
         android:id="@+id/covid_nav_view"/>
-=======
-        android:id="@+id/nav_view"/>
->>>>>>> d8e0c1553fa43925d70b8c3d89b278b74041bfc7
+
 </androidx.drawerlayout.widget.DrawerLayout>

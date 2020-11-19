@@ -1,83 +1,3 @@
-<<<<<<< HEAD
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:orientation="vertical"
-    style="?android:attr/buttonBarStyle">
-
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
-
-
-    <LinearLayout
-        android:id="@+id/head_layout"
-        android:layout_width="match_parent"
-        android:layout_height="105dp"
-        android:background="#F2F2F2"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="#F2F2F2"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/search_icon"
-                android:layout_width="28dp"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:background="#FFFFFF"
-                android:src="@drawable/ic_search_black"/>
-
-            <TextView
-                android:id="@+id/searchView"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_centerVertical="true"
-                android:text="@string/search_hint"
-                android:background="#FFFFFF"
-                android:gravity="center_vertical|left"
-                android:layout_toRightOf="@+id/search_icon"
-                android:textSize="18sp" />
-        </RelativeLayout>
-
-
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal"
-            >
-
-            <Button
-                android:id="@+id/myFavourite"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:layout_weight="50"
-                android:text="@string/my_favourite"
-                android:textAlignment="center"
-                tools:ignore="ContentDescription"
-                android:textColor="#000000"
-                style="?android:attr/buttonBarButtonStyle"/>
-
-            <Button
-                android:id="@+id/searchResult"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_weight="50"
-                android:text="Search Result"
-                android:textAlignment="center"
-                android:textColor="#000000"
-                style="?android:attr/buttonBarButtonStyle"/>
-        </LinearLayout>
-
-        <ProgressBar
-=======
 <androidx.drawerlayout.widget.DrawerLayout
     android:id="@+id/Recipe_drawer_layout"
     tools:context=".recipe.RecipeMainActivity"
@@ -159,7 +79,6 @@
             </LinearLayout>
 
             <ProgressBar
->>>>>>> d8e0c1553fa43925d70b8c3d89b278b74041bfc7
                 android:id="@+id/progress_bar"
                 style="@android:style/Widget.Holo.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
@@ -170,14 +89,6 @@
         </LinearLayout>
 
 
-<<<<<<< HEAD
-    <ListView
-        android:id="@+id/recipe_listView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#000"/>
-</LinearLayout>
-=======
         <ListView
             android:id="@+id/recipe_listView"
             android:layout_width="match_parent"
@@ -196,4 +107,3 @@
         android:id="@+id/recipe_nav_view"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>
->>>>>>> d8e0c1553fa43925d70b8c3d89b278b74041bfc7

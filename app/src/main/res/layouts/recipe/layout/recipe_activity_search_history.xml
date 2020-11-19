@@ -1,48 +1,3 @@
-<<<<<<< HEAD
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".MainActivity"
-    android:orientation="vertical">
-
-    <Toolbar
-        android:id="@+id/main_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        app:contentInsetStart="0dp"
-        android:layout_gravity="center">
-        <ImageView
-            android:id="@+id/back_icon"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_baseline_arrow_back_ios_24"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:gravity="center_vertical|left"
-            android:layout_toRightOf="@+id/search_icon"
-            android:text="RecipeSearch_Chunyan Ren_V1.0"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp" />
-    </Toolbar>
-
-    <SearchView
-        android:id="@+id/search_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:actionViewClass="android.support.v7.widget.SearchView"
-        app:showAsAction="ifRoom" />
-
-
-    <ListView
-=======
 <androidx.drawerlayout.widget.DrawerLayout
     android:id="@+id/Recipe_drawer_layout"
     tools:context=".recipe.RecipeMainActivity"
@@ -77,17 +32,11 @@
             app:showAsAction="ifRoom" />
 
         <ListView
->>>>>>> d8e0c1553fa43925d70b8c3d89b278b74041bfc7
-        android:id="@+id/recipe_listView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/search_bar"/>
-<<<<<<< HEAD
-
-</LinearLayout>
-=======
+            android:id="@+id/recipe_listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/search_bar"/>
     </LinearLayout>
 
 
 </androidx.drawerlayout.widget.DrawerLayout>
->>>>>>> d8e0c1553fa43925d70b8c3d89b278b74041bfc7
