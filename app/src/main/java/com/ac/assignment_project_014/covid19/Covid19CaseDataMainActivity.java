@@ -1,22 +1,31 @@
 package com.ac.assignment_project_014.covid19;
 
 
+
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+
+import android.service.autofill.RegexValidator;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
-
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 
 import com.ac.assignment_project_014.R;
+import com.ac.assignment_project_014.recipe.RecipeMainActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -26,31 +35,61 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.regex.Pattern;
 
-
+/**
+ * Main Activity for COVID-19 CASE DATA: entry of sub project.
+ * user enter country name and date(yyyy-mm-dd) to get CASE DATA in a specific day.
+ * sharePreference stores country name and date of last search entry.
+ *
+ */
 public class Covid19CaseDataMainActivity extends CovidDrawerBase {
-    private String url;
-    private String countryName;
-    private String date;
-    protected Button search;
+    /**SharedPreference data KEY***/
+    protected static final String COVID_PREFERENCES = "Cov_Prefs" ;
+    /**SharedPreference data EDITOR***/
+    protected SharedPreferences.Editor editor;
 
-    @Override
+    /***Fields***/
+    private String url;
+    //Default value
+    private String countryName = "CANADA";
+    //Default value
+    private String date = "2020-10-10";
+    private Button search;
+    private SharedPreferences sharedpreferences;
+
+   // @RequiresApi(api = Build.VERSION_CODES.O_MR1)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //initial class fields
+        sharedpreferences = getSharedPreferences(COVID_PREFERENCES, Context.MODE_PRIVATE);
         search = findViewById(R.id.covid_data_search_btn);
         search.setOnClickListener(e->{
             EditText name = findViewById(R.id.covid19_search_country_name);
             setCountryName(name.getText().toString());
             EditText date = findViewById(R.id.covid19_search_date);
-            setDate(date.getText().toString());
-            setUrl("https://api.covid19api.com/country/{0}/status/confirmed/live?from={1}T00:00:00Z&to={2}T00:00:00Z");
-            Covid19Server server = new Covid19Server();
-            server.execute();
+            Pattern DATE_PATTERN = Pattern.compile("^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$");
+                    //input validation.
+                    if(DATE_PATTERN.matcher(date.getText().toString()).matches()){
+                        setDate(date.getText().toString());
+                        setUrl("https://api.covid19api.com/country/{0}/status/confirmed/live?from={1}T00:00:00Z&to={2}T00:00:00Z");
+                        Covid19Server server = new Covid19Server();
+                        server.execute();
+                    }
+                    else{
+                        androidx.appcompat.app.AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                        builder.setTitle("Error")
+                                .setMessage("Please enter date in correct format: (YYYY-MM-DD)")
+                                .setPositiveButton("OK", (click, arg) -> {date.setText("");})
+                                .create().show();
+                    }
         });
 
     }
 
+
+    /*******************getters and setters****************************/
 
 
     public String getUrl() {
@@ -61,25 +100,21 @@ public class Covid19CaseDataMainActivity extends CovidDrawerBase {
         this.url = url.replace("{0}", getCountryName()).replace("{1}", getDate()).replace("{2}",getNextDate());
     }
 
-    public String getCountryName() {
-        if(this.countryName == null || this.countryName.isEmpty()){return "CANADA";}
-        else {return countryName.toUpperCase();}
-    }
+    public String getCountryName() {return this.countryName; }
 
-    public void setCountryName(String countryName) {
-        if(countryName == null || countryName.isEmpty()){this.countryName = "CANADA";}
-        this.countryName = countryName;
-    }
+    public void setCountryName(String countryName) {this.countryName = countryName;}
 
-    public String getDate() {
-        if(date == null || date.isEmpty()) {return "2020-10-10";}
-        else{ return date;}
-    }
+    public String getDate() { return date;}
 
     public void setDate(String date) {
         if(date == null || date.isEmpty()) this.date = "2020-10-10";
         else this.date = date;
     }
+
+    /**
+     * 
+     * @return date for next day of input
+     */
     private String getNextDate(){
         String result="";
         try {
@@ -124,6 +159,10 @@ public class Covid19CaseDataMainActivity extends CovidDrawerBase {
         return false;
     }
 
+    /**
+     * 
+     * @return get ID for super class
+     */
     @Override
     protected int getLayoutId() {
         return R.layout.covid19_activity_main;
@@ -182,13 +221,12 @@ public class Covid19CaseDataMainActivity extends CovidDrawerBase {
         @Override
         protected void onPostExecute(JSONArray jsonObject)
         {
-            ArrayList<Covid19ProvinceData> listdata = new ArrayList<>();
+            ArrayList<Covid19ProvinceData> dataList = new ArrayList<>();
             ArrayList<String> names = new ArrayList<>();
             ArrayList<Integer> cases = new ArrayList<>();
             if (jsonObject != null) {
                 try {
                 for (int i=0;i<jsonObject.length();i++){
-
                     JSONObject obj = jsonObject.getJSONObject(i);
                     String pro = obj.getString("Province");
                     int caseNumber = obj.getInt("Cases");
@@ -200,14 +238,12 @@ public class Covid19CaseDataMainActivity extends CovidDrawerBase {
                         int oldNumber = cases.get(index);
                         int change = caseNumber - oldNumber;
                         Covid19ProvinceData item = new Covid19ProvinceData(pro,caseNumber,change);
-                        listdata.add(item);
+                        dataList.add(item);
                     }
                     else{
                         names.add(pro);
                         cases.add(caseNumber);
                     }
-
-
                 }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -217,10 +253,17 @@ public class Covid19CaseDataMainActivity extends CovidDrawerBase {
             // dismiss the progress dialog after receiving data from API
             dialog.dismiss();
             Covid19CountryData data = new Covid19CountryData(getCountryName(), getDate());
-            data.setDataList(listdata);
+            data.setDataList(dataList);
+            //intent to show search result in another activity
             Intent showResult = new Intent(Covid19CaseDataMainActivity.this, Covid19SearchResultActivity.class);
             showResult.putExtra("search_result", data);
             startActivity(showResult);
+
+            editor = sharedpreferences.edit();
+            editor.putString("country",getCountryName());
+            editor.putString("date", getDate());
+            editor.commit();
+
         }
     }
 }

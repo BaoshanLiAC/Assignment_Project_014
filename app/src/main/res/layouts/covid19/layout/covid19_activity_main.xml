@@ -11,99 +11,99 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-<LinearLayout
-
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#091450"
-    >
-
-
-    <include layout="@layout/toolbar"/>
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/api_covid_19"
-        android:importantForAutofill="auto"
-        android:contentDescription="@string/covid19_content_description"/>
-
     <LinearLayout
-       android:layout_marginTop="80dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_gravity="center"
-        android:padding="10dp"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content">
+        android:background="#091450"
+        >
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:textColor="#FFC107"
-        android:text="@string/covid_Country_txt"/>
-    <EditText
-        android:id="@+id/covid19_search_country_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:textColor="#4FE6FA"
-        android:textColorHint="#ffffff"
-        android:backgroundTint="#4FE6FA"
-        android:hint="@string/covid_search_country_hint"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:textColor="#FFC107"
-        android:text="@string/covid_Date_txt"/>
-    <EditText
-        android:id="@+id/covid19_search_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="date"
-        android:textColor="#4FE6FA"
-        android:textColorHint="#ffffff"
-        android:backgroundTint="#4FE6FA"
-        android:hint="@string/covid_search_date_hint"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginBottom="20dp"
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:padding="20dp">
-
-        <Button
-            android:id="@+id/covid_data_search_btn"
-            android:layout_width="160dp"
+        <include layout="@layout/toolbar"/>
+        <ImageView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/covid_button_bg"
-            android:text="@string/covid_search_btn"
-            android:textColor="#ffffff" />
+            android:src="@mipmap/api_covid_19"
+            android:importantForAutofill="auto"
+            android:contentDescription="@string/covid19_content_description"/>
+
+        <LinearLayout
+            android:layout_marginTop="80dp"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="#FFC107"
+                android:text="@string/covid_Country_txt"/>
+            <EditText
+                android:id="@+id/covid19_search_country_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:textColor="#4FE6FA"
+                android:textColorHint="#ffffff"
+                android:backgroundTint="#4FE6FA"
+                android:hint="@string/covid_search_country_hint"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="#FFC107"
+                android:text="@string/covid_Date_txt"/>
+            <EditText
+                android:id="@+id/covid19_search_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:textColor="#4FE6FA"
+                android:textColorHint="#ffffff"
+                android:backgroundTint="#4FE6FA"
+                android:hint="@string/covid_search_date_hint"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginBottom="20dp"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:padding="20dp">
+
+            <Button
+                android:id="@+id/covid_data_search_btn"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/covid_button_bg"
+                android:text="@string/covid_search_btn"
+                android:textColor="#ffffff" />
+
+
+
+        </LinearLayout>
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
 
 
     </LinearLayout>
-    <androidx.core.widget.ContentLoadingProgressBar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
 
-
-
-</LinearLayout>
-
-<com.google.android.material.navigation.NavigationView
-android:layout_height="match_parent"
-android:layout_width="wrap_content"
-android:layout_gravity="start"
-android:fitsSystemWindows="true"
-    app:headerLayout="@layout/covid19_nav_header"
-app:menu="@menu/covid19_drawer_menu"
-android:id="@+id/covid_nav_view"/>
+    <com.google.android.material.navigation.NavigationView
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/covid19_nav_header"
+        app:menu="@menu/covid19_drawer_menu"
+        android:id="@+id/covid_nav_view"/>
 </androidx.drawerlayout.widget.DrawerLayout>

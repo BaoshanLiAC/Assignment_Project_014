@@ -55,29 +55,28 @@
 
 
     <!--    COVID STRING  -->
-    <string name="covid_search_btn">Query Data</string>
-    <string name="covid_show_archived_btn">Archived</string>
-    <string name="covid_Country_txt">COUNTRY:</string>
-    <string name="covid_Date_txt">DATE:</string>
-    <string name="covid_search_country_hint">Canada</string>
-    <string name="covid_search_date_hint">yyyy-mm-dd</string>
-    <string name="covid_search_result_Country_placeHolder">COUNTRY</string>
-    <string name="covid_search_result_Date_placeHolder">dd/mm/yyyy</string>
-    <string name="covid_result_archive_text">SAVE</string>
-    <string name="covid_result_back_to_search_text">BACK</string>
-    <string name="vovid_result_title">Search Result:</string>
-    <string name="covid_province_header">Province</string>
-    <string name="covid_case_header">Confirmed</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="covid_search_btn">查詢</string>
+    <string name="covid_show_archived_btn">顯示存檔</string>
+    <string name="covid_Country_txt">國家</string>
+    <string name="covid_Date_txt">日期</string>
+    <string name="covid_search_country_hint">請輸入國家名</string>
+    <string name="covid_search_date_hint">年-月-日</string>
+    <string name="covid_search_result_Country_placeHolder">國家</string>
+    <string name="covid_search_result_Date_placeHolder">年-月-日</string>
+    <string name="covid_result_archive_text">存檔</string>
+    <string name="covid_result_back_to_search_text">返回</string>
+    <string name="vovid_result_title">查詢結果</string>
+    <string name="covid_province_header">地區</string>
+    <string name="covid_case_header">確診數</string>
     <string name="covid19_content_description">COVID 19 API</string>
-    <string name="covid_change_header">Daily Increase</string>
-    <string name="covid_archived_data_title">Archived Records</string>
-    <string name="covid_country_header">Country</string>
-    <string name="covid_total_header">Confirmed</string>
-    <string name="covid_country_change_header">Daily</string>
-    <string name="covid_date_header">Date</string>
-    <string name="covid_archived_data_description">Click to see detail and Long click to delete item.</string>
-    <string name="recipe_title">Title</string>
+    <string name="covid_change_header">日增人數</string>
+    <string name="covid_archived_data_title">已存檔數據</string>
+    <string name="covid_country_header">國家</string>
+    <string name="covid_total_header">縂確診</string>
+    <string name="covid_country_change_header">縂日增人數</string>
+    <string name="covid_date_header">日期</string>
+    <string name="covid_archived_data_description">點擊子項查看詳情，或者長按刪除</string>
+
 
 
     <!-- Audio STRING-->
