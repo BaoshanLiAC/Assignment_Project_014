@@ -10,47 +10,46 @@
         android:focusableInTouchMode="true"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-
         android:orientation="horizontal">
 
-        <RelativeLayout
-            android:id="@+id/layout_id"
-            android:layout_height="150dp"
-            android:layout_width="150dp"
-            android:gravity="center"
-            android:layout_marginBottom="20dp">
 
         <ImageView
             android:id="@+id/img_album"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="match_parent" />
 
-        <ImageButton
-                android:id="@+id/btn_like"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:background="#FFFFFF"
-                android:layout_alignBottom="@id/img_album"
-                android:layout_alignEnd="@id/img_album"
-                android:src="@drawable/ic_star_line" />
-        </RelativeLayout>
 
+        <LinearLayout
+            android:id="@+id/layout_id2"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:orientation="vertical">
         <TextView
             android:id="@+id/text_album"
             android:layout_width="match_parent"
-            android:layout_height="150dp">
-        </TextView>
+            android:layout_height="match_parent"
+            android:layout_weight="40"/>
+
+        <Button
+            android:text="Save/Remove"
+            android:id="@+id/btn_store"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/text_album"
+            android:layout_weight="40"
+            />
+        </LinearLayout>
 
     </LinearLayout>
 
-    <ImageButton
+   <!-- <ImageButton
         android:text="@string/save_remove"
         android:id="@+id/btn_store"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="20"
         android:src="@drawable/ic_star_line">
-    </ImageButton>
+    </ImageButton>-->
 
     <ProgressBar
         android:id="@+id/progress_bar1"

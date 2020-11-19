@@ -46,7 +46,19 @@ import java.util.List;
 
 import static androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.LEFT;
 
-//
+/**
+ * @author Chunyan Ren
+ * @version 1.0
+ * This class is the entrance and Main Activity of recipe Activity. It extends from
+ * a base class RecipeDrawerBase, which includes a toolbar and drawer for this main activity.
+ *<p>
+ * In the recipe Activity, it contains a list to display the recipe retrieved from the url request
+ * or database search. Two button take the responsibility to switch between the search result and
+ * favourite list. a search navigation lead to a search page.
+ *
+ *
+ *
+ */
 
 public class RecipeMainActivity extends RecipeDrawerBase {
 
@@ -69,12 +81,18 @@ public class RecipeMainActivity extends RecipeDrawerBase {
 
     public static final String SHARED_PREFS = "shared Prefs";
     public static final String SEARCH_HISTORY = "search_History";
-
     Button btn_myFavourite;
     Button btn_search;
     DrawerLayout drawer;
 
 
+    /**
+     * Called when the main activity of recipe is first created, including initialization.
+     * this page will also have different apperences
+     * <p>
+     * @param savedInstanceState the State of current activity is saved in this parameter
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -152,12 +170,29 @@ public class RecipeMainActivity extends RecipeDrawerBase {
         });
     }
 
+    /**
+     * Return the specified layout ID as the current loaded layout ID
+     * <p>
+     * @return the int number of layout ID
+     *
+     */
     @Override
     protected int getLayoutId() {
         return R.layout.recipe_activity_main;
     }
 
 
+    /**
+     * Called when came back from another activity
+     * <p>
+     * <li> IF go back from the search page with a specified search key words
+     * \n then will load the result from the searched url.
+     * <li>IF go back from the search page without a specified search key words
+     * \n will load the historical search result
+     * <li>IF the previously page was my favourite list, then go back and
+     * \n reload the favourite list
+     *
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -176,7 +211,10 @@ public class RecipeMainActivity extends RecipeDrawerBase {
     }
 
 
-    //load data into ArrayList favouritelist
+    /**
+     * load data into ArrayList favourite list, and displayed on the page
+     *
+     */
     public void loadFavouriteRecipeformDB() {
         favouritelist.clear();
         db = dbOpener.getWritableDatabase(); //This calls onCreate() if you've never built the table before, or onUpgrade if the version here is newer
@@ -202,7 +240,10 @@ public class RecipeMainActivity extends RecipeDrawerBase {
     }
 
 
-
+    /**
+     * load data into ArrayList favourite list, and displayed on the page
+     *
+     */
     class MyResultAdapter extends BaseAdapter {
         @Override
         public int getCount() { return searchResultsList.size(); }
@@ -228,18 +269,36 @@ public class RecipeMainActivity extends RecipeDrawerBase {
         }
     }
 
-
+    /**
+     * Inner class, used to Set My favourite Adapter
+     *
+     */
     class MyfavouriteAdapter extends BaseAdapter {
 
+        /**
+         * get the total item
+         * @return favouritelist, which will load my favourite recipe
+         */
         @Override
         public int getCount() { return favouritelist.size(); }
 
+        /**
+         * get the current item
+         * @return the current item position
+         */
         @Override
         public Object getItem(int position) { return favouritelist.get(position); }
-
+        /**
+         * get the current item id
+         * @return the current item position
+         */
         @Override
         public long getItemId(int position) { return (long) position; }
 
+        /**
+         * get the view of current Item
+         * @return the current item position
+         */
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             LayoutInflater inflater = getLayoutInflater();
@@ -255,13 +314,16 @@ public class RecipeMainActivity extends RecipeDrawerBase {
         }
     }
 
+    /**
+     * load Json data from url
+     * @param  urlString is the specified URL
+     */
     public void loadJsonfromURL(String urlString) {
         viewLoadIndicator=1;
         Jsonloader loader = new Jsonloader(this,"", mainlistView);
         loader.execute(urlString);
         Toast.makeText(this, "Recipes have been loaded", Toast.LENGTH_LONG).show();
     }
-
 
 
 }

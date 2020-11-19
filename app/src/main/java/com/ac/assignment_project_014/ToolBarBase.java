@@ -1,24 +1,21 @@
 package com.ac.assignment_project_014;
 
 import android.content.Intent;
-
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-
 import android.view.View;
 import android.widget.TextView;
-
 import androidx.annotation.Nullable;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-
+import com.ac.assignment_project_014.TicketMaster.TicketMasterMainActivity;
+import com.ac.assignment_project_014.audio.AudioIndexActivity;
 import com.ac.assignment_project_014.covid19.Covid19CaseDataMainActivity;
 import com.ac.assignment_project_014.recipe.RecipeMainActivity;
+
 
 /**
  * Abstract base for toolbar to be shared across all activities in Group Project.
@@ -54,7 +51,7 @@ public abstract class ToolBarBase extends AppCompatActivity {
                 builder.setTitle("Switch Channel")
                         .setMessage("You are going to Audio channel")
                         .setPositiveButton("Yes", (click, arg) -> {
-                            startActivity(new Intent(this, RecipeMainActivity.class)); })
+                            startActivity(new Intent(this, AudioIndexActivity.class)); })
                         .setNegativeButton("Go Back",(click, arg) -> {; })
                         .create().show();
                 break;
@@ -78,7 +75,7 @@ public abstract class ToolBarBase extends AppCompatActivity {
                 builder.setTitle("Switch Channel")
                         .setMessage("You are going to ticket channel")
                         .setPositiveButton("Yes", (click, arg) -> {
-                            startActivity(new Intent(this, RecipeMainActivity.class)); })
+                            startActivity(new Intent(this, TicketMasterMainActivity.class)); })
                         .setNegativeButton("Go Back",(click, arg) -> {; })
                         .create().show();
                 break;

@@ -16,14 +16,6 @@
 
         <include layout="@layout/recipe_toolbar" />
 
-        <!--
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </EditText>
--->
-
-
         <SearchView
             android:id="@+id/search_bar"
             android:layout_width="match_parent"
@@ -31,6 +23,11 @@
             app:actionViewClass="android.support.v7.widget.SearchView"
             app:showAsAction="ifRoom" />
 
+        <EditText
+            android:id="@+id/edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </EditText>
         <ListView
             android:id="@+id/recipe_listView"
             android:layout_width="match_parent"

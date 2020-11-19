@@ -12,12 +12,14 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.ac.assignment_project_014.R;
+import com.ac.assignment_project_014.recipe.RecipeMainActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,15 +39,24 @@ public class SearchnewFragment  extends Fragment {
     private ListView listView;
     private ImageButton btn_search;
     private EditText text_search;
+    public static ProgressBar progressBar;
 
     //SwipeRefreshLayout swipeRefresh;
 
+    /**
+     * initial the component of Search New page
+     * @param inflater, laayout inflater
+     * @param container, View container
+     * @param savedInstanceState, state bundle
+     * @return view of this page
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View view=inflater.inflate(R.layout.audio_fragment_searchnew,container,false);
 
         super.onCreate(savedInstanceState);
 
+        progressBar = view.findViewById(R.id.progressbar);
         listView = view.findViewById(R.id.list_album);
         text_search=view.findViewById(R.id.text_search);
         btn_search= view.findViewById(R.id.btn_search);
@@ -81,8 +92,9 @@ public class SearchnewFragment  extends Fragment {
     }
 
 
-
-
+    /**
+     * The adapter to bind data to listview
+     */
     class AudioAdapter extends BaseAdapter {// implements Filterable
 
         private Activity activity;
@@ -152,15 +164,35 @@ public class SearchnewFragment  extends Fragment {
 
     }
 
-    public class fetchAlbum extends AsyncTask<String, String, String> {
+    public class fetchAlbum extends AsyncTask<String, Integer, String> {
 
         @Override
         public void onPreExecute() {
             super.onPreExecute();
+            SearchnewFragment.progressBar.setVisibility(View.VISIBLE);
+
         }
+
+
+        @Override
+        protected void onProgressUpdate(Integer... integers) {
+            super.onProgressUpdate(integers);
+            SearchnewFragment.progressBar.setProgress(integers[0]);
+        }
+
 
         @Override
         protected String doInBackground(String... params) {
+
+            for(int i = 0; i< 4; i++){
+                publishProgress((i*100) / 4); //Type2
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
             String result = null;
             if(gArtistURL!=null ) {
                 alist.clear();
@@ -194,6 +226,8 @@ public class SearchnewFragment  extends Fragment {
         @Override
         public void onPostExecute(String s) {
             super .onPostExecute(s);
+            SearchnewFragment.progressBar.setProgress(75);
+            SearchnewFragment.progressBar.setVisibility(View.INVISIBLE);
             //swipeRefresh.setRefreshing(false);
             try {
                 JSONObject object = new JSONObject(s);

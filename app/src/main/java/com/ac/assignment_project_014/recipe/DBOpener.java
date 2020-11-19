@@ -13,16 +13,43 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class DBOpener extends SQLiteOpenHelper {
 
+    /**
+     * name of the database
+     */
     protected final static String DATABASE_NAME = "ChatDB2";
+    /**
+     * version of database
+     */
     protected final static int VERSION_NUM = 5;
+    /**
+     * table name of database
+     */
     public final static String TABLE_NAME = "RECIPE";
+    /**
+     * column name of database
+     */
     public final static String COL_TITLE = "TITLE";
+    /**
+     * column name of database
+     */
     public final static String COL_HREF = "HREF";
+    /**
+     * column name of database
+     */
     public final static String COL_INGREDIENT = "INGREDIENT";
+    /**
+     * column name of database
+     */
     public final static String COL_THUMBNAIL = "THUMBNAIL";
+    /**
+     * Index and column name of database
+     */
     public final static String COL_ID = "_id";
 
-
+    /**
+     * the constructor of DBOpener, used to initial the database
+     * @param ctx context
+     */
     public DBOpener(Context ctx)
     {
         super(ctx, DATABASE_NAME, null, VERSION_NUM);
@@ -44,7 +71,12 @@ public class DBOpener extends SQLiteOpenHelper {
                 COL_THUMBNAIL+" TEXT );" );
     }
 
-
+    /**
+     * this method is called when the database is updated
+     * @param db database
+     * @param oldVersion old version of the database
+     * @param newVersion new version of the database
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {   
@@ -52,7 +84,12 @@ public class DBOpener extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-
+    /**
+     * this method is called when the database is downgrade
+     * @param db database
+     * @param oldVersion old version of the database
+     * @param newVersion new version of the database
+     */
     @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {

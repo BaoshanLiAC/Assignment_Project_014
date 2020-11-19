@@ -35,6 +35,13 @@ public class DetailFragment extends Fragment {
     private AlertDialog alertDialog;
     TextView textView_Url;
 
+    /**
+     * called when this fragment is loaded
+     * @param inflater
+     * @param container
+     * @param savedInstanceState the current saved stated
+     * */
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -85,7 +92,9 @@ public class DetailFragment extends Fragment {
         return result;
     }
 
-
+    /**
+     * to process the "unlike" the recipe
+     * */
     public void unlikeRecipe(){
         dataFromActivity.remove(RecipeMainActivity.ISLIKE);
         dataFromActivity.putBoolean(RecipeMainActivity.ISLIKE,false);
@@ -93,7 +102,9 @@ public class DetailFragment extends Fragment {
         removeRepipeItem(new JsonResults(title,href,ingredients,thumbnail));
     }
 
-
+    /**
+     * to process the "like" the recipe
+     * */
     public void likeRecipe (){
         dataFromActivity.remove(RecipeMainActivity.ISLIKE);
         dataFromActivity.putBoolean(RecipeMainActivity.ISLIKE,true);
@@ -101,7 +112,11 @@ public class DetailFragment extends Fragment {
         addRepipeItem(new JsonResults(title,href,ingredients,thumbnail));
     }
 
-
+    /**
+     * to remove the recipe Item from favourite list
+     * @param res is an object of JsonResults
+     *
+     * */
     public void removeRepipeItem(JsonResults res){
         db = RecipeMainActivity.dbOpener.getWritableDatabase();
         String [] columns = {dbOpener.COL_ID, dbOpener.COL_TITLE, dbOpener.COL_HREF, dbOpener.COL_INGREDIENT, dbOpener.COL_THUMBNAIL};
@@ -112,7 +127,11 @@ public class DetailFragment extends Fragment {
                 db.delete(dbOpener.TABLE_NAME,"HREF=?",new String[]{res.getHref()});
     }
 
-
+    /**
+     * to add a recipe item into favourite list
+     * @param res is an object of JsonResults
+     *
+     * */
     public void addRepipeItem(JsonResults res){
         db = RecipeMainActivity.dbOpener.getWritableDatabase();
         String [] columns = {dbOpener.COL_ID, dbOpener.COL_TITLE, dbOpener.COL_HREF, dbOpener.COL_INGREDIENT, dbOpener.COL_THUMBNAIL};
@@ -131,7 +150,10 @@ public class DetailFragment extends Fragment {
         long newId = db.insert(dbOpener.TABLE_NAME, null, newRowValues);
     }
 
-
+    /**
+     * @param context is the current activity context
+     *
+     * */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

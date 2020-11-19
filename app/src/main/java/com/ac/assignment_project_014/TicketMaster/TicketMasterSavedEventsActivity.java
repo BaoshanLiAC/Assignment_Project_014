@@ -12,7 +12,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.ac.assignment_project_014.R;
@@ -23,18 +22,30 @@ import java.util.Locale;
 
 public class TicketMasterSavedEventsActivity extends AppCompatActivity implements EventDetailFragment.OnRemoveFavoriteEventListener{
 
+    /**
+     * data holder of saved events
+     */
     private List<Event> events;
+
+    /**
+     * adapter for saved events
+     */
     private EventsAdapter myEventsAdapter;
+
+    /**
+     * database of saved events
+     */
     private SQLiteDatabase db;
 
+    /**
+     * onCreat method
+     * @param savedInstanceState saved instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ticketmaster_saved_events);
         setTitle(getString(R.string.ticketmaster_favorite_title));
-        // tool bar
-        Toolbar toolBar = findViewById(R.id.ticketmaster_toolbar);
-        //setSupportActionBar(toolBar);
 
         boolean isTablet = findViewById(R.id.fragment_event_details) != null;
 
@@ -83,12 +94,13 @@ public class TicketMasterSavedEventsActivity extends AppCompatActivity implement
     @Override
     protected void onResume() {
         super.onResume();
-
         // always reload favorite events when enter or back from other activity
         loadSavedEvent();
     }
 
-
+    /**
+     * method to load saved events
+     */
     private void loadSavedEvent() {
         events.clear();
         String[] columns = {Event.COL_ID, Event.COL_NAME, Event.COL_DATE, Event.COL_MINPRICE, Event.COL_MAXPRICE,Event.COL_URL,Event.COL_IMAGE};
@@ -120,8 +132,9 @@ public class TicketMasterSavedEventsActivity extends AppCompatActivity implement
     }
 
     /**
+     * method to communicate with other fragment
      * reference to: https://developer.android.com/training/basics/fragments/communicating.html
-     * @param fragment
+     * @param fragment the fragment to be communicate with
      */
     @Override
     public void onAttachFragment(Fragment fragment) {
@@ -131,9 +144,12 @@ public class TicketMasterSavedEventsActivity extends AppCompatActivity implement
     }
 
 
+    /**
+     * remove event
+     * @param eventId id of the event to be removed
+     */
     @Override
     public void removeEvent(long eventId) {
-        // TODO remove event from events and update list view
         Event event = null;
         for (Event e : events) {
             if (e.getId() == eventId) {
@@ -151,7 +167,7 @@ public class TicketMasterSavedEventsActivity extends AppCompatActivity implement
 
 
     /**
-     * event adapter used by list view for events display
+     * event adapter used by list view to display events
      */
     class EventsAdapter extends BaseAdapter {
 

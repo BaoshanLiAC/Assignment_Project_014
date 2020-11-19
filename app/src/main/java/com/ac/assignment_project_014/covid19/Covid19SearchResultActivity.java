@@ -2,6 +2,7 @@ package com.ac.assignment_project_014.covid19;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -55,31 +56,41 @@ public class Covid19SearchResultActivity extends CovidDrawerBase {
         //received data from query
         result = (Covid19CountryData) getIntent().getSerializableExtra("search_result");
         //initial list view data
-        dataList = result.getDataList();
-        //populate country name & search date & total cases
-        TextView.class.cast(findViewById(R.id.covid_result_country)).setText(result.getCountryName());
-        TextView.class.cast(findViewById(R.id.covid_result_description)).setText(result.toString());
+        if(result != null) {
+            dataList = result.getDataList();
+            //populate country name & search date & total cases
+            TextView.class.cast(findViewById(R.id.covid_result_country)).setText(result.getCountryName());
+            TextView.class.cast(findViewById(R.id.covid_result_description)).setText(result.toString());
+            //initial list view
+            final ProvinceList countryDataAdapter = new ProvinceList(this);
+            listView = findViewById(R.id.covid_search_result_listView);
+            listView.setAdapter(countryDataAdapter);
+            countryDataAdapter.notifyDataSetChanged();
+
+            //initial database
+            data = new Covid19DateHelper(this);
+            db = data.getWritableDatabase();
+
+            //register button event handlers.
+            save = findViewById(R.id.covid_result_archive_btn);
+            back = findViewById(R.id.covid_result_back_to_search_btn);
+
+            save.setOnClickListener(e -> saveItemToDataBase());
+            back.setOnClickListener(e -> startActivity(new Intent(this, Covid19CaseDataMainActivity.class)));
+
+            sortList(countryDataAdapter);
+        }
+        else{
+
+            //populate country name & search date & total cases
+            TextView.class.cast(findViewById(R.id.covid_result_country)).setText("Not Found.");
+            TextView.class.cast(findViewById(R.id.covid_result_description)).setText("Please go back to reach another country.");
+        }
 
 
 
-        //initial list view
-        final ProvinceList countryDataAdapter = new ProvinceList(this);
-        listView = findViewById(R.id.covid_search_result_listView);
-        listView.setAdapter(countryDataAdapter);
-        countryDataAdapter.notifyDataSetChanged();
 
-        //initial database
-        data = new Covid19DateHelper(this);
-        db = data.getWritableDatabase();
 
-        //register button event handlers.
-        save = findViewById(R.id.covid_result_archive_btn);
-        back = findViewById(R.id.covid_result_back_to_search_btn);
-
-        save.setOnClickListener(e->saveItemToDataBase());
-        back.setOnClickListener(e->finish());
-
-        sortList(countryDataAdapter);
     }
 
 

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Assignment_Project_014</string>
+    <string name="ticketmaster_search_title">搜索</string>
+    <string name="ticketmaster_details_title">活动详情</string>
+    <string name="ticketmaster_favorite_title">我的收藏</string>
+    <string name="ticketmaster_city_name">城市</string>
+    <string name="ticketmaster_city_name_tv">输入城市名字</string>
+    <string name="ticketmaster_radius">半径</string>
+    <string name="ticketmaster_radius_tv">输入半径</string>
+    <string name="ticketmaster_search">搜索</string>
+    <string name="ticketmaster_saved">我的收藏</string>
+    <string name="ticketmaster_name">活动: %s</string>
+    <string name="ticketmaster_date">开始时间: %s</string>
+    <string name="ticketmaster_min_price">最低价格: %s</string>
+    <string name="ticketmaster_max_price">最高价格: %s</string>
+    <string name="ticketmaster_url">链接: %s</string>
+    <string name="ticketmaster_navigation_open">打开</string>
+    <string name="ticketmaster_navigation_close">关闭</string>
+    <string name="ticketmaster_event_image">图片</string>
+    <string name="ticketmaster_event_remove_from_fav">从我的收藏移除 </string>
+    <string name="ticketmaster_event_add_to_fav">添加到我的收藏 </string>
+    <string name="ticketmaster_confirm">确认 </string>
+    <string name="ticketmaster_yes">是</string>
+    <string name="ticketmaster_no">否</string>
+    <string name="ticketmaster_save_success">保存成功 </string>
+    <string name="ticketmaster_save_fail">保存失败</string>
+    <string name="ticketmaster_remove_confirm">确认移除此活动吗? </string>
+    <string name="ticketmaster_remove_success">移除成功 </string>
+    <string name="ticketmaster_remove_fail">移除失败</string>
+    <string name="ticketmaster_go_to_fav">去收藏夹 </string>
+    <string name="ticketmaster_alert_title">警告: </string>
+    <string name="ticketmaster_alert_message">城市名字或半径不能为空</string>
+    <string name="ticketmaster_search_events_nearby">搜索 %s 附近的活动</string>
+    <string name="ticketmaster_help_title">帮助</string>
+    <string name="ticketmaster_help_infor">请输入城市名字和半径</string>
+    <string name="ticketmaster_find_events_number">找到 %d 个活动</string>
+
+
+    <!--    RECIPE STRING  -->
+    <string name="my_favourite">我的收藏</string>
+    <string name="search_text_button">搜索</string>
+    <string name="navigation_drawer_open">打开侧边导航栏</string>
+    <string name="navigation_drawer_close">关闭侧边导航栏</string>
+    <string name="recipe_URL">链接</string>
+    <string name="Search_Result">搜索结果</string>
+    <string name="search_hint">在这里搜索菜谱</string>
+    <string name="content">内容</string>
+    <string name="url">链接</string>
+    <string name="chunyan_ren">任春妍</string>
+    <string name="ren00038_algonquinlive_com">ren00038@Algonquinlive.com</string>
+    <string name="recipe">菜谱</string>
+    <string name="title">标题</string>
+    <string name="search_history">历史检索关键词</string>
+
+
+    <!--    COVID STRING  -->
+    <string name="covid_search_btn">查詢</string>
+    <string name="covid_show_archived_btn">顯示存檔</string>
+    <string name="covid_Country_txt">國家</string>
+    <string name="covid_Date_txt">日期</string>
+    <string name="covid_search_country_hint">請輸入國家名</string>
+    <string name="covid_search_date_hint">年-月-日</string>
+    <string name="covid_search_result_Country_placeHolder">國家</string>
+    <string name="covid_search_result_Date_placeHolder">年-月-日</string>
+    <string name="covid_result_archive_text">存檔</string>
+    <string name="covid_result_back_to_search_text">返回</string>
+    <string name="vovid_result_title">查詢結果</string>
+    <string name="covid_province_header">地區</string>
+    <string name="covid_case_header">確診數</string>
+    <string name="covid19_content_description">COVID 19 API</string>
+    <string name="covid_change_header">日增人數</string>
+    <string name="covid_archived_data_title">已存檔數據</string>
+    <string name="covid_country_header">國家</string>
+    <string name="covid_total_header">縂確診</string>
+    <string name="covid_country_change_header">縂日增人數</string>
+    <string name="covid_date_header">日期</string>
+    <string name="covid_archived_data_description">點擊子項查看詳情，或者長按刪除</string>
+
+
+
+    <!-- Audio STRING-->
+    <string name="search_by_artist">Search by Artist</string>
+    <string name="save_remove">Save/Remove</string>
+    <string name="this_is_the_default_title">This is the default title</string>
+    <string name="this_is_the_recipe_content">this is the recipe content</string>
+
+
+</resources>

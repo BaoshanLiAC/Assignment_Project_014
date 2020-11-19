@@ -48,10 +48,16 @@
             android:label="Audio Search API"
             android:theme="@style/AppTheme.NoToolBar"/>
 
-        <!-- TicketMaster ACTIVITIES -->
-        <activity android:name=".TicketMaster.TicketMasterSavedEventsActivity" />
-        <activity android:name=".TicketMaster.TicketMasterEventDetailsActivity" />
-        <activity android:name=".TicketMaster.TicketMasterMainActivity" />
+        <!-- TICKET ACTIVITIES -->
+        <activity android:name=".TicketMaster.TicketMasterSavedEventsActivity"
+            android:label="TicketMaster"
+            android:theme="@style/AppTheme.NoToolBar"/>
+        <activity android:name=".TicketMaster.TicketMasterEventDetailsActivity"
+            android:label="TicketMaster"
+            android:theme="@style/AppTheme.NoToolBar"/>
+        <activity android:name=".TicketMaster.TicketMasterMainActivity"
+            android:label="TicketMaster"
+            android:theme="@style/AppTheme.NoToolBar"/>
 
         <activity android:name=".MainActivity">
             <intent-filter>

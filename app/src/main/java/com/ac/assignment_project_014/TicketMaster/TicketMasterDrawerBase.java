@@ -1,15 +1,15 @@
-package com.ac.assignment_project_014.recipe;
+package com.ac.assignment_project_014.TicketMaster;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.ac.assignment_project_014.R;
@@ -18,14 +18,20 @@ import com.google.android.material.navigation.NavigationView;
 
 import static android.view.View.TEXT_ALIGNMENT_TEXT_START;
 
-public abstract class RecipeDrawerBase extends ToolBarBase implements NavigationView.OnNavigationItemSelectedListener{
+/**
+ *subclass of toolBarBase, to implement the toolbar and drawer function
+ */
+public abstract class TicketMasterDrawerBase extends ToolBarBase implements NavigationView.OnNavigationItemSelectedListener{
 
+    /**
+     *
+     */
     protected DrawerLayout drawer;
     protected ActionBarDrawerToggle drawerToggle;
     protected NavigationView navigationView;
 
     /**
-     * Called when initializing the Drawer, and set the response to the button on the drawer
+     *
      * @param savedInstanceState
      */
     @Override
@@ -33,13 +39,13 @@ public abstract class RecipeDrawerBase extends ToolBarBase implements Navigation
         setContentView(getLayoutId());
         super.onCreate(savedInstanceState);
 
-        drawer = findViewById(R.id.Recipe_drawer_layout);
+        drawer = findViewById(R.id.ticketmaster_drawer_layout);
         drawerToggle
                 = new ActionBarDrawerToggle(this,drawer,toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(drawerToggle);
 
         drawerToggle.syncState();
-        navigationView = (NavigationView)findViewById(R.id.recipe_nav_view);
+        navigationView = (NavigationView)findViewById(R.id.ticketmaster_navigation_view);
         navigationView.setNavigationItemSelectedListener(menuItem->{
             menuItem.setChecked(true);
             drawer.closeDrawers();
@@ -47,51 +53,45 @@ public abstract class RecipeDrawerBase extends ToolBarBase implements Navigation
             final View view =this.getLayoutInflater().inflate(R.layout.actionbar_dialog,null);
             TextView text = view.findViewById(R.id.action_dialog_text);
             switch (menuItem.getItemId()){
-
-                case R.id.recipe_goto_search:
-                    startActivity(new Intent(this, SearchHistoryActivity.class));
+                case R.id.ticketmaster_goto_search:
+                    startActivity(new Intent(this, TicketMasterMainActivity.class));
+                    Toast.makeText(this,"Go to search by city name and radius.", Toast.LENGTH_LONG).show();
                     break;
-                case R.id.recipe_help:
-                    text.setText("1. User could search recipe by ingredients." +
-                            "\n\n2. User could view the top 10 search results " +
-                            "\nretrived from http://www.recipepuppy.com."+
-                            "\n\n3. User could save the ingredients they like " +
-                            "\nand to see it next time without access online " +
-                            "\ndata.");
+                case R.id.ticketmaster_favourite_list:
+                    startActivity(new Intent(this, TicketMasterSavedEventsActivity.class));
+                    Toast.makeText(this,"Go to saved events", Toast.LENGTH_LONG).show();
+                    break;
+                case R.id.ticketmaster_help:
+                    text.setText("Please enter City name and radius to search events");
                     text.setTextAlignment(TEXT_ALIGNMENT_TEXT_START);
                     builder.setView(view);
                     builder.create().show();
                     break;
-                case R.id.recipe_about:
-                    text.setText("Developed By: Chunyan Ren\nStudent No: 040980795");
+                case R.id.ticketmaster_about:
+                    text.setText("Developed By: Xingan Wang\nStudent No: 040981582");
                     text.setTextAlignment(TEXT_ALIGNMENT_TEXT_START);
                     builder.setView(view);
                     builder.create().show();
                     break;
-                case R.id.recipe_version:
-                    text.setText("The current Version is V1.0.0");
-                    text.setTextAlignment(TEXT_ALIGNMENT_TEXT_START);
+                case R.id.ticketmaster_version:
                     builder.setView(view);
                     builder.create().show();
                     break;
                 default:
                     break;
+
             }
+
+
             return true;
         });
 
     }
 
-
-
     protected boolean stayInSameActivity(int id){
         return getLayoutId() == id;
     }
 
-    /**
-     * set the response to the button on the drawer
-     * @param menuItem
-     */
     @Override
     public boolean onNavigationItemSelected(MenuItem menuItem) {
         menuItem.setChecked(true);
@@ -100,31 +100,33 @@ public abstract class RecipeDrawerBase extends ToolBarBase implements Navigation
         final View view =this.getLayoutInflater().inflate(R.layout.actionbar_dialog,null);
         TextView text = view.findViewById(R.id.action_dialog_text);
         switch (menuItem.getItemId()){
-            case R.id.recipe_goto_search:
-                startActivity(new Intent(this, SearchHistoryActivity.class));
+            case R.id.ticketmaster_goto_search:
+                startActivity(new Intent(this, TicketMasterMainActivity.class));
+                Toast.makeText(this,"Go search by country and date.", Toast.LENGTH_LONG).show();
                 break;
-            case R.id.recipe_help:
-                text.setText("1. User could query date by input the ingredients." +
-                             "\n2. User could view the top 10 search results retrived from  http://www.recipepuppy.com."+
-                             "\n3. User could save the ingredients they like and to see it next time without access online data.");
+            case R.id.ticketmaster_favourite_list:
+                startActivity(new Intent(this, TicketMasterSavedEventsActivity.class));
+                Toast.makeText(this,"Go review last search", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.ticketmaster_help:
+                text.setText("Please enter City name and radius to search events");
                 text.setTextAlignment(TEXT_ALIGNMENT_TEXT_START);
                 builder.setView(view);
                 builder.create().show();
                 break;
-            case R.id.recipe_about:
-                text.setText("Developed By: Chunyan Ren\nStudent No: 040980795");
+            case R.id.ticketmaster_about:
+                text.setText("Developed By: Xingan Wang\nStudent No: 040981582");
                 text.setTextAlignment(TEXT_ALIGNMENT_TEXT_START);
                 builder.setView(view);
                 builder.create().show();
                 break;
-            case R.id.recipe_version:
-                text.setText("The current Version is V1.0.0");
-                text.setTextAlignment(TEXT_ALIGNMENT_TEXT_START);
+            case R.id.ticketmaster_version:
                 builder.setView(view);
                 builder.create().show();
                 break;
             default:
                 break;
+
         }
 
         return true;
