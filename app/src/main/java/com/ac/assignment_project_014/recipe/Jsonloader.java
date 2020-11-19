@@ -17,18 +17,39 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class Jsonloader extends AsyncTask<String,Integer,String> {
-
-    static public String jsonString = ""; //retrieve the favourite list
+    /**
+     * retrieve the favourite list
+     */
+    static public String jsonString = "";
+    /**
+     * the current Activity context
+     */
     Context context;
+    /**
+     * the url used to retrieve json objects
+     */
     String jsonURL;
+    /**
+     * used to hold the recipe list
+     */
     ListView recopelistView;
 
+    /**
+     * constructor, to set the current context, url and the listview wait to update
+     * @param context the current context
+     * @param jsonURL is concatenated with user input keywords
+     * @param listView the current listView to be updated
+     */
         public Jsonloader(Context context, String jsonURL, ListView listView){
             this.context = context;
             this.jsonURL = jsonURL;
             this.recopelistView = listView;
         }
 
+    /**
+     * set the progressbar during the PreExecute stage
+     * @param args is String type array
+     */
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -37,6 +58,11 @@ public class Jsonloader extends AsyncTask<String,Integer,String> {
         }
 
         //Type 1
+
+    /**
+     * the thread processed in the backed
+     * @param args is String type array
+     */
         @Override
         protected String doInBackground(String... args) {
             for(int i = 0; i< 4; i++){
@@ -98,12 +124,20 @@ public class Jsonloader extends AsyncTask<String,Integer,String> {
             }
         }
 
+    /**
+     * the progressbar status update while the thread processed in the backed
+     * @param integers is Integer type array
+     */
         @Override
         protected void onProgressUpdate(Integer... integers) {
             super.onProgressUpdate(integers);
             RecipeMainActivity.progressbar.setProgress(integers[0]);
         }
 
+     /**
+     * the progressbar status updated when the thread is finished
+     * @param jsonString is the url
+     */
         @Override //Type 3
         protected void onPostExecute(String jsonString) {
             super.onPostExecute(jsonString);

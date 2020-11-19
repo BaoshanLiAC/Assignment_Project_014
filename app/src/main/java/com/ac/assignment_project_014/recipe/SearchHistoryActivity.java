@@ -26,7 +26,11 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-
+/**
+ * This class responsible for the  activities of search page, this page will load the histrical
+ * search key words.
+ *
+ */
 public class SearchHistoryActivity extends AppCompatActivity {
 
     private ListView listView;
@@ -38,7 +42,11 @@ public class SearchHistoryActivity extends AppCompatActivity {
     public static final String SHARED_PREFS = "shared Prefs";
     public static final String SEARCH_HISTORY = "search_History";
 
-
+    /**
+     * Called when the page is first loaded
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -83,6 +91,12 @@ public class SearchHistoryActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Called when the page is first loaded
+     *
+     * @return  a searchHistorylist or an empty list, this list will be stored into
+     * the Preference file
+     */
     private ArrayList<String> getPreferenceData(){
         //Temperate
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
@@ -96,7 +110,12 @@ public class SearchHistoryActivity extends AppCompatActivity {
             return new ArrayList<String>();
     }
 
-
+    /**
+     * Called when the page is first loaded
+     *
+     * @param   newQuery will be saved into Preference file
+     * the Preference file
+     */
     private void setPreferenceData(String newQuery){
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -108,20 +127,39 @@ public class SearchHistoryActivity extends AppCompatActivity {
         editor.commit();
     }
 
-
+    /**
+     * Inner class, used to Set My favourite Adapter
+     *
+     */
     class MyListAdapter extends BaseAdapter{
+        /**
+         * get the total item
+         * @return favouritelist, which will load my favourite recipe
+         */
         @Override
         public int getCount() {
             return searchHistorylist.size();
         }
+        /**
+         * get the current item
+         * @return the current item position
+         */
         @Override
         public Object getItem(int position) {
             return searchHistorylist.get(position);
         }
+        /**
+         * get the current item id
+         * @return the current item position
+         */
         @Override
         public long getItemId(int position) {
             return (long) position;
         }
+        /**
+         * get the view of current Item
+         * @return the current item position
+         */
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             LayoutInflater inflater = getLayoutInflater();
