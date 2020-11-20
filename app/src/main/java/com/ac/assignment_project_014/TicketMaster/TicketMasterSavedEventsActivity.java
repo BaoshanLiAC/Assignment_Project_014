@@ -45,7 +45,6 @@ public class TicketMasterSavedEventsActivity extends AppCompatActivity implement
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ticketmaster_saved_events);
-        setTitle(getString(R.string.ticketmaster_favorite_title));
 
         boolean isTablet = findViewById(R.id.fragment_event_details) != null;
 
@@ -94,7 +93,6 @@ public class TicketMasterSavedEventsActivity extends AppCompatActivity implement
     @Override
     protected void onResume() {
         super.onResume();
-        // always reload favorite events when enter or back from other activity
         loadSavedEvent();
     }
 
@@ -104,7 +102,7 @@ public class TicketMasterSavedEventsActivity extends AppCompatActivity implement
     private void loadSavedEvent() {
         events.clear();
         String[] columns = {Event.COL_ID, Event.COL_NAME, Event.COL_DATE, Event.COL_MINPRICE, Event.COL_MAXPRICE,Event.COL_URL,Event.COL_IMAGE};
-        Cursor results = db.query(false, Event.TABLE_NAME_SAVED, columns,
+        Cursor results = db.query(false, Event.EVENT_SAVED_TABLE, columns,
                 null, null, null, null, null, null);
 
         int idColIndex = results.getColumnIndex(Event.COL_ID);
@@ -192,11 +190,11 @@ public class TicketMasterSavedEventsActivity extends AppCompatActivity implement
                 LayoutInflater layoutInflater = getLayoutInflater();
                 convertView = layoutInflater.inflate(R.layout.ticketmaster_event_item, parent, false);
             }
-            TextView eventnameLV = convertView.findViewById(R.id.event_name_tv);
+            TextView eventNameLV = convertView.findViewById(R.id.event_name_tv);
             TextView eventDateLV = convertView.findViewById(R.id.event_date_tv);
 
             Event event = getItem(position);
-            eventnameLV.setText(String.format(Locale.getDefault(), "%d. %s", position + 1, event.getName()));
+            eventNameLV.setText(String.format(Locale.getDefault(), "%d. %s", position + 1, event.getName()));
             eventDateLV.setText(event.getDate());
 
             return convertView;

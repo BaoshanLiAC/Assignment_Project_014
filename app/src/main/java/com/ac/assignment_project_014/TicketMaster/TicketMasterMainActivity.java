@@ -214,7 +214,7 @@ public class TicketMasterMainActivity extends TicketMasterDrawerBase {
         newRowValue.put(Event.COL_URL, event.getURL());
         newRowValue.put(Event.COL_IMAGE, event.getImage());
 
-        db.insert(Event.TABLE_NAME_SEARCH_RESULT, null, newRowValue);
+        db.insert(Event.SEARCH_RESULT_TABLE, null, newRowValue);
     }
 
     /**
@@ -283,7 +283,7 @@ public class TicketMasterMainActivity extends TicketMasterDrawerBase {
                 String result = sb.toString();
 
                 // clear search result in db
-                db.delete(Event.TABLE_NAME_SEARCH_RESULT, null, null);
+                db.delete(Event.SEARCH_RESULT_TABLE, null, null);
 
                 // get event info and store it in eventList
                 JSONObject jsonObject = new JSONObject(result);

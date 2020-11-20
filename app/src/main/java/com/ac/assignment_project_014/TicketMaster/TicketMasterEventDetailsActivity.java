@@ -21,8 +21,6 @@ public class TicketMasterEventDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ticketmaster_event_details);
-        setTitle(getString(R.string.ticketmaster_details_title));
-
 
         Bundle msgInfo = getIntent().getBundleExtra(EVENT_DETAIL);
 

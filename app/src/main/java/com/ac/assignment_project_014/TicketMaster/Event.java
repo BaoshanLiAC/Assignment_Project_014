@@ -5,12 +5,12 @@ public class Event {
     /**
      * table name of the search result
      */
-    public final static String TABLE_NAME_SEARCH_RESULT = "TICKET_MASTER_EVENT_LIST";
+    public final static String SEARCH_RESULT_TABLE = "TICKET_MASTER_EVENT_LIST";
 
     /**
      * table name of the saved events
      */
-    public final static String TABLE_NAME_SAVED = "EVENT_SAVED";
+    public final static String EVENT_SAVED_TABLE = "EVENT_SAVED";
 
     /**
      * column: id of the event

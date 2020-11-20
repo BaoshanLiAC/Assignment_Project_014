@@ -153,7 +153,7 @@ public class EventDetailFragment extends Fragment {
 
 
     private void removeFavoriteEvent(SQLiteDatabase db, Button button) {
-        int count = db.delete(Event.TABLE_NAME_SAVED, Event.COL_ID + " = ?", new String[]{String.valueOf(id)});
+        int count = db.delete(Event.EVENT_SAVED_TABLE, Event.COL_ID + " = ?", new String[]{String.valueOf(id)});
         if (count > 0) {
             Snackbar snackbar = Snackbar.make(this.imgPromotion,
                     R.string.ticketmaster_remove_success,
@@ -191,7 +191,7 @@ public class EventDetailFragment extends Fragment {
         newRowValue.put(Event.COL_URL, eventURL);
         newRowValue.put(Event.COL_IMAGE, eventImage);
 
-        long newId = db.insert(Event.TABLE_NAME_SAVED, null, newRowValue);
+        long newId = db.insert(Event.EVENT_SAVED_TABLE, null, newRowValue);
         Snackbar snackbar;
         if (newId >= 0) {
             snackbar = Snackbar.make(this.imgPromotion,
