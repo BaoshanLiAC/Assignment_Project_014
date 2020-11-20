@@ -31,21 +31,21 @@ public class EventOpenHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + Event.EVENT_SAVED_TABLE + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + Event.COL_NAME + " text,"
-                + Event.COL_DATE  + " text,"
-                + Event.COL_MINPRICE  + " text,"
-                + Event.COL_MAXPRICE  + " text,"
-                + Event.COL_URL  + " text,"
-                + Event.COL_IMAGE  + " text);");
+        db.execSQL("CREATE TABLE " + TicketMasterMainActivity.EVENT_SAVED_TABLE + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + TicketMasterMainActivity.COL_NAME + " text,"
+                + TicketMasterMainActivity.COL_DATE  + " text,"
+                + TicketMasterMainActivity.COL_MINPRICE  + " text,"
+                + TicketMasterMainActivity.COL_MAXPRICE  + " text,"
+                + TicketMasterMainActivity.COL_URL  + " text,"
+                + TicketMasterMainActivity.COL_IMAGE  + " text);");
 
-        db.execSQL("CREATE TABLE " + Event.SEARCH_RESULT_TABLE + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + Event.COL_NAME + " text,"
-                + Event.COL_DATE  + " text,"
-                + Event.COL_MINPRICE  + " text,"
-                + Event.COL_MAXPRICE  + " text,"
-                + Event.COL_URL  + " text,"
-                + Event.COL_IMAGE  + " text);");
+        db.execSQL("CREATE TABLE " + TicketMasterMainActivity.SEARCH_RESULT_TABLE + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + TicketMasterMainActivity.COL_NAME + " text,"
+                + TicketMasterMainActivity.COL_DATE  + " text,"
+                + TicketMasterMainActivity.COL_MINPRICE  + " text,"
+                + TicketMasterMainActivity.COL_MAXPRICE  + " text,"
+                + TicketMasterMainActivity.COL_URL  + " text,"
+                + TicketMasterMainActivity.COL_IMAGE  + " text);");
     }
 
     /**
@@ -57,8 +57,8 @@ public class EventOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //Drop the old table:
-        db.execSQL( "DROP TABLE IF EXISTS " + Event.SEARCH_RESULT_TABLE);
-        db.execSQL( "DROP TABLE IF EXISTS " + Event.EVENT_SAVED_TABLE);
+        db.execSQL( "DROP TABLE IF EXISTS " + TicketMasterMainActivity.SEARCH_RESULT_TABLE);
+        db.execSQL( "DROP TABLE IF EXISTS " + TicketMasterMainActivity.EVENT_SAVED_TABLE);
 
         //Create the new table:
         onCreate(db);

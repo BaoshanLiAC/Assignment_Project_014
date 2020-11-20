@@ -11,8 +11,6 @@ import com.ac.assignment_project_014.R;
  */
 public class TicketMasterEventDetailsActivity extends AppCompatActivity {
 
-    public static final String EVENT_DETAIL = "EVENT_DETAIL";
-
     /**
      * onCreate method
      * @param savedInstanceState saved instance state
@@ -22,7 +20,7 @@ public class TicketMasterEventDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ticketmaster_event_details);
 
-        Bundle msgInfo = getIntent().getBundleExtra(EVENT_DETAIL);
+        Bundle msgInfo = getIntent().getBundleExtra("EVENT_DETAIL");
 
         EventDetailFragment eventDetailFragment = new EventDetailFragment();
         eventDetailFragment.setArguments( msgInfo );

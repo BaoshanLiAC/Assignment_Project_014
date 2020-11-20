@@ -7,10 +7,7 @@ import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -19,12 +16,10 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
 import com.ac.assignment_project_014.R;
-import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,12 +34,68 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Main activity of the Ticket Master Event Search api to search events by city name and radius
  */
 public class TicketMasterMainActivity extends TicketMasterDrawerBase {
+
+
+    public static final String EVENT_ID = "EVENT_ID";
+    public static final String EVENT_NAME = "EVENT_NAME";
+    public static final String EVENT_DATE = "EVENT_DATE";
+    public static final String EVENT_MIN_PRICE = "EVENT_MINPRICE";
+    public static final String EVENT_MAX_PRICE = "EVENT_MAXPRICE";
+    public static final String EVENT_URL = "EVENT_URL";
+    public static final String EVENT_IMAGE = "EVENT_IMAGE";
+    public static final String IS_TABLET = "IS_TABLET";
+    public static final String IS_FAVORITE = "IS_FAV";
+
+
+    /**
+     * table name of the search result
+     */
+    public final static String SEARCH_RESULT_TABLE = "TICKET_MASTER_EVENT_LIST";
+
+    /**
+     * table name of the saved events
+     */
+    public final static String EVENT_SAVED_TABLE = "EVENT_SAVED";
+
+    /**
+     * column: id of the event
+     */
+    public final static String COL_ID = "_id";
+
+    /**
+     * column: name of the event
+     */
+    public final static String COL_NAME = "NAME";
+
+    /**
+     * column: date of the event
+     */
+    public final static String COL_DATE = "DATE";
+
+    /**
+     * column: minimum price of the event
+     */
+    public final static String COL_MINPRICE = "MINPRICE";
+    /**
+     * column: max price of the event
+     */
+    public final static String COL_MAXPRICE = "MAXPRICE";
+
+    /**
+     * column: url of the event
+     */
+    public final static String COL_URL = "URL";
+
+    /**
+     * column: image of the event
+     */
+    public final static String COL_IMAGE = "IMAGE";
+
 
     /**
      * data holder of events
@@ -87,10 +138,6 @@ public class TicketMasterMainActivity extends TicketMasterDrawerBase {
     private boolean isTablet;
 
 
-    private static final String SEARCH_CITY = "SEARCH_CITY";
-    private static final String SEARCH_RADIUS = "SEARCH_RADIUS";
-
-
     /**
      * onCreate method
      * @param savedInstanceState saved instance state
@@ -101,16 +148,14 @@ public class TicketMasterMainActivity extends TicketMasterDrawerBase {
 
         prefsCity = getSharedPreferences("city", Context.MODE_PRIVATE);
         prefsRadius = getSharedPreferences("radius", Context.MODE_PRIVATE);
-        String searchCity = prefsCity.getString(SEARCH_CITY, "");
-        String searchRadius = prefsRadius.getString(SEARCH_RADIUS, "");
+        String searchCity = prefsCity.getString("SEARCH_CITY", "");
+        String searchRadius = prefsRadius.getString("SEARCH_RADIUS", "");
 
-        /**
-         * init components
-         */
+
         EditText cityNameEditText = findViewById(R.id.cityName);
         EditText radiusEditText = findViewById(R.id.radius);
         cityNameEditText.setOnEditorActionListener((v, actionId, event) -> {
-            searchEvent(cityNameEditText.getText().toString().trim(), radiusEditText.getText().toString().trim());
+            searchEvent(cityNameEditText.getText().toString(), radiusEditText.getText().toString());
             return true;
         });
         cityNameEditText.setText(searchCity);
@@ -118,14 +163,12 @@ public class TicketMasterMainActivity extends TicketMasterDrawerBase {
 
         Button searchBtn = findViewById(R.id.searchBtn);
         Button savedEventsBtn = findViewById(R.id.savedEventsBtn);
+
         progressBar = findViewById(R.id.processBar);
         eventListView = findViewById(R.id.eventListView);
 
         isTablet = findViewById(R.id.fragment_event_details) != null;
 
-        /**
-        * init data holder and adapter
-        */
         events = new ArrayList<>();
         eventsAdapter = new EventsAdapter();
         eventListView.setAdapter(eventsAdapter);
@@ -135,36 +178,35 @@ public class TicketMasterMainActivity extends TicketMasterDrawerBase {
 
             view.setSelected(true);
 
-            Bundle bundle = new Bundle();
-            bundle.putBoolean(EventDetailFragment.KEY_IS_TABLET, isTablet);
-            bundle.putBoolean(EventDetailFragment.KEY_IS_FAVORITE, false);
-            bundle.putString(EventDetailFragment.KEY_EVENT_NAME, event.getName());
-            bundle.putString(EventDetailFragment.KEY_EVENT_DATE, event.getDate());
-            bundle.putString(EventDetailFragment.KEY_EVENT_MIN_PRICE, event.getMinPrice());
-            bundle.putString(EventDetailFragment.KEY_EVENT_MAX_PRICE, event.getMaxPrice());
-            bundle.putString(EventDetailFragment.KEY_EVENT_URL, event.getURL());
-            bundle.putString(EventDetailFragment.KEY_EVENT_IMAGE, event.getImage());
+            Bundle dataToPass = new Bundle();
+            dataToPass.putBoolean(IS_TABLET, isTablet);
+            dataToPass.putBoolean(IS_FAVORITE, false);
+            dataToPass.putString(EVENT_NAME, event.getName());
+            dataToPass.putString(EVENT_DATE, event.getDate());
+            dataToPass.putString(EVENT_MIN_PRICE, event.getMinPrice());
+            dataToPass.putString(EVENT_MAX_PRICE, event.getMaxPrice());
+            dataToPass.putString(EVENT_URL, event.getURL());
+            dataToPass.putString(EVENT_IMAGE, event.getImage());
 
             if (isTablet) {
-                // init fragment
                 EventDetailFragment eventDetailFragment = new EventDetailFragment();
-                eventDetailFragment.setArguments(bundle);
+                eventDetailFragment.setArguments(dataToPass);
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_event_details, eventDetailFragment) //Add the fragment in FrameLayout
-                        .commit(); //actually load the fragment. Calls onCreate() in DetailFragment
+                        .replace(R.id.fragment_event_details, eventDetailFragment)
+                        .commit();
 
             } else {
-                Intent intent = new Intent(TicketMasterMainActivity.this, TicketMasterEventDetailsActivity.class);
-                intent.putExtra(TicketMasterEventDetailsActivity.EVENT_DETAIL, bundle);
+                Intent intent = new Intent(this, TicketMasterEventDetailsActivity.class);
+                intent.putExtra("EVENT_DETAIL", dataToPass);
                 startActivity(intent);
             }
         });
 
-        searchBtn.setOnClickListener(v -> searchEvent(cityNameEditText.getText().toString().trim(), radiusEditText.getText().toString().trim()));
+        searchBtn.setOnClickListener(v -> searchEvent(cityNameEditText.getText().toString(), radiusEditText.getText().toString()));
 
         savedEventsBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(TicketMasterMainActivity.this, TicketMasterSavedEventsActivity.class);
+            Intent intent = new Intent(this, TicketMasterSavedEventsActivity.class);
             startActivity(intent);
         });
 
@@ -178,56 +220,28 @@ public class TicketMasterMainActivity extends TicketMasterDrawerBase {
      * @param radius radius that user entered
      */
     private void searchEvent(String cityName, String radius) {
-        if (cityName.isEmpty() || radius.isEmpty()) {
-            showAlertMessageWithTitle(getString(R.string.ticketmaster_alert_title), getString(R.string.ticketmaster_alert_message));
-            return;
-        }
 
         SharedPreferences.Editor editorCity = prefsCity.edit();
         SharedPreferences.Editor editorRadius = prefsRadius.edit();
-        editorCity.putString(SEARCH_CITY, cityName);
-        editorRadius.putString(SEARCH_RADIUS, radius);
+        editorCity.putString("SEARCH_CITY", cityName);
+        editorRadius.putString("SEARCH_RADIUS", radius);
         editorCity.apply();
         editorRadius.apply();
 
-        Snackbar snackbar = Snackbar.make(eventListView,
-                String.format(getString(R.string.ticketmaster_search_events_nearby), cityName),
-                Snackbar.LENGTH_LONG);
-        snackbar.show();
+        if (cityName.isEmpty() || radius.isEmpty()) {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle(R.string.ticketmaster_alert_title);
+            alertDialogBuilder.setMessage(R.string.ticketmaster_alert_message);
+            alertDialogBuilder.setPositiveButton("OK", (v, arg) -> {
+            });
+            alertDialogBuilder.create().show();
+            return;
+        }
 
         progressBar.setVisibility(View.VISIBLE);
 
-        QueryEvent queryEvent = new QueryEvent();
-        queryEvent.execute(String.format("https://app.ticketmaster.com/discovery/v2/events.json?apikey=7UF99kWXsCJZmFLtlXGJ11mx77gM2v1D&city=%s&radius=%s", cityName, radius));
-    }
-
-    /**
-     * add event to the search result
-     * @param event event
-     */
-    private void addToSearchResult(Event event) {
-        ContentValues newRowValue = new ContentValues();
-        newRowValue.put(Event.COL_NAME, event.getName());
-        newRowValue.put(Event.COL_DATE, event.getDate());
-        newRowValue.put(Event.COL_MINPRICE, event.getMinPrice());
-        newRowValue.put(Event.COL_MAXPRICE, event.getMaxPrice());
-        newRowValue.put(Event.COL_URL, event.getURL());
-        newRowValue.put(Event.COL_IMAGE, event.getImage());
-
-        db.insert(Event.SEARCH_RESULT_TABLE, null, newRowValue);
-    }
-
-    /**
-     * Initialize menu
-     * @param menu menu
-     * @return true if succeed
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu items for use in the action bar
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.shared_toolbar_menu, menu);
-        return true;
+        GetEvent getEvent = new GetEvent();
+        getEvent.execute(String.format("https://app.ticketmaster.com/discovery/v2/events.json?apikey=7UF99kWXsCJZmFLtlXGJ11mx77gM2v1D&city=%s&radius=%s", cityName, radius));
     }
 
 
@@ -240,25 +254,11 @@ public class TicketMasterMainActivity extends TicketMasterDrawerBase {
         return R.layout.ticketmaster_activity_main;
     }
 
-    /**
-     * method to show alert message
-     * @param title title of the alert message
-     * @param message alert message
-     */
-    private void showAlertMessageWithTitle(String title, String message) {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setTitle(title);
-        alertDialogBuilder.setMessage(message);
-        alertDialogBuilder.setPositiveButton("OK", (v, arg) -> {
-        });
-
-        alertDialogBuilder.create().show();
-    }
 
     /**
-     * subclass of AsyncTask to query events
+     * class of AsyncTask to get events information from server
      */
-    private class QueryEvent extends AsyncTask<String, Integer, List<Event>> {
+    private class GetEvent extends AsyncTask<String, Integer, List<Event>> {
 
         /**
          * fetch data in the backgroud thread
@@ -282,10 +282,8 @@ public class TicketMasterMainActivity extends TicketMasterDrawerBase {
                 }
                 String result = sb.toString();
 
-                // clear search result in db
-                db.delete(Event.SEARCH_RESULT_TABLE, null, null);
+                db.delete(SEARCH_RESULT_TABLE, null, null);
 
-                // get event info and store it in eventList
                 JSONObject jsonObject = new JSONObject(result);
                 if(jsonObject.getJSONObject("page").getInt("size") > 0){
                     JSONObject embeddedObj = jsonObject.getJSONObject("_embedded");
@@ -309,16 +307,32 @@ public class TicketMasterMainActivity extends TicketMasterDrawerBase {
                         JSONArray imageArray = (JSONArray) eventObj.getJSONArray("images");
                         JSONObject imageObj = (JSONObject) imageArray.get(0);
                         event.setImage(imageObj.getString("url"));
-
                         eventList.add(event);
-                        addToSearchResult(event);
+
+                        addEventItem(event);
                     }
                 }
             } catch (IOException | JSONException e) {
-                Log.e("TicketMaster", e.getMessage());
+                e.printStackTrace();
             }
 
             return eventList;
+        }
+
+        /**
+         * add event to the search result
+         * @param event event
+         */
+        private void addEventItem(Event event) {
+            ContentValues newRowValue = new ContentValues();
+            newRowValue.put(COL_NAME, event.getName());
+            newRowValue.put(COL_DATE, event.getDate());
+            newRowValue.put(COL_MINPRICE, event.getMinPrice());
+            newRowValue.put(COL_MAXPRICE, event.getMaxPrice());
+            newRowValue.put(COL_URL, event.getURL());
+            newRowValue.put(COL_IMAGE, event.getImage());
+
+            db.insert(SEARCH_RESULT_TABLE, null, newRowValue);
         }
 
 
@@ -334,17 +348,11 @@ public class TicketMasterMainActivity extends TicketMasterDrawerBase {
         @Override
         protected void onPostExecute(List<Event> eventList) {
             super.onPostExecute(eventList);
-
             events.clear();
             events.addAll(eventList);
-
             eventsAdapter.notifyDataSetChanged();
+            progressBar.setVisibility(View.VISIBLE);
 
-            progressBar.setVisibility(View.GONE);
-
-            Toast.makeText(TicketMasterMainActivity.this,
-                    String.format(getString(R.string.ticketmaster_find_events_number), eventList.size()),
-                    Toast.LENGTH_LONG).show();
         }
     }
 
@@ -392,18 +400,16 @@ public class TicketMasterMainActivity extends TicketMasterDrawerBase {
          */
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                LayoutInflater layoutInflater = getLayoutInflater();
-                convertView = layoutInflater.inflate(R.layout.ticketmaster_event_item, parent, false);
-            }
-            TextView eventDateTV = convertView.findViewById(R.id.event_date_tv);
-            TextView eventNameTV = convertView.findViewById(R.id.event_name_tv);
+            LayoutInflater layoutInflater = getLayoutInflater();
+            View view = layoutInflater.inflate(R.layout.ticketmaster_event_item, parent, false);
+            TextView eventDateTV = view.findViewById(R.id.event_date_tv);
+            TextView eventNameTV = view.findViewById(R.id.event_name_tv);
 
             Event event = getItem(position);
-            eventNameTV.setText(String.format(Locale.getDefault(), "%d. %s", position + 1, event.getName()));
+            eventNameTV.setText(event.getName());
             eventDateTV.setText(event.getDate());
 
-            return convertView;
+            return view;
         }
     }
 

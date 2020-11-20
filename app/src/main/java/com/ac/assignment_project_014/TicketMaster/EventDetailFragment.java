@@ -33,21 +33,8 @@ import java.net.URL;
  */
 public class EventDetailFragment extends Fragment {
 
-    public static final String KEY_IS_TABLET = "IS_TABLET";
-    public static final String KEY_IS_FAVORITE = "IS_FAV";
-    public static final String KEY_EVENT_ID = "EVENT_ID";
-    public static final String KEY_EVENT_NAME = "EVENT_NAME";
-    public static final String KEY_EVENT_DATE = "EVENT_DATE";
-    public static final String KEY_EVENT_MIN_PRICE = "EVENT_MINPRICE";
-    public static final String KEY_EVENT_MAX_PRICE = "EVENT_MAXPRICE";
-    public static final String KEY_EVENT_URL = "EVENT_URL";
-    public static final String KEY_EVENT_IMAGE = "EVENT_IMAGE";
-
-    /**
-     *
-     */
     private boolean isTablet;
-    private boolean isFav;
+    private boolean isSaved;
     private long id;
     private String eventName;
     private String eventDate;
@@ -58,11 +45,11 @@ public class EventDetailFragment extends Fragment {
 
     private ProgressBar progressBar;
     private ImageView imgPromotion;
-
+    private Bundle dataFromActivity;
     private AppCompatActivity parentActivity;
 
     /**
-     * Required empty public constructor
+     * no-arg constructor
      */
     public EventDetailFragment() {
     }
@@ -80,24 +67,23 @@ public class EventDetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            isTablet = getArguments().getBoolean(KEY_IS_TABLET);
-            isFav = getArguments().getBoolean(KEY_IS_FAVORITE);
-            id = getArguments().getLong(KEY_EVENT_ID, -1L);
-            eventName = getArguments().getString(KEY_EVENT_NAME);
-            eventDate = getArguments().getString(KEY_EVENT_DATE);
-            eventMinPrice = getArguments().getString(KEY_EVENT_MIN_PRICE);
-            eventMaxPrice = getArguments().getString(KEY_EVENT_MAX_PRICE);
-            eventURL = getArguments().getString(KEY_EVENT_URL);
-            eventImage = getArguments().getString(KEY_EVENT_IMAGE);
-        }
+        dataFromActivity = getArguments();
+       // if (getArguments() != null) {
+            isTablet = dataFromActivity.getBoolean(TicketMasterMainActivity.IS_TABLET);
+            isSaved = dataFromActivity.getBoolean(TicketMasterMainActivity.IS_FAVORITE);
+            id = dataFromActivity.getLong(TicketMasterMainActivity.EVENT_ID, -1L);
+            eventName = dataFromActivity.getString(TicketMasterMainActivity.EVENT_NAME);
+            eventDate = dataFromActivity.getString(TicketMasterMainActivity.EVENT_DATE);
+            eventMinPrice = dataFromActivity.getString(TicketMasterMainActivity.EVENT_MIN_PRICE);
+            eventMaxPrice = dataFromActivity.getString(TicketMasterMainActivity.EVENT_MAX_PRICE);
+            eventURL = dataFromActivity.getString(TicketMasterMainActivity.EVENT_URL);
+            eventImage = dataFromActivity.getString(TicketMasterMainActivity.EVENT_IMAGE);
+        //}
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
-        //context will either be FragmentExample for a tablet, or EmptyActivity for phone
         parentActivity = (AppCompatActivity)context;
     }
 
@@ -110,61 +96,58 @@ public class EventDetailFragment extends Fragment {
         imgPromotion = view.findViewById(R.id.fg_event_image);
 
         TextView fgEventName = view.findViewById(R.id.fg_event_name);
-        fgEventName.setText(String.format(getString(R.string.ticketmaster_name), eventName));
+        fgEventName.setText(R.string.ticketmaster_name + eventName);
 
         TextView fgEventDate = view.findViewById(R.id.fg_event_date);
-        fgEventDate.setText(String.format(getString(R.string.ticketmaster_date), eventDate));
+        fgEventDate.setText(R.string.ticketmaster_date + eventDate);
 
         TextView fgMinPrice = view.findViewById(R.id.fg_event_min_price);
-        fgMinPrice.setText(String.format(getString(R.string.ticketmaster_min_price), eventMinPrice));
+        fgMinPrice.setText(R.string.ticketmaster_min_price + eventMinPrice);
 
         TextView fgMaxPrice = view.findViewById(R.id.fg_event_max_price);
-        fgMaxPrice.setText(String.format(getString(R.string.ticketmaster_max_price), eventMaxPrice));
+        fgMaxPrice.setText(R.string.ticketmaster_max_price + eventMaxPrice);
 
         TextView fgURL = view.findViewById(R.id.fg_event_url);
-        fgURL.setText(String.format(getString(R.string.ticketmaster_url), eventURL));
-
-
-        Button btnAddOrRemove = view.findViewById(R.id.btn_add_remove);
-        btnAddOrRemove.setText(isFav ? R.string.ticketmaster_event_remove_from_fav : R.string.ticketmaster_event_add_to_fav);
-        btnAddOrRemove.setOnClickListener(v -> {
-            EventOpenHelper eventDB = new EventOpenHelper(parentActivity);
-            SQLiteDatabase db = eventDB.getWritableDatabase();
-
-            if (isFav) {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(parentActivity);
-                alertDialog.setTitle(R.string.ticketmaster_confirm).setMessage(R.string.ticketmaster_remove_confirm
-                ).setPositiveButton(R.string.ticketmaster_yes,(click, arg)->{
-                    removeFavoriteEvent(db, btnAddOrRemove);
-                }).setNegativeButton(R.string.ticketmaster_no,(click, arg)->{
-                }).create().show();
-            } else {
-                saveToFavorite(db, btnAddOrRemove);
-            }
-        });
-
+        fgURL.setText(R.string.ticketmaster_url+eventURL);
 
         GetImage getImage = new GetImage();
         getImage.execute(eventImage);
+
+        Button btn = view.findViewById(R.id.btn_add_remove);
+        if(isSaved)
+            btn.setText(R.string.ticketmaster_event_remove_from_fav);
+        else
+            btn.setText(R.string.ticketmaster_event_add_to_fav);
+
+        btn.setOnClickListener(v -> {
+            EventOpenHelper eventDB = new EventOpenHelper(parentActivity);
+            SQLiteDatabase db = eventDB.getWritableDatabase();
+
+            if (isSaved) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(parentActivity);
+                alertDialog.setTitle(R.string.ticketmaster_confirm).setMessage(R.string.ticketmaster_remove_confirm
+                ).setPositiveButton(R.string.ticketmaster_yes,(click, arg)->{
+                    removeSavedEvent(db, btn);
+                }).setNegativeButton(R.string.ticketmaster_no,(click, arg)->{
+                }).create().show();
+            } else {
+                save(db, btn);
+            }
+        });
 
         return view;
     }
 
 
 
-    private void removeFavoriteEvent(SQLiteDatabase db, Button button) {
-        int count = db.delete(Event.EVENT_SAVED_TABLE, Event.COL_ID + " = ?", new String[]{String.valueOf(id)});
+    private void removeSavedEvent(SQLiteDatabase db, Button button) {
+        int count = db.delete(TicketMasterMainActivity.EVENT_SAVED_TABLE, TicketMasterMainActivity.COL_ID + " = ?", new String[]{String.valueOf(id)});
         if (count > 0) {
             Snackbar snackbar = Snackbar.make(this.imgPromotion,
                     R.string.ticketmaster_remove_success,
                     Snackbar.LENGTH_LONG);
-            if (!isTablet) {
-                snackbar.setAction(R.string.ticketmaster_go_to_fav, (btn) -> {
-                    parentActivity.finish();
-                });
-            }
-            snackbar.show();
             button.setEnabled(false);
+            snackbar.show();
 
             // update parent activity if it is tablet
             if (this.callback != null) {
@@ -182,16 +165,16 @@ public class EventDetailFragment extends Fragment {
         void removeEvent(long eventId);
     }
 
-    private void saveToFavorite(SQLiteDatabase db, Button button) {
+    private void save(SQLiteDatabase db, Button button) {
         ContentValues newRowValue = new ContentValues();
-        newRowValue.put(Event.COL_NAME, eventName);
-        newRowValue.put(Event.COL_DATE, eventDate);
-        newRowValue.put(Event.COL_MINPRICE, eventMinPrice);
-        newRowValue.put(Event.COL_MAXPRICE, eventMaxPrice);
-        newRowValue.put(Event.COL_URL, eventURL);
-        newRowValue.put(Event.COL_IMAGE, eventImage);
+        newRowValue.put(TicketMasterMainActivity.COL_NAME, eventName);
+        newRowValue.put(TicketMasterMainActivity.COL_DATE, eventDate);
+        newRowValue.put(TicketMasterMainActivity.COL_MINPRICE, eventMinPrice);
+        newRowValue.put(TicketMasterMainActivity.COL_MAXPRICE, eventMaxPrice);
+        newRowValue.put(TicketMasterMainActivity.COL_URL, eventURL);
+        newRowValue.put(TicketMasterMainActivity.COL_IMAGE, eventImage);
 
-        long newId = db.insert(Event.EVENT_SAVED_TABLE, null, newRowValue);
+        long newId = db.insert(TicketMasterMainActivity.EVENT_SAVED_TABLE, null, newRowValue);
         Snackbar snackbar;
         if (newId >= 0) {
             snackbar = Snackbar.make(this.imgPromotion,

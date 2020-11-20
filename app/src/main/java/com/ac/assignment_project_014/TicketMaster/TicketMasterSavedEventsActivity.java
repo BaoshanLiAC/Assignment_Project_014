@@ -46,9 +46,9 @@ public class TicketMasterSavedEventsActivity extends AppCompatActivity implement
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ticketmaster_saved_events);
 
-        boolean isTablet = findViewById(R.id.fragment_event_details) != null;
-
         ListView savedEventsLV = findViewById(R.id.savedListView);
+
+        boolean isTablet = findViewById(R.id.fragment_event_details) != null;
 
         events = new ArrayList<>();
         myEventsAdapter = new EventsAdapter();
@@ -56,32 +56,29 @@ public class TicketMasterSavedEventsActivity extends AppCompatActivity implement
 
         savedEventsLV.setOnItemClickListener((parent, view, position, id) -> {
             view.setSelected(true);
-
             Event event = events.get(position);
-            // view detail
-            Bundle bundle = new Bundle();
-            bundle.putBoolean(EventDetailFragment.KEY_IS_TABLET, isTablet);
-            bundle.putBoolean(EventDetailFragment.KEY_IS_FAVORITE, true);
-            bundle.putLong(EventDetailFragment.KEY_EVENT_ID, event.getId());
-            bundle.putString(EventDetailFragment.KEY_EVENT_NAME, event.getName());
-            bundle.putString(EventDetailFragment.KEY_EVENT_DATE, event.getDate());
-            bundle.putString(EventDetailFragment.KEY_EVENT_MIN_PRICE, event.getMinPrice());
-            bundle.putString(EventDetailFragment.KEY_EVENT_MAX_PRICE, event.getMaxPrice());
-            bundle.putString(EventDetailFragment.KEY_EVENT_URL, event.getURL());
-            bundle.putString(EventDetailFragment.KEY_EVENT_IMAGE, event.getImage());
+            Bundle dataToPass = new Bundle();
+            dataToPass.putBoolean(TicketMasterMainActivity.IS_TABLET, isTablet);
+            dataToPass.putBoolean(TicketMasterMainActivity.IS_FAVORITE, true);
+            dataToPass.putLong(TicketMasterMainActivity.EVENT_ID, event.getId());
+            dataToPass.putString(TicketMasterMainActivity.EVENT_NAME, event.getName());
+            dataToPass.putString(TicketMasterMainActivity.EVENT_DATE, event.getDate());
+            dataToPass.putString(TicketMasterMainActivity.EVENT_MIN_PRICE, event.getMinPrice());
+            dataToPass.putString(TicketMasterMainActivity.EVENT_MAX_PRICE, event.getMaxPrice());
+            dataToPass.putString(TicketMasterMainActivity.EVENT_URL, event.getURL());
+            dataToPass.putString(TicketMasterMainActivity.EVENT_IMAGE, event.getImage());
 
             if (isTablet) {
-                // init fragment
                 EventDetailFragment eventDetailFragment = new EventDetailFragment();
-                eventDetailFragment.setArguments( bundle );
+                eventDetailFragment.setArguments( dataToPass );
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_event_details, eventDetailFragment) //Add the fragment in FrameLayout
-                        .commit(); //actually load the fragment. Calls onCreate() in DetailFragment
+                        .replace(R.id.fragment_event_details, eventDetailFragment)
+                        .commit();
 
             } else {
                 Intent intent = new Intent(TicketMasterSavedEventsActivity.this, TicketMasterEventDetailsActivity.class);
-                intent.putExtra(TicketMasterEventDetailsActivity.EVENT_DETAIL, bundle);
+                intent.putExtra("EVENT_DETAIL", dataToPass);
                 startActivity(intent);
             }
         });
@@ -101,17 +98,17 @@ public class TicketMasterSavedEventsActivity extends AppCompatActivity implement
      */
     private void loadSavedEvent() {
         events.clear();
-        String[] columns = {Event.COL_ID, Event.COL_NAME, Event.COL_DATE, Event.COL_MINPRICE, Event.COL_MAXPRICE,Event.COL_URL,Event.COL_IMAGE};
-        Cursor results = db.query(false, Event.EVENT_SAVED_TABLE, columns,
+        String[] columns = {TicketMasterMainActivity.COL_ID, TicketMasterMainActivity.COL_NAME, TicketMasterMainActivity.COL_DATE, TicketMasterMainActivity.COL_MINPRICE, TicketMasterMainActivity.COL_MAXPRICE,TicketMasterMainActivity.COL_URL,TicketMasterMainActivity.COL_IMAGE};
+        Cursor results = db.query(false, TicketMasterMainActivity.EVENT_SAVED_TABLE, columns,
                 null, null, null, null, null, null);
 
-        int idColIndex = results.getColumnIndex(Event.COL_ID);
-        int nameColIndex = results.getColumnIndex(Event.COL_NAME);
-        int dateColIndex = results.getColumnIndex(Event.COL_DATE);
-        int minPriceColIndex = results.getColumnIndex(Event.COL_MINPRICE);
-        int maxPriceCoverColIndex = results.getColumnIndex(Event.COL_MAXPRICE);
-        int urlColIndex = results.getColumnIndex(Event.COL_URL);
-        int imageColIndex = results.getColumnIndex(Event.COL_IMAGE);
+        int idColIndex = results.getColumnIndex(TicketMasterMainActivity.COL_ID);
+        int nameColIndex = results.getColumnIndex(TicketMasterMainActivity.COL_NAME);
+        int dateColIndex = results.getColumnIndex(TicketMasterMainActivity.COL_DATE);
+        int minPriceColIndex = results.getColumnIndex(TicketMasterMainActivity.COL_MINPRICE);
+        int maxPriceCoverColIndex = results.getColumnIndex(TicketMasterMainActivity.COL_MAXPRICE);
+        int urlColIndex = results.getColumnIndex(TicketMasterMainActivity.COL_URL);
+        int imageColIndex = results.getColumnIndex(TicketMasterMainActivity.COL_IMAGE);
 
         while (results.moveToNext()) {
             Event event = new Event();

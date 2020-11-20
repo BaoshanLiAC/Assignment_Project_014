@@ -10,11 +10,11 @@
     <string name="ticketmaster_radius_tv">Enter Radius</string>
     <string name="ticketmaster_search">Search Events</string>
     <string name="ticketmaster_saved">Saved Events</string>
-    <string name="ticketmaster_name">Name: %s</string>
-    <string name="ticketmaster_date">Starting Date: %s</string>
-    <string name="ticketmaster_min_price">Min Price: %s</string>
-    <string name="ticketmaster_max_price">Max Price: %s</string>
-    <string name="ticketmaster_url">URL: %s</string>
+    <string name="ticketmaster_name">Name: </string>
+    <string name="ticketmaster_date">Starting Date: </string>
+    <string name="ticketmaster_min_price">Min Price: </string>
+    <string name="ticketmaster_max_price">Max Price: </string>
+    <string name="ticketmaster_url">URL: </string>
     <string name="ticketmaster_navigation_open">Open</string>
     <string name="ticketmaster_navigation_close">Close</string>
     <string name="ticketmaster_event_image">Promotion Image</string>
@@ -31,7 +31,6 @@
     <string name="ticketmaster_go_to_fav">Go to Saved Events </string>
     <string name="ticketmaster_alert_title">Alert: </string>
     <string name="ticketmaster_alert_message">City Name and Radius can not be empty</string>
-    <string name="ticketmaster_search_events_nearby">Search events near city %s</string>
     <string name="ticketmaster_help_title">Help</string>
     <string name="ticketmaster_help_infor">Please enter city name and radius to search the events</string>
     <string name="ticketmaster_find_events_number">Find %d events</string>

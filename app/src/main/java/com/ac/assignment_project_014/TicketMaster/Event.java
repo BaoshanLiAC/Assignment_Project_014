@@ -1,51 +1,6 @@
 package com.ac.assignment_project_014.TicketMaster;
 
 public class Event {
-
-    /**
-     * table name of the search result
-     */
-    public final static String SEARCH_RESULT_TABLE = "TICKET_MASTER_EVENT_LIST";
-
-    /**
-     * table name of the saved events
-     */
-    public final static String EVENT_SAVED_TABLE = "EVENT_SAVED";
-
-    /**
-     * column: id of the event
-     */
-    public final static String COL_ID = "_id";
-
-    /**
-     * column: name of the event
-     */
-    public final static String COL_NAME = "NAME";
-
-    /**
-     * column: date of the event
-     */
-    public final static String COL_DATE = "DATE";
-
-    /**
-     * column: minimum price of the event
-     */
-    public final static String COL_MINPRICE = "MINPRICE";
-    /**
-     * column: max price of the event
-     */
-    public final static String COL_MAXPRICE = "MAXPRICE";
-
-    /**
-     * column: url of the event
-     */
-    public final static String COL_URL = "URL";
-
-    /**
-     * column: image of the event
-     */
-    public final static String COL_IMAGE = "IMAGE";
-
     /**
      * the id in db
      */
