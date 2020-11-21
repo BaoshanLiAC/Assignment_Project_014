@@ -19,11 +19,11 @@ import com.google.android.material.navigation.NavigationView;
 import static android.view.View.TEXT_ALIGNMENT_TEXT_START;
 
 /**
- *
+ * Abstract base for drawer to be shared across all COVID-19 activities
  */
 public abstract class CovidDrawerBase extends ToolBarBase implements NavigationView.OnNavigationItemSelectedListener{
     /**
-     *
+     *fields
      */
     protected DrawerLayout drawer;
     protected ActionBarDrawerToggle drawerToggle;
@@ -35,6 +35,8 @@ public abstract class CovidDrawerBase extends ToolBarBase implements NavigationV
      */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+
+        //retrieving implemented layout
         setContentView(getLayoutId());
         super.onCreate(savedInstanceState);
 
@@ -44,7 +46,11 @@ public abstract class CovidDrawerBase extends ToolBarBase implements NavigationV
         drawer.addDrawerListener(drawerToggle);
 
         drawerToggle.syncState();
+
+        //initial navigationView
         navigationView = (NavigationView)findViewById(R.id.covid_nav_view);
+
+        //register event handler on menu items
         navigationView.setNavigationItemSelectedListener(menuItem->{
             menuItem.setChecked(true);
             drawer.closeDrawers();

@@ -1,5 +1,8 @@
 package com.ac.assignment_project_014.covid19;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -14,15 +17,23 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+
+
 
 import com.ac.assignment_project_014.R;
 
 import java.util.ArrayList;
 
+/**
+ * Activity for archived data.
+ *
+ */
 public class Covid19ArchivedActivity extends CovidDrawerBase {
-    protected ArrayList<Covid19CountryData> datalist = new ArrayList<>();
+
+    /**
+     * fields
+     */
+    protected ArrayList<Covid19CountryData> dataList = new ArrayList<>();
     protected ListView listView;
     protected CountryList dataAdapter;
     protected Covid19DateHelper data;
@@ -39,23 +50,26 @@ public class Covid19ArchivedActivity extends CovidDrawerBase {
         dataAdapter = new CountryList(this);
         listView = findViewById(R.id.covid_archived_listView);
         listView.setAdapter(dataAdapter);
-        //load data from db to initial datalist;
+        
+        //load data from db;
         loadData();
-
+        
+        //review row detail
         listView.setOnItemClickListener(( parent, view, position, id)->{
             Toast.makeText(listView.getContext(), "Open detail for selected data.", Toast.LENGTH_LONG).show();
-            Covid19CountryData data = datalist.get(position);
+            Covid19CountryData data = dataList.get(position);
             Intent showResult = new Intent(Covid19ArchivedActivity.this, Covid19SearchResultActivity.class);
             showResult.putExtra("search_result", data);
             startActivity(showResult);
 
         });
-
+        
+        //delete row
         listView.setOnItemLongClickListener(( parent, view, position, id)->{
 
-            Covid19CountryData item = datalist.get(position);
+            Covid19CountryData item = dataList.get(position);
             db.delete(data.TABLE_NAME, data.KEY_ID + "= ?", new String[] {Long.toString(item.getId())});
-            datalist.remove(item);
+            dataList.remove(item);
             dataAdapter.notifyDataSetChanged();
             Toast.makeText(listView.getContext(), "Record has been deleted.", Toast.LENGTH_LONG).show();
             return true;
@@ -81,11 +95,11 @@ public class Covid19ArchivedActivity extends CovidDrawerBase {
             super(context,0);
         }
         public Covid19CountryData getItem(int position){
-            return datalist.get(position);
+            return dataList.get(position);
         }
         @Override
         public int getCount(){
-            return datalist.size();
+            return dataList.size();
         }
         @Override
         public int getPosition(@Nullable Covid19CountryData item) {
@@ -156,13 +170,13 @@ public class Covid19ArchivedActivity extends CovidDrawerBase {
             byte[] data = results.getBlob(dataColIndex);
 
             ArrayList<Covid19ProvinceData> plist = Covid19Util.readByteArray(data);
-            //add the new Contact to the array list:
+            //add the new Country Data into the array list:
             Covid19CountryData item = new Covid19CountryData(country,queryDate);
             item.setId(id);
             item.setTotalCase(totalConfirmed);
             item.setDailyIncrease(dailyIncrease);
             item.setDataList(plist);
-            datalist.add(item);
+            dataList.add(item);
         }
         dataAdapter.notifyDataSetChanged();
     }

@@ -67,25 +67,21 @@
     <string name="covid_show_archived_btn">Archived</string>
     <string name="covid_Country_txt">COUNTRY:</string>
     <string name="covid_Date_txt">DATE:</string>
-    <string name="covid_search_country_hint">Canada</string>
+    <string name="covid_search_country_hint">Enter Country Name</string>
     <string name="covid_search_date_hint">yyyy-mm-dd</string>
     <string name="covid_search_result_Country_placeHolder">COUNTRY</string>
-    <string name="covid_search_result_Date_placeHolder">dd/mm/yyyy</string>
+    <string name="covid_search_result_Date_placeHolder">yyyy-mm-dd</string>
     <string name="covid_result_archive_text">SAVE</string>
     <string name="covid_result_back_to_search_text">BACK</string>
     <string name="vovid_result_title">Search Result:</string>
     <string name="covid_province_header">Province</string>
     <string name="covid_case_header">Confirmed</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="covid19_content_description">COVID 19 API</string>
-    <string name="covid_change_header">Daily Increase</string>
+    <string name="covid_change_header">Daily</string>
     <string name="covid_archived_data_title">Archived Records</string>
     <string name="covid_country_header">Country</string>
     <string name="covid_total_header">Confirmed</string>
     <string name="covid_country_change_header">Daily</string>
     <string name="covid_date_header">Date</string>
     <string name="covid_archived_data_description">Click to see detail and Long click to delete item.</string>
-
 </resources>

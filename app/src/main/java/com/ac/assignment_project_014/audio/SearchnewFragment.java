@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -66,6 +67,9 @@ public class SearchnewFragment  extends Fragment {
         btn_search.setOnClickListener( click -> {
             gArtistURL="https://www.theaudiodb.com/api/v1/json/1/searchalbum.php?s="+text_search.getText();
             new fetchAlbum().execute();
+
+            Toast.makeText(getActivity(),"Searching album from server.",
+                    Toast.LENGTH_SHORT).show();
         });
 
 

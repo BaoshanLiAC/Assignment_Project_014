@@ -7,6 +7,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+/**
+ * Util class offering static methods to conver data between Object and byte[]
+ */
 public class Covid19Util {
 
     protected static byte [] createByteArray( Object obj){
@@ -21,16 +24,14 @@ public class Covid19Util {
         catch (Exception e)
         {
             e.printStackTrace();
-
         }
         return bArray;
 
     }
-    @SuppressWarnings("unchecked")
+
     protected static ArrayList<Covid19ProvinceData> readByteArray(byte[] bytes){
         ArrayList<Covid19ProvinceData> list = null;
         try (ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(bytes))){
-
             list = (ArrayList<Covid19ProvinceData>) ois.readObject();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

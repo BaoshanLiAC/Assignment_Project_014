@@ -16,12 +16,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.ac.assignment_project_014.R;
 import com.ac.assignment_project_014.recipe.RecipeMainActivity;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -83,9 +85,13 @@ public class AlbumDetailFragment  extends Fragment {
                     if (btnStore.getText().equals("Save")) {
                         this.saveLocalAlbum(this.currentAlbum);
                         btnStore.setText("Remove");
+                        Snackbar.make(listView, "Album Remove.", Snackbar.LENGTH_LONG).show();
+
+
                     } else if (btnStore.getText().equals("Remove")) {
                         this.removeLocalAlbum(this.currentAlbum);
                         btnStore.setText("Save");
+                        Snackbar.make(listView, "Album Save.", Snackbar.LENGTH_LONG).show();
                     }
                 } else
                     btnStore.setText("Please select one album.");
@@ -194,14 +200,6 @@ public class AlbumDetailFragment  extends Fragment {
 
 
 
-
-
-
-
-    private void saveTrack(){
-
-
-    }
 
 
 
@@ -336,6 +334,8 @@ public class AlbumDetailFragment  extends Fragment {
                     //todo:
                     TrackItem model = new TrackItem(idAlbum,idTrack,strTrack,strArtist,strGenre);
                     getTlist().add(model);
+                    Toast.makeText(getActivity(),"Get data from server.",Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(this,"Go search by country and date.", Toast.LENGTH_LONG).show();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

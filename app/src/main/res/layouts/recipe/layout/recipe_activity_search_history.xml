@@ -29,10 +29,10 @@
             android:layout_height="wrap_content">
         </EditText>
         <ListView
-        android:id="@+id/recipe_listView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/search_bar"/>
+            android:id="@+id/recipe_listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/search_bar"/>
     </LinearLayout>
 
 

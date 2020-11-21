@@ -1,9 +1,22 @@
 package com.ac.assignment_project_014.covid19;
 
+
+
+
 import java.io.Serializable;
+
 import java.util.ArrayList;
 
+
+/**
+ * Country Data Pojo
+ *
+ */
 public class Covid19CountryData implements Serializable {
+
+    /**
+     * fields
+     */
     private Long id;
     private String countryName;
     private String searchDateTime;
@@ -11,14 +24,26 @@ public class Covid19CountryData implements Serializable {
     private Integer dailyIncrease;
     private ArrayList<Covid19ProvinceData> dataList;
 
-
+    /**
+     * default constructor
+     */
     public Covid19CountryData(){}
+
+    /**
+     * parameterized constructor
+     * @param countryName
+     * @param searchDateTime
+     */
     public Covid19CountryData(String countryName, String searchDateTime){
         dataList = new ArrayList<>();
         setCountryName(countryName);
         setSearchDateTime(searchDateTime);
     }
 
+    /***
+     * getters && setters
+     *
+     */
     public Long getId() {return id;}
 
     public void setId(Long id) {this.id = id; }

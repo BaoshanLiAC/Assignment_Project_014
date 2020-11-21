@@ -6,7 +6,7 @@
     android:id="@+id/covid_drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:openDrawer="start"
+    tools:openDrawer="end"
     tools:context="com.ac.assignment_project_014.covid19.Covid19SearchResultActivity"
     >
 <LinearLayout
@@ -72,29 +72,35 @@
             android:layout_width="360dp"
             android:orientation="horizontal"
             android:layout_height="wrap_content">
-            <TextView
+            <Button
+                android:id="@+id/covid_result_province_btn"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:text="@string/covid_province_header"
                 android:textColor="#ffffff"
                 android:background="#2F45BF"
                 android:textAlignment="center"
+                style="?attr/textAppearanceListItemSmall"
                 />
-            <TextView
+            <Button
+                android:id="@+id/covid_result_confirmed_btn"
                 android:layout_width="105dp"
                 android:layout_height="wrap_content"
                 android:text="@string/covid_case_header"
                 android:textColor="#ffffff"
                 android:background="#2F45BF"
                 android:textAlignment="center"
+                style="?attr/textAppearanceListItemSmall"
                 />
-            <TextView
+            <Button
+                android:id="@+id/covid_result_daily_btn"
                 android:layout_width="105dp"
                 android:layout_height="wrap_content"
                 android:text="@string/covid_change_header"
                 android:textColor="#ffffff"
                 android:background="#2F45BF"
                 android:textAlignment="center"
+            style="?attr/textAppearanceListItemSmall"
                 />
 
         </LinearLayout>
@@ -117,5 +123,6 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/covid19_nav_header"
         app:menu="@menu/covid19_drawer_menu"
-        android:id="@+id/nav_view"/>
+        android:id="@+id/covid_nav_view"/>
+
     </androidx.drawerlayout.widget.DrawerLayout>

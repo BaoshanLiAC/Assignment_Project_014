@@ -53,6 +53,7 @@ public class SearchHistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recipe_activity_search_history);
 
+
         listView = (ListView)findViewById(R.id.recipe_listView);
         searchHistorylist = getPreferenceData();
         adapter= new MyListAdapter();
@@ -89,6 +90,7 @@ public class SearchHistoryActivity extends AppCompatActivity {
                 return true;
             }
         });
+
     }
 
     /**
