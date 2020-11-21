@@ -11,14 +11,12 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.ac.assignment_project_014.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TicketMasterSavedEventsActivity extends AppCompatActivity{
+public class TicketMasterSavedEventsActivity extends TicketMasterDrawerBase{
 
     /**
      * data holder of saved events
@@ -42,7 +40,7 @@ public class TicketMasterSavedEventsActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ticketmaster_saved_events);
+        //setContentView(R.layout.ticketmaster_saved_events);
 
         ListView savedEventsLV = findViewById(R.id.savedListView);
 
@@ -83,6 +81,11 @@ public class TicketMasterSavedEventsActivity extends AppCompatActivity{
 
         EventOpenHelper eventDB = new EventOpenHelper(this);
         db = eventDB.getWritableDatabase();
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.ticketmaster_saved_events;
     }
 
     @Override

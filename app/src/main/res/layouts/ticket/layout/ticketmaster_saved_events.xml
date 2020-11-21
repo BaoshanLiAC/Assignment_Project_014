@@ -10,17 +10,29 @@
 
     <include layout="@layout/toolbar"/>
 
-    <TextView
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/ticketmaster_drawer_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/ticketmaster_favorite_title"
-        android:textSize="30dp"
-        android:paddingBottom="20dp"/>
+        android:layout_height="match_parent"
+        tools:openDrawer="start">
+
 
     <ListView
         android:id="@+id/savedListView"
         android:layout_width="match_parent"
         android:layout_weight="1"
         android:layout_height="match_parent" />
+
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/ticketmaster_navigation_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:headerLayout="@layout/ticketmaster_navigation_header_layout"
+            app:menu="@menu/ticketmaster_drawer_menu" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
 
 </LinearLayout>
