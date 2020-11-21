@@ -48,76 +48,48 @@ public class EventDetailFragment extends Fragment {
     private Bundle dataFromActivity;
     private AppCompatActivity parentActivity;
 
-    /**
-     * no-arg constructor
-     */
-    public EventDetailFragment() {
-    }
-
-    /**
-     * used to communicate with other activity
-     * reference to： https://developer.android.com/training/basics/fragments/communicating.html
-     */
-    private OnRemoveFavoriteEventListener callback;
-
-    public void setCallback(OnRemoveFavoriteEventListener callback) {
-        this.callback = callback;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        dataFromActivity = getArguments();
-       // if (getArguments() != null) {
-            isTablet = dataFromActivity.getBoolean(TicketMasterMainActivity.IS_TABLET);
-            isSaved = dataFromActivity.getBoolean(TicketMasterMainActivity.IS_FAVORITE);
-            id = dataFromActivity.getLong(TicketMasterMainActivity.EVENT_ID, -1L);
-            eventName = dataFromActivity.getString(TicketMasterMainActivity.EVENT_NAME);
-            eventDate = dataFromActivity.getString(TicketMasterMainActivity.EVENT_DATE);
-            eventMinPrice = dataFromActivity.getString(TicketMasterMainActivity.EVENT_MIN_PRICE);
-            eventMaxPrice = dataFromActivity.getString(TicketMasterMainActivity.EVENT_MAX_PRICE);
-            eventURL = dataFromActivity.getString(TicketMasterMainActivity.EVENT_URL);
-            eventImage = dataFromActivity.getString(TicketMasterMainActivity.EVENT_IMAGE);
-        //}
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        parentActivity = (AppCompatActivity)context;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        dataFromActivity = getArguments();
+        isTablet = dataFromActivity.getBoolean(TicketMasterMainActivity.IS_TABLET);
+        isSaved = dataFromActivity.getBoolean(TicketMasterMainActivity.IS_FAVORITE);
+        id = dataFromActivity.getLong(TicketMasterMainActivity.EVENT_ID, -1L);
+        eventName = dataFromActivity.getString(TicketMasterMainActivity.EVENT_NAME);
+        eventDate = dataFromActivity.getString(TicketMasterMainActivity.EVENT_DATE);
+        eventMinPrice = dataFromActivity.getString(TicketMasterMainActivity.EVENT_MIN_PRICE);
+        eventMaxPrice = dataFromActivity.getString(TicketMasterMainActivity.EVENT_MAX_PRICE);
+        eventURL = dataFromActivity.getString(TicketMasterMainActivity.EVENT_URL);
+        eventImage = dataFromActivity.getString(TicketMasterMainActivity.EVENT_IMAGE);
+
         View view = inflater.inflate(R.layout.ticketmaster_fragment_event_details, container, false);
 
         progressBar = view.findViewById(R.id.processBar);
         imgPromotion = view.findViewById(R.id.fg_event_image);
 
         TextView fgEventName = view.findViewById(R.id.fg_event_name);
-        fgEventName.setText(R.string.ticketmaster_name + eventName);
+        fgEventName.setText(getString(R.string.ticketmaster_name) + eventName);
 
         TextView fgEventDate = view.findViewById(R.id.fg_event_date);
-        fgEventDate.setText(R.string.ticketmaster_date + eventDate);
+        fgEventDate.setText(getString(R.string.ticketmaster_date) + eventDate);
 
         TextView fgMinPrice = view.findViewById(R.id.fg_event_min_price);
-        fgMinPrice.setText(R.string.ticketmaster_min_price + eventMinPrice);
+        fgMinPrice.setText(getString(R.string.ticketmaster_min_price) + eventMinPrice);
 
         TextView fgMaxPrice = view.findViewById(R.id.fg_event_max_price);
-        fgMaxPrice.setText(R.string.ticketmaster_max_price + eventMaxPrice);
+        fgMaxPrice.setText(getString(R.string.ticketmaster_max_price) + eventMaxPrice);
 
         TextView fgURL = view.findViewById(R.id.fg_event_url);
-        fgURL.setText(R.string.ticketmaster_url+eventURL);
+        fgURL.setText(getString(R.string.ticketmaster_url) +eventURL);
 
         GetImage getImage = new GetImage();
         getImage.execute(eventImage);
 
         Button btn = view.findViewById(R.id.btn_add_remove);
         if(isSaved)
-            btn.setText(R.string.ticketmaster_event_remove_from_fav);
+            btn.setText(getString(R.string.ticketmaster_event_remove_from_saved));
         else
-            btn.setText(R.string.ticketmaster_event_add_to_fav);
+            btn.setText(getString(R.string.ticketmaster_event_add_to_saved));
 
         btn.setOnClickListener(v -> {
             EventOpenHelper eventDB = new EventOpenHelper(parentActivity);
@@ -139,30 +111,37 @@ public class EventDetailFragment extends Fragment {
     }
 
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        //context will either be FragmentExample for a tablet, or EmptyActivity for phone
+        parentActivity = (AppCompatActivity)context;
+    }
+
+
+
 
     private void removeSavedEvent(SQLiteDatabase db, Button button) {
-        int count = db.delete(TicketMasterMainActivity.EVENT_SAVED_TABLE, TicketMasterMainActivity.COL_ID + " = ?", new String[]{String.valueOf(id)});
-        if (count > 0) {
+        int number = db.delete(TicketMasterMainActivity.EVENT_SAVED_TABLE, TicketMasterMainActivity.COL_ID + " = ?", new String[]{String.valueOf(id)});
+        if (number > 0) {
             Snackbar snackbar = Snackbar.make(this.imgPromotion,
                     R.string.ticketmaster_remove_success,
                     Snackbar.LENGTH_LONG);
             button.setEnabled(false);
             snackbar.show();
-
-            // update parent activity if it is tablet
-            if (this.callback != null) {
-                callback.removeEvent(id);
+            if (!isTablet) {
+                snackbar.setAction(R.string.ticketmaster_go_to_saved, v -> {
+                    Intent intent = new Intent(parentActivity, TicketMasterSavedEventsActivity.class);
+                    parentActivity.startActivity(intent);
+                });
             }
+
         } else {
             Snackbar snackbar = Snackbar.make(this.imgPromotion,
                     R.string.ticketmaster_remove_fail,
                     Snackbar.LENGTH_LONG);
             snackbar.show();
         }
-    }
-
-    public interface OnRemoveFavoriteEventListener {
-        void removeEvent(long eventId);
     }
 
     private void save(SQLiteDatabase db, Button button) {
@@ -181,7 +160,7 @@ public class EventDetailFragment extends Fragment {
                     R.string.ticketmaster_save_success,
                     Snackbar.LENGTH_LONG);
             if (!isTablet) {
-                snackbar.setAction(R.string.ticketmaster_go_to_fav, v -> {
+                snackbar.setAction(R.string.ticketmaster_go_to_saved, v -> {
                     Intent intent = new Intent(parentActivity, TicketMasterSavedEventsActivity.class);
                     parentActivity.startActivity(intent);
                 });

@@ -18,8 +18,8 @@
     <string name="ticketmaster_navigation_open">Open</string>
     <string name="ticketmaster_navigation_close">Close</string>
     <string name="ticketmaster_event_image">Promotion Image</string>
-    <string name="ticketmaster_event_remove_from_fav">Remove from favourite </string>
-    <string name="ticketmaster_event_add_to_fav">Add to favourite </string>
+    <string name="ticketmaster_event_remove_from_saved">Remove from My List </string>
+    <string name="ticketmaster_event_add_to_saved">Save to My List</string>
     <string name="ticketmaster_confirm">Confirm </string>
     <string name="ticketmaster_yes">Yes</string>
     <string name="ticketmaster_no">No</string>
@@ -28,7 +28,7 @@
     <string name="ticketmaster_remove_confirm">Would you like to remove this event? </string>
     <string name="ticketmaster_remove_success">Remove successfully </string>
     <string name="ticketmaster_remove_fail">Failed to Remove</string>
-    <string name="ticketmaster_go_to_fav">Go to Saved Events </string>
+    <string name="ticketmaster_go_to_saved">Go to Saved Events </string>
     <string name="ticketmaster_alert_title">Alert: </string>
     <string name="ticketmaster_alert_message">City Name and Radius can not be empty</string>
     <string name="ticketmaster_help_title">Help</string>

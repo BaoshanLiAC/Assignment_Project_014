@@ -20,10 +20,10 @@ public class TicketMasterEventDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ticketmaster_event_details);
 
-        Bundle msgInfo = getIntent().getBundleExtra("EVENT_DETAIL");
+        Bundle dataToPass = getIntent().getBundleExtra("EVENT_DETAIL");
 
         EventDetailFragment eventDetailFragment = new EventDetailFragment();
-        eventDetailFragment.setArguments( msgInfo );
+        eventDetailFragment.setArguments( dataToPass );
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_event_details, eventDetailFragment)

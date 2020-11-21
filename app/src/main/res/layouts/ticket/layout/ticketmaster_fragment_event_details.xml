@@ -59,10 +59,9 @@
             android:id="@+id/btn_add_remove"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ticketmaster_event_remove_from_fav"
+            android:text="@string/ticketmaster_event_remove_from_saved"
             android:layout_marginTop="20dp"
-            android:layout_marginLeft="100dp"
-            android:layout_centerHorizontal="true"/>
+            android:layout_marginLeft="100dp" />
 
         <ProgressBar
             android:id="@+id/process_bar"

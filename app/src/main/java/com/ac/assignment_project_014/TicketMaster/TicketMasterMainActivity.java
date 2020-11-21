@@ -40,7 +40,6 @@ import java.util.List;
  */
 public class TicketMasterMainActivity extends TicketMasterDrawerBase {
 
-
     public static final String EVENT_ID = "EVENT_ID";
     public static final String EVENT_NAME = "EVENT_NAME";
     public static final String EVENT_DATE = "EVENT_DATE";
@@ -96,7 +95,6 @@ public class TicketMasterMainActivity extends TicketMasterDrawerBase {
      */
     public final static String COL_IMAGE = "IMAGE";
 
-
     /**
      * data holder of events
      */
@@ -111,11 +109,6 @@ public class TicketMasterMainActivity extends TicketMasterDrawerBase {
      * the progress bar to show that the app is fetching data from server
      */
     private ProgressBar progressBar;
-
-    /**
-     *the listview to show the events
-     */
-    private ListView eventListView;
 
     /**
      * the adapter used to show events in the listview
@@ -165,7 +158,8 @@ public class TicketMasterMainActivity extends TicketMasterDrawerBase {
         Button savedEventsBtn = findViewById(R.id.savedEventsBtn);
 
         progressBar = findViewById(R.id.processBar);
-        eventListView = findViewById(R.id.eventListView);
+
+        ListView eventListView = findViewById(R.id.eventListView);
 
         isTablet = findViewById(R.id.fragment_event_details) != null;
 
@@ -174,10 +168,8 @@ public class TicketMasterMainActivity extends TicketMasterDrawerBase {
         eventListView.setAdapter(eventsAdapter);
 
         eventListView.setOnItemClickListener((parent, view, position, id) -> {
-            Event event = events.get(position);
-
             view.setSelected(true);
-
+            Event event = events.get(position);
             Bundle dataToPass = new Bundle();
             dataToPass.putBoolean(IS_TABLET, isTablet);
             dataToPass.putBoolean(IS_FAVORITE, false);

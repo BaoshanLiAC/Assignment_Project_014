@@ -12,15 +12,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import com.ac.assignment_project_014.R;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
-public class TicketMasterSavedEventsActivity extends AppCompatActivity implements EventDetailFragment.OnRemoveFavoriteEventListener{
+public class TicketMasterSavedEventsActivity extends AppCompatActivity{
 
     /**
      * data holder of saved events
@@ -102,64 +100,20 @@ public class TicketMasterSavedEventsActivity extends AppCompatActivity implement
         Cursor results = db.query(false, TicketMasterMainActivity.EVENT_SAVED_TABLE, columns,
                 null, null, null, null, null, null);
 
-        int idColIndex = results.getColumnIndex(TicketMasterMainActivity.COL_ID);
-        int nameColIndex = results.getColumnIndex(TicketMasterMainActivity.COL_NAME);
-        int dateColIndex = results.getColumnIndex(TicketMasterMainActivity.COL_DATE);
-        int minPriceColIndex = results.getColumnIndex(TicketMasterMainActivity.COL_MINPRICE);
-        int maxPriceCoverColIndex = results.getColumnIndex(TicketMasterMainActivity.COL_MAXPRICE);
-        int urlColIndex = results.getColumnIndex(TicketMasterMainActivity.COL_URL);
-        int imageColIndex = results.getColumnIndex(TicketMasterMainActivity.COL_IMAGE);
-
         while (results.moveToNext()) {
             Event event = new Event();
-            event.setId(results.getInt(idColIndex));
-            event.setName(results.getString(nameColIndex));
-            event.setDate(results.getString(dateColIndex));
-            event.setMinPrice(results.getString(minPriceColIndex));
-            event.setMaxPrice(results.getString(maxPriceCoverColIndex));
-            event.setURL(results.getString(urlColIndex));
-            event.setImage(results.getString(imageColIndex));
-
+            event.setId(results.getInt(results.getColumnIndex(TicketMasterMainActivity.COL_ID)));
+            event.setName(results.getString(results.getColumnIndex(TicketMasterMainActivity.COL_NAME)));
+            event.setDate(results.getString(results.getColumnIndex(TicketMasterMainActivity.COL_DATE)));
+            event.setMinPrice(results.getString(results.getColumnIndex(TicketMasterMainActivity.COL_MINPRICE)));
+            event.setMaxPrice(results.getString(results.getColumnIndex(TicketMasterMainActivity.COL_MINPRICE)));
+            event.setURL(results.getString(results.getColumnIndex(TicketMasterMainActivity.COL_URL)));
+            event.setImage(results.getString(results.getColumnIndex(TicketMasterMainActivity.COL_IMAGE)));
             events.add(event);
         }
 
         myEventsAdapter.notifyDataSetChanged();
     }
-
-    /**
-     * method to communicate with other fragment
-     * reference to: https://developer.android.com/training/basics/fragments/communicating.html
-     * @param fragment the fragment to be communicate with
-     */
-    @Override
-    public void onAttachFragment(Fragment fragment) {
-        if (fragment instanceof EventDetailFragment) {
-            ((EventDetailFragment)fragment).setCallback(this);
-        }
-    }
-
-
-    /**
-     * remove event
-     * @param eventId id of the event to be removed
-     */
-    @Override
-    public void removeEvent(long eventId) {
-        Event event = null;
-        for (Event e : events) {
-            if (e.getId() == eventId) {
-                event = e;
-                break;
-            }
-        }
-
-        if (event != null) {
-            events.remove(event);
-            myEventsAdapter.notifyDataSetChanged();
-        }
-    }
-
-
 
     /**
      * event adapter used by list view to display events
@@ -183,18 +137,16 @@ public class TicketMasterSavedEventsActivity extends AppCompatActivity implement
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                LayoutInflater layoutInflater = getLayoutInflater();
-                convertView = layoutInflater.inflate(R.layout.ticketmaster_event_item, parent, false);
-            }
-            TextView eventNameLV = convertView.findViewById(R.id.event_name_tv);
-            TextView eventDateLV = convertView.findViewById(R.id.event_date_tv);
+            LayoutInflater layoutInflater = getLayoutInflater();
+            View view = layoutInflater.inflate(R.layout.ticketmaster_event_item, parent, false);
+            TextView eventNameLV = view.findViewById(R.id.event_name_tv);
+            TextView eventDateLV = view.findViewById(R.id.event_date_tv);
 
             Event event = getItem(position);
-            eventNameLV.setText(String.format(Locale.getDefault(), "%d. %s", position + 1, event.getName()));
+            eventNameLV.setText(event.getName());
             eventDateLV.setText(event.getDate());
 
-            return convertView;
+            return view;
         }
     }
 }
