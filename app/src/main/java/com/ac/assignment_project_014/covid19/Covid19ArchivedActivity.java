@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -28,7 +29,7 @@ import java.util.ArrayList;
  * Activity for archived data.
  *
  */
-public class Covid19ArchivedActivity extends CovidDrawerBase {
+public class Covid19ArchivedActivity extends Covid19DrawerBase {
 
     /**
      * fields

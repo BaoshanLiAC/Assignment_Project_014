@@ -12,12 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.ac.assignment_project_014.R;
+import com.ac.assignment_project_014.recipe.EmptyActivity;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -29,9 +32,9 @@ import java.util.Collections;
  *               3. UI controls to sort data by column in the list view.
  *
  */
-public class Covid19SearchResultActivity extends CovidDrawerBase {
+public class Covid19SearchResultActivity extends Covid19DrawerBase {
     /***UI controls **/
-    private Button save,back, province_sort, confirmed_sort,daily_sort;
+    private Button save,chart, back, province_sort, confirmed_sort,daily_sort;
     /***flag: help variables***/
     private boolean flag1 = true, flag2 = true, flag3 = true;
     /***province list of a country that pass by result***/
@@ -45,6 +48,8 @@ public class Covid19SearchResultActivity extends CovidDrawerBase {
     /**Local db***/
     protected SQLiteDatabase db;
 
+    protected boolean isTablet;
+
 
 
 
@@ -53,6 +58,8 @@ public class Covid19SearchResultActivity extends CovidDrawerBase {
 
 
         super.onCreate(savedInstanceState);
+        //identify device
+        isTablet = findViewById(R.id.covid19_fragmentLocation) != null;
         //received data from query
         result = (Covid19CountryData) getIntent().getSerializableExtra("search_result");
         //initial list view data
@@ -73,9 +80,39 @@ public class Covid19SearchResultActivity extends CovidDrawerBase {
 
             //register button event handlers.
             save = findViewById(R.id.covid_result_archive_btn);
+            chart = findViewById(R.id.covid_result_chart_btn);
             back = findViewById(R.id.covid_result_back_to_search_btn);
 
             save.setOnClickListener(e -> saveItemToDataBase());
+            chart.setOnClickListener(e->{
+                if(result == null){
+                    Toast.makeText(this,"No data could be show in chart", Toast.LENGTH_LONG);
+                }else {
+                    Bundle dataToPass = new Bundle();
+                    dataToPass.putSerializable("country-data", result);
+                    if (isTablet) {
+                        //change layout dynamics
+                        LinearLayout left = findViewById(R.id.covid19_result_top);
+                        ViewGroup.LayoutParams para1 = left.getLayoutParams();
+                        RelativeLayout.LayoutParams para2 = new RelativeLayout.LayoutParams(-1, 100);
+
+                        left.setLayoutParams(para2);
+                        Covid19ChartFragment chartFragment = new Covid19ChartFragment(left);
+                        chartFragment.setTablet(isTablet);
+                        chartFragment.setLayOutParameter(para1);
+                        chartFragment.setArguments(dataToPass);
+                        getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.covid19_fragmentLocation, chartFragment) //Add the fragment in FrameLayout
+                                .commit(); //actually load the fragment. Calls onCreate() in DetailFragment
+                    }
+                    else{
+                        Intent nextActivity = new Intent(this, Covid19EmptyActivity.class);
+                        nextActivity.putExtras(dataToPass); //send data to next activity
+                        startActivity(nextActivity); //make the transition
+                    }
+                }
+            });
             back.setOnClickListener(e -> startActivity(new Intent(this, Covid19CaseDataMainActivity.class)));
 
             sortList(countryDataAdapter);

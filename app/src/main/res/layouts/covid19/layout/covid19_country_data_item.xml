@@ -9,17 +9,19 @@
 
     <TextView
         android:id="@+id/covid19_country_item_name"
-        android:layout_width="100dp"
+        android:layout_width="0dp"
+        android:layout_weight=".25"
         android:layout_marginHorizontal="10dp"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:textColor="#263CAE"
+        android:textColor="#FF6D00"
         android:text="CountryName" />
 
 
     <TextView
         android:id="@+id/covid19_country_item_confirmed"
-        android:layout_width="80dp"
+        android:layout_width="0dp"
+        android:layout_weight=".25"
         android:layout_centerVertical="true"
         android:layout_height="wrap_content"
         android:gravity="end"
@@ -27,7 +29,8 @@
 
     <TextView
         android:id="@+id/covid19_country_item_daily"
-        android:layout_width="60dp"
+        android:layout_width="0dp"
+        android:layout_weight=".25"
         android:layout_centerVertical="true"
         android:layout_height="wrap_content"
         android:gravity="end"
@@ -35,7 +38,8 @@
 
     <TextView
         android:id="@+id/covid19_country_item_date"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
+        android:layout_weight=".25"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:gravity="end"

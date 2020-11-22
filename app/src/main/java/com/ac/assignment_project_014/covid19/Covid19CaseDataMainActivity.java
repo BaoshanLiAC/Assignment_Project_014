@@ -43,7 +43,7 @@ import java.util.regex.Pattern;
  * sharePreference stores country name and date of last search entry.
  *
  */
-public class Covid19CaseDataMainActivity extends CovidDrawerBase {
+public class Covid19CaseDataMainActivity extends Covid19DrawerBase {
     /**SharedPreference data KEY***/
     protected static final String COVID_PREFERENCES = "Cov_Prefs" ;
     /**SharedPreference data EDITOR***/
@@ -154,10 +154,7 @@ public class Covid19CaseDataMainActivity extends CovidDrawerBase {
         super.onDestroy();
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        return false;
-    }
+
 
     /**
      * 

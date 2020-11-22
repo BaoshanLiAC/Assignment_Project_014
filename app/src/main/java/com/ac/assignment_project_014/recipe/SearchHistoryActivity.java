@@ -16,11 +16,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.ac.assignment_project_014.MainActivity;
 import com.ac.assignment_project_014.R;
-import com.ac.assignment_project_014.covid19.CovidDrawerBase;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

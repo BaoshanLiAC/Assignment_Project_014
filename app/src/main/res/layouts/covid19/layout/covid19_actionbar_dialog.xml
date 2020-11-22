@@ -16,7 +16,7 @@
         android:text="1.0.0.0"
         android:layout_marginHorizontal="10dp"
 
-        android:textColor="#FFAB00"
+        android:textColor="#FF6D00"
         />
 
 </LinearLayout>

@@ -1,0 +1,6 @@
+<resources>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="covid_chart_btn_text">HIDE</string>
+    <string name="covid_result_chart_text">CHART</string>
+</resources>
