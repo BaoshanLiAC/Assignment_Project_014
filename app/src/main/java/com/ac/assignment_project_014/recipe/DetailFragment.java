@@ -18,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.ac.assignment_project_014.R;
-import com.ac.assignment_project_014.covid19.CovidDrawerBase;
 import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
