@@ -80,7 +80,7 @@
     <string name="audio_navigation_local">Local Album</string>
     <string name="audio_navigation_album">Album Detail</string>
     <string name="audio_navigation_tacker">Tracker Info.</string>
-
+    <string name="audio">Music</string>
     <!--    COVID STRING  -->
     <string name="covid_search_btn">Query Data</string>
     <string name="covid_show_archived_btn">Archived</string>
