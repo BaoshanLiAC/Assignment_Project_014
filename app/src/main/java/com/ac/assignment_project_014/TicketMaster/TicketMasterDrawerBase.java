@@ -55,20 +55,20 @@ public abstract class TicketMasterDrawerBase extends ToolBarBase implements Navi
             switch (menuItem.getItemId()){
                 case R.id.ticketmaster_goto_search:
                     startActivity(new Intent(this, TicketMasterMainActivity.class));
-                    Toast.makeText(this,"Go to search by city name and radius.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this,R.string.ticketmaster_go_to_search, Toast.LENGTH_LONG).show();
                     break;
                 case R.id.ticketmaster_favourite_list:
                     startActivity(new Intent(this, TicketMasterSavedEventsActivity.class));
-                    Toast.makeText(this,"Go to saved events", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this,R.string.ticketmaster_go_to_saved, Toast.LENGTH_LONG).show();
                     break;
                 case R.id.ticketmaster_help:
-                    text.setText("Please enter City name and radius to search events");
+                    text.setText(R.string.ticketmaster_help_infor);
                     text.setTextAlignment(TEXT_ALIGNMENT_TEXT_START);
                     builder.setView(view);
                     builder.create().show();
                     break;
                 case R.id.ticketmaster_about:
-                    text.setText("Developed By: Xingan Wang\nStudent No: 040981582");
+                    text.setText(R.string.ticketmaster_about);
                     text.setTextAlignment(TEXT_ALIGNMENT_TEXT_START);
                     builder.setView(view);
                     builder.create().show();
@@ -102,20 +102,20 @@ public abstract class TicketMasterDrawerBase extends ToolBarBase implements Navi
         switch (menuItem.getItemId()){
             case R.id.ticketmaster_goto_search:
                 startActivity(new Intent(this, TicketMasterMainActivity.class));
-                Toast.makeText(this,"Go search by country and date.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this,R.string.ticketmaster_go_to_search, Toast.LENGTH_LONG).show();
                 break;
             case R.id.ticketmaster_favourite_list:
                 startActivity(new Intent(this, TicketMasterSavedEventsActivity.class));
-                Toast.makeText(this,"Go review last search", Toast.LENGTH_LONG).show();
+                Toast.makeText(this,R.string.ticketmaster_go_to_saved, Toast.LENGTH_LONG).show();
                 break;
             case R.id.ticketmaster_help:
-                text.setText("Please enter City name and radius to search events");
+                text.setText(R.string.ticketmaster_help_infor);
                 text.setTextAlignment(TEXT_ALIGNMENT_TEXT_START);
                 builder.setView(view);
                 builder.create().show();
                 break;
             case R.id.ticketmaster_about:
-                text.setText("Developed By: Xingan Wang\nStudent No: 040981582");
+                text.setText(R.string.ticketmaster_about);
                 text.setTextAlignment(TEXT_ALIGNMENT_TEXT_START);
                 builder.setView(view);
                 builder.create().show();

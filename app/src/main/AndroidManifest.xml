@@ -55,13 +55,13 @@
 
         <!-- TICKET ACTIVITIES -->
         <activity android:name=".TicketMaster.TicketMasterSavedEventsActivity"
-            android:label="TicketMaster"
+            android:label="@string/ticketmaster_title"
             android:theme="@style/AppTheme.NoToolBar"/>
         <activity android:name=".TicketMaster.TicketMasterEventDetailsActivity"
-            android:label="TicketMaster"
+            android:label="@string/ticketmaster_title"
             android:theme="@style/AppTheme.NoToolBar"/>
         <activity android:name=".TicketMaster.TicketMasterMainActivity"
-            android:label="TicketMaster"
+            android:label="@string/ticketmaster_title"
             android:theme="@style/AppTheme.NoToolBar"/>
 
         <activity android:name=".MainActivity">
