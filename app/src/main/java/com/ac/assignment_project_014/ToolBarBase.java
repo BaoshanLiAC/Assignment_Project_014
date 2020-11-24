@@ -48,39 +48,37 @@ public abstract class ToolBarBase extends AppCompatActivity {
         TextView text = view.findViewById(R.id.action_dialog_text);
         switch(mi.getItemId()){
             case R.id.audio:
-                builder.setTitle("Switch Channel")
-                        .setMessage("You are going to Audio channel")
-                        .setPositiveButton("Yes", (click, arg) -> {
+                builder.setTitle(R.string.button_title)
+                        .setMessage(getString(R.string.audio_button_meaasge))
+                        .setPositiveButton(R.string.button_yes, (click, arg) -> {
                             startActivity(new Intent(this, AudioIndexActivity.class)); })
-                        .setNegativeButton("Go Back",(click, arg) -> {; })
+                        .setNegativeButton(R.string.button_back,(click, arg) -> {; })
                         .create().show();
                 break;
             case R.id.covid:
-                builder.setTitle("Switch Channel")
-                        .setMessage("You are going to Covid19 Channel")
-                        .setPositiveButton("YES", (click, arg) -> {
+                builder.setTitle(R.string.button_title)
+                        .setMessage(R.string.Covid19_button_meaasge)
+                        .setPositiveButton(R.string.button_yes, (click, arg) -> {
                             startActivity(new Intent(this, Covid19CaseDataMainActivity.class)); })
-                        .setNegativeButton("Go Back",(click, arg) -> {; })
+                        .setNegativeButton(R.string.button_back,(click, arg) -> {; })
                         .create().show();
                 break;
             case R.id.recipes:
-                builder.setTitle("Switch Channel")
-                        .setMessage("You are going to Recipe channel")
-                        .setPositiveButton("Yes", (click, arg) -> {
+                builder.setTitle(R.string.button_title)
+                        .setMessage(R.string.Recipe_button_meaasge)
+                        .setPositiveButton(R.string.button_yes, (click, arg) -> {
                             startActivity(new Intent(this, RecipeMainActivity.class)); })
-                        .setNegativeButton("Go Back",(click, arg) -> {; })
+                        .setNegativeButton(R.string.button_back,(click, arg) -> {; })
                         .create().show();
                 break;
             case R.id.ticket:
-                builder.setTitle("Switch Channel")
-                        .setMessage("You are going to ticket channel")
-                        .setPositiveButton("Yes", (click, arg) -> {
+                builder.setTitle(R.string.button_title)
+                        .setMessage(R.string.ticket_button_meaasge)
+                        .setPositiveButton(R.string.button_yes, (click, arg) -> {
                             startActivity(new Intent(this, TicketMasterMainActivity.class)); })
-                        .setNegativeButton("Go Back",(click, arg) -> {; })
+                        .setNegativeButton(R.string.button_back,(click, arg) -> {; })
                         .create().show();
                 break;
-
-
             default:
                 break;
         }

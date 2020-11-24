@@ -9,7 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.ac.assignment_project_014.R;
@@ -49,27 +48,22 @@ public abstract class RecipeDrawerBase extends ToolBarBase implements Navigation
             switch (menuItem.getItemId()){
 
                 case R.id.recipe_goto_search:
-                    startActivity(new Intent(this, SearchHistoryActivity.class));
+                    startActivity(new Intent(this, RecipeSearchHistoryActivity.class));
                     break;
                 case R.id.recipe_help:
-                    text.setText("1. User could search recipe by ingredients." +
-                            "\n\n2. User could view the top 10 search results " +
-                            "\nretrived from http://www.recipepuppy.com."+
-                            "\n\n3. User could save the ingredients they like " +
-                            "\nand to see it next time without access online " +
-                            "\ndata.");
+                    text.setText(R.string.recipe_help);
                     text.setTextAlignment(TEXT_ALIGNMENT_TEXT_START);
                     builder.setView(view);
                     builder.create().show();
                     break;
                 case R.id.recipe_about:
-                    text.setText("Developed By: Chunyan Ren\nStudent No: 040980795");
+                    text.setText(R.string.recipe_about);
                     text.setTextAlignment(TEXT_ALIGNMENT_TEXT_START);
                     builder.setView(view);
                     builder.create().show();
                     break;
                 case R.id.recipe_version:
-                    text.setText("The current Version is V1.0.0");
+                    text.setText(R.string.recipe_version);
                     text.setTextAlignment(TEXT_ALIGNMENT_TEXT_START);
                     builder.setView(view);
                     builder.create().show();
@@ -101,7 +95,7 @@ public abstract class RecipeDrawerBase extends ToolBarBase implements Navigation
         TextView text = view.findViewById(R.id.action_dialog_text);
         switch (menuItem.getItemId()){
             case R.id.recipe_goto_search:
-                startActivity(new Intent(this, SearchHistoryActivity.class));
+                startActivity(new Intent(this, RecipeSearchHistoryActivity.class));
                 break;
             case R.id.recipe_help:
                 text.setText("1. User could query date by input the ingredients." +

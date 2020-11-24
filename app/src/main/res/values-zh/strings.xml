@@ -51,6 +51,14 @@
     <string name="recipe">菜谱</string>
     <string name="title">标题</string>
     <string name="search_history">历史检索关键词</string>
+    <string name="recipe_title">菜谱</string>
+    <string name="recipe_help">"1. 用户可以通过食材关键字来搜索菜谱.
+                              \n\n2. 用户可以查询前十条搜索结果
+                              \n搜索结果来源于 http://www.recipepuppy.com.
+                              \n\n3. 用户如果喜欢菜谱可以收藏
+                              \n并且可以在下次离线查看收藏的菜谱\n "</string>
+    <string name="recipe_about">"开发者: 任春妍\n学生号: 040980795"</string>
+    <string name="recipe_version">"当前版本是 V1.0.0"</string>
 
 
     <!--    COVID STRING  -->
@@ -83,6 +91,17 @@
     <string name="save_remove">Save/Remove</string>
     <string name="this_is_the_default_title">This is the default title</string>
     <string name="this_is_the_recipe_content">this is the recipe content</string>
+    <string name="audio">音乐</string>
 
+
+
+    <!-- ToolBar-->
+    <string name ="button_title">切換頻道</string>
+    <string name ="button_yes">是</string>
+    <string name ="button_back">返回</string>
+    <string name = "audio_button_meaasge">你即將進入音樂頻道</string>
+    <string name = "Covid19_button_meaasge">你即將進入covid19頻道</string>
+    <string name = "Recipe_button_meaasge">你即將進入菜譜頻道</string>
+    <string name = "ticket_button_meaasge">你即將進入票務頻道</string>
 
 </resources>

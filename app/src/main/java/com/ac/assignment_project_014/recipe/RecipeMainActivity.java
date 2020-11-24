@@ -2,30 +2,15 @@ package com.ac.assignment_project_014.recipe;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.drawable.IconCompat;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.content.ClipData;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.drawable.Icon;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -34,17 +19,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ac.assignment_project_014.MainActivity;
 import com.ac.assignment_project_014.R;
-import com.google.android.material.navigation.NavigationView;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
-import java.lang.reflect.Type;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import static androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.LEFT;
 
 /**
  * @author Chunyan Ren
@@ -102,7 +81,7 @@ public class RecipeMainActivity extends RecipeDrawerBase {
 
         // search area
         TextView searchViewBtn = findViewById(R.id.searchView);
-        Intent goToSearchHistory  = new Intent(this, SearchHistoryActivity.class);
+        Intent goToSearchHistory  = new Intent(this, RecipeSearchHistoryActivity.class);
         searchViewBtn.setOnClickListener(click -> {startActivity( goToSearchHistory );});
 
         // used to switch the listview

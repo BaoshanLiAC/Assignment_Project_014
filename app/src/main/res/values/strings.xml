@@ -43,7 +43,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="recipe_URL">URL</string>
     <string name="Search_Result">Search Result</string>
-    <string name="recipe_title">Title</string>
+    <string name="recipe_title">Recipe</string>
     <string name="search_hint">Search Recipe Here</string>
     <string name="this_is_the_default_title">This is the default title</string>
     <string name="recipe">Recipe</string>
@@ -54,12 +54,18 @@
     <string name="chunyan_ren">Chunyan Ren</string>
     <string name="ren00038_algonquinlive_com">ren00038@Algonquinlive.com</string>
     <string name="search_history">Search History</string>
-
+    <string name="recipe_help">"1. User could search recipe by ingredients.
+                            \n\n2. User could view the top 10 search results
+                            \n retrived from http://www.recipepuppy.com.
+                            \n\n3. User could save the ingredients they like
+                            \nand to see it next time without access online data."</string>
+    <string name="recipe_about">"Developed By: Chunyan Ren\nStudent No: 040980795"</string>
+    <string name="recipe_version">"The current Version is V1.0.0"</string>
 
     <!--    AUDIO STRING  -->
-
     <string name="search_by_artist">Search by Artist</string>
     <string name="save_remove">Save/Remove</string>
+    <string name="audio">Audio</string>
 
 
     <!--    COVID STRING  -->
@@ -84,4 +90,15 @@
     <string name="covid_country_change_header">Daily</string>
     <string name="covid_date_header">Date</string>
     <string name="covid_archived_data_description">Click to see detail and Long click to delete item.</string>
+
+
+    <!-- ToolBar-->
+    <string name ="button_title">Switch Channel</string>
+    <string name ="button_yes">Yes</string>
+    <string name ="button_back">Go back</string>
+    <string name = "audio_button_meaasge">You are going to Audio channel</string>
+    <string name = "Covid19_button_meaasge">You are going to Covid19 channel</string>
+    <string name = "Recipe_button_meaasge">You are going to Recipe channel</string>
+    <string name = "ticket_button_meaasge">You are going to ticket channel</string>
+
 </resources>
