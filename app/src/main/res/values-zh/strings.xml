@@ -96,10 +96,14 @@
 
     <!-- Audio STRING-->
     <string name="search_by_artist">Search by Artist</string>
-    <string name="save_remove">Save/Remove</string>
+    <string name="audio_save">保存</string>
+    <string name="audio_remove">删除</string>
+    <string name="audio_navigation_search">搜索</string>
+    <string name="audio_navigation_local">收藏</string>
+    <string name="audio_navigation_album">专辑</string>
+    <string name="audio_navigation_tacker">歌曲</string>
     <string name="this_is_the_default_title">This is the default title</string>
     <string name="this_is_the_recipe_content">this is the recipe content</string>
-    <string name="audio">音乐</string>
 
 
 

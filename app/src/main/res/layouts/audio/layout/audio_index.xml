@@ -32,25 +32,25 @@
                     android:id="@+id/rd_new"
                     style="@style/tab_menu_item"
                     android:drawableTop="@drawable/selector_audio_searchnew"
-                    android:text="New Album"
+                    android:text="@string/audio_navigation_search"
                     android:textColor="@drawable/selector_audio_text"/>
                 <RadioButton
                     android:id="@+id/rd_local"
                     style="@style/tab_menu_item"
                     android:drawableTop="@drawable/selector_audio_local"
-                    android:text="Local Album"
+                    android:text="@string/audio_navigation_local"
                     android:textColor="@drawable/selector_audio_text"/>
                 <RadioButton
                     android:id="@+id/rd_album"
                     style="@style/tab_menu_item"
                     android:drawableTop="@drawable/selector_audio_album"
-                    android:text="Album Detail"
+                    android:text="@string/audio_navigation_album"
                     android:textColor="@drawable/selector_audio_text"/>
                 <RadioButton
                     android:id="@+id/rd_song"
                     style="@style/tab_menu_item"
                     android:drawableTop="@drawable/selector_audio_song"
-                    android:text="Song Info."
+                    android:text="@string/audio_navigation_tacker"
                     android:textColor="@drawable/selector_audio_text"/>
 
             </RadioGroup>

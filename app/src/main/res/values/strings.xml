@@ -72,10 +72,14 @@
 
 
     <!--    AUDIO STRING  -->
-    <string name="search_by_artist">Search by Artist</string>
-    <string name="save_remove">Save/Remove</string>
-    <string name="audio">Audio</string>
 
+    <string name="search_by_artist">Search by Artist</string>
+    <string name="audio_save">Save</string>
+    <string name="audio_remove">Remove</string>
+    <string name="audio_navigation_search">New Album</string>
+    <string name="audio_navigation_local">Local Album</string>
+    <string name="audio_navigation_album">Album Detail</string>
+    <string name="audio_navigation_tacker">Tracker Info.</string>
 
     <!--    COVID STRING  -->
     <string name="covid_search_btn">Query Data</string>
