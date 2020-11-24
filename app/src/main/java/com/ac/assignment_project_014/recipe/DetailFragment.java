@@ -76,13 +76,13 @@ public class DetailFragment extends Fragment {
         imageButton.setOnClickListener((parent)->{
             if( dataFromActivity.getBoolean(RecipeMainActivity.ISLIKE) ){
                 unlikeRecipe();
-                Snackbar snackbar = Snackbar.make(imageButton,  "Undo: To keep in my favourite list" , Snackbar.LENGTH_LONG);
+                Snackbar snackbar = Snackbar.make(imageButton,  R.string.snackbar_keep , Snackbar.LENGTH_LONG);
                 snackbar.setAction("Undo", click->likeRecipe());
                 snackbar.show();
             }
             else{
                 likeRecipe();
-                Snackbar snackbar = Snackbar.make(imageButton,  "Undo: To remove from my favourite list" , Snackbar.LENGTH_LONG);
+                Snackbar snackbar = Snackbar.make(imageButton,  R.string.snackbar_remove , Snackbar.LENGTH_LONG);
                 snackbar.setAction("Undo", click->unlikeRecipe());
                 snackbar.show();
             }

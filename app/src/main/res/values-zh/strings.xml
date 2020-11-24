@@ -59,7 +59,15 @@
                               \n并且可以在下次离线查看收藏的菜谱\n "</string>
     <string name="recipe_about">"开发者: 任春妍\n学生号: 040980795"</string>
     <string name="recipe_version">"当前版本是 V1.0.0"</string>
-
+    <string name ="toast_load">食谱已经加载成功</string>
+    <string name="snackbar_keep">撤销: 保留在我的收藏清单中</string>
+    <string name="snackbar_remove">撤销: 从我的收藏清单中清除</string>
+    <string name="snack_undo">"撤销"</string>
+    <string name = "menu_item">搜索食谱</string>
+    <string name = "menu_help">帮助</string>
+    <string name = "menu_about">关于</string>
+    <string name = "menu_version">版本</string>
+    <string name = "menu_description">介绍</string>
 
     <!--    COVID STRING  -->
     <string name="covid_search_btn">查詢</string>

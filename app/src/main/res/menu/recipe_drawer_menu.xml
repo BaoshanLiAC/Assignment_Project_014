@@ -11,24 +11,24 @@
         <item
             android:id="@+id/recipe_goto_search"
             android:icon="@drawable/ic_search"
-            android:title="Search Recipe" />
+            android:title="@string/menu_item" />
 
     </group>
 
-    <item android:title="Description">
+    <item android:title="@string/menu_description">
         <menu>
             <item
                 android:id="@+id/recipe_help"
                 android:icon="@drawable/ic_help"
-                android:title="Help" />
+                android:title="@string/menu_help" />
             <item
                 android:id="@+id/recipe_about"
                 android:icon="@drawable/ic_baseline_cloud_queue_24"
-                android:title="About" />
+                android:title="@string/menu_about" />
             <item
                 android:id="@+id/recipe_version"
                 android:icon="@drawable/ic_baseline_invert_colors_24"
-                android:title="Version" />
+                android:title="@string/menu_version" />
         </menu>
     </item>
 

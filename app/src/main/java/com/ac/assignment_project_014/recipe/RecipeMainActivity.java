@@ -301,7 +301,7 @@ public class RecipeMainActivity extends RecipeDrawerBase {
         viewLoadIndicator=1;
         Jsonloader loader = new Jsonloader(this,"", mainlistView);
         loader.execute(urlString);
-        Toast.makeText(this, "Recipes have been loaded", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, R.string.toast_load, Toast.LENGTH_LONG).show();
     }
 
 
