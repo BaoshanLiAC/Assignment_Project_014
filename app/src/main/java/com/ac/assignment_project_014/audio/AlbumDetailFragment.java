@@ -82,16 +82,16 @@ public class AlbumDetailFragment  extends Fragment {
 
 
 
-                    if (btnStore.getText().equals("Save")) {
+                    if (btnStore.getText().equals(this.getString(R.string.audio_save))) {
                         this.saveLocalAlbum(this.currentAlbum);
-                        btnStore.setText("Remove");
-                        Snackbar.make(listView, "Album Remove.", Snackbar.LENGTH_LONG).show();
+                        btnStore.setText(this.getString(R.string.audio_remove));
+                        Snackbar.make(listView, this.getString(R.string.audio_remove), Snackbar.LENGTH_LONG).show();
 
 
-                    } else if (btnStore.getText().equals("Remove")) {
+                    } else if (btnStore.getText().equals(this.getString(R.string.audio_remove))) {
                         this.removeLocalAlbum(this.currentAlbum);
-                        btnStore.setText("Save");
-                        Snackbar.make(listView, "Album Save.", Snackbar.LENGTH_LONG).show();
+                        btnStore.setText(this.getString(R.string.audio_save));
+                        Snackbar.make(listView, this.getString(R.string.audio_save), Snackbar.LENGTH_LONG).show();
                     }
                 } else
                     btnStore.setText("Please select one album.");
@@ -108,10 +108,10 @@ public class AlbumDetailFragment  extends Fragment {
 
                 if(this.checkSave())
                     //btnStore.setImageResource(R.drawable.ic_star);
-                    btnStore.setText("Remove");
+                    btnStore.setText(this.getString(R.string.audio_remove));
                 else
                     //btnStore.setImageResource(R.drawable.ic_star_line);
-                    btnStore.setText("Save");
+                    btnStore.setText(this.getString(R.string.audio_save));
             }
    // }
 
@@ -132,9 +132,9 @@ public class AlbumDetailFragment  extends Fragment {
                 //refresh whole page
 
                 if(this.checkSave())
-                    btnStore.setText("Remove");
+                    btnStore.setText(this.getString(R.string.audio_remove));
                 else
-                    btnStore.setText("Save");
+                    btnStore.setText(this.getString(R.string.audio_save));
 
                 gURL = "https://theaudiodb.com/api/v1/json/1/track.php?m=" + currentAlbum.getAlbumId();
                 new fetchTrack().execute();

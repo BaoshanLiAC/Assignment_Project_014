@@ -42,19 +42,11 @@ public class AudioIndexActivity extends AudioDrawerBase {
         songRb = findViewById(R.id.rd_song);
         searchRb.setChecked(true);
 
-        /**图片的优化，其他三个图片做类似处理
-         * 底部导航的时候会发生图片的颜色变化，所以radiobutton中的照片不是一张，而是引用了自定义的选择器照片
-         * 本来使用的是getResources.getDrawable,不过已经过时，所以使用ContextCompat
-         */
+
         Drawable search = ContextCompat.getDrawable(this, R.drawable.selector_audio_searchnew);
-        /**
-         *  当这个图片被绘制时，给他绑定一个矩形规定这个矩形
-         *  参数前两个对应图片相对于左上角的新位置，后两个为图片的长宽
-         */
+
         search.setBounds(0, 0, 80, 80);
-        /**
-         *   设置图片在文字的哪个方向,分别对应左，上，右，下
-         */
+
 
         searchRb.setCompoundDrawables(null, search, null, null);
 
@@ -81,8 +73,6 @@ public class AudioIndexActivity extends AudioDrawerBase {
         mRadioGroup.check(R.id.rd_song);
         songDetailFragment.setTrackId(item);
     }
-
-
 
 
 
