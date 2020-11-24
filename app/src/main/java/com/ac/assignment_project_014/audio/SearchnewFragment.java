@@ -68,7 +68,7 @@ public class SearchnewFragment  extends Fragment {
             gArtistURL="https://www.theaudiodb.com/api/v1/json/1/searchalbum.php?s="+text_search.getText();
             new fetchAlbum().execute();
 
-            Toast.makeText(getActivity(),"Searching album from server.",
+            Toast.makeText(getActivity(),R.string.toast2,
                     Toast.LENGTH_SHORT).show();
         });
 

@@ -66,7 +66,7 @@ public class RecipeSearchHistoryActivity extends AppCompatActivity {
         EditText searchText = findViewById(R.id.edit_text);
         searchText.getText();
         */
-        searchView.setQueryHint("Search Here");
+        searchView.setQueryHint(getString(R.string.search_hint2));
         Intent goToSearchResult  = new Intent(getBaseContext(), RecipeMainActivity.class);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             ArrayList<String> temp = new ArrayList<String>(searchHistorylist);

@@ -330,7 +330,7 @@ public class AlbumDetailFragment  extends Fragment {
                     //todo:
                     TrackItem model = new TrackItem(idAlbum,idTrack,strTrack,strArtist,strGenre);
                     getTlist().add(model);
-                    Toast.makeText(getActivity(),"Get data from server.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),R.string.toast1,Toast.LENGTH_SHORT).show();
                     //Toast.makeText(this,"Go search by country and date.", Toast.LENGTH_LONG).show();
                 }
             } catch (JSONException e) {

@@ -53,9 +53,7 @@
     <string name="Search_Result">Search Result</string>
     <string name="recipe_title">Recipe</string>
     <string name="search_hint">Search Recipe Here</string>
-    <string name="this_is_the_default_title">This is the default title</string>
     <string name="recipe">Recipe</string>
-    <string name="this_is_the_recipe_content">this is the recipe content</string>
     <string name="title">title</string>
     <string name="content">content</string>
     <string name="url">URL</string>
@@ -78,7 +76,7 @@
     <string name = "menu_about">About</string>
     <string name = "menu_version">Version</string>
     <string name = "menu_description">Description</string>
-
+    <string name = "search_hint2">Search Here</string>
 
     <!--    AUDIO STRING  -->
 
@@ -90,6 +88,12 @@
     <string name="audio_navigation_album">Album Detail</string>
     <string name="audio_navigation_tacker">Tracker Info.</string>
     <string name="audio">Music</string>
+    <string name="search_audio">Search audio</string>
+    <string name="toast1">Get data from server.</string>>
+    <string name="toast2">Searching album from server.</string>
+    <string name="save_remove">Save/Remove</string>
+    <string name="select_button">Please select one album.</string>
+
     <!--    COVID STRING  -->
     <string name="covid_search_btn">Query Data</string>
     <string name="covid_show_archived_btn">Archived</string>

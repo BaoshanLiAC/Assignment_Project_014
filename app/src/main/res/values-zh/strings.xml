@@ -73,6 +73,7 @@
     <string name = "menu_about">关于</string>
     <string name = "menu_version">版本</string>
     <string name = "menu_description">介绍</string>
+    <string name = "search_hint2">这里输入</string>
 
     <!--    COVID STRING  -->
     <string name="covid_search_btn">查詢</string>
@@ -107,10 +108,12 @@
     <string name="audio_navigation_local">收藏</string>
     <string name="audio_navigation_album">专辑</string>
     <string name="audio_navigation_tacker">歌曲</string>
-    <string name="this_is_the_default_title">This is the default title</string>
-    <string name="this_is_the_recipe_content">this is the recipe content</string>
     <string name="audio">音乐</string>
-
+    <string name="search_audio">搜索音乐</string>
+    <string name="toast1">已经从服务器获取数据</string>
+    <string name="toast2">搜索专辑数据</string>
+    <string name="save_remove">保存/取消</string>
+    <string name="select_button">請選擇一張專輯</string>
 
 
     <!-- ToolBar-->
