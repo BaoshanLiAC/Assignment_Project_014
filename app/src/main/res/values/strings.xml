@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Assignment_Project_014</string>
-
     <string name="ticketmaster_search_title">Search Events</string>
     <string name="ticketmaster_details_title">Event Details: </string>
     <string name="ticketmaster_favorite_title">Saved Events: </string>
