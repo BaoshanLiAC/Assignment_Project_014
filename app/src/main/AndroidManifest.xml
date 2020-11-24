@@ -16,16 +16,17 @@
 
         <!-- RECIPE ACTIVITIES -->
         <activity
-            android:name=".recipe.SearchHistoryActivity"
-            android:label="Recipe"
+            android:name=".recipe.RecipeSearchHistoryActivity"
+            android:label="@string/recipe"
             android:theme="@style/AppTheme.NoToolBar" />
 
         <activity
             android:name=".recipe.RecipeMainActivity"
-            android:label="Recipe"
+            android:label="@string/recipe"
             android:theme="@style/AppTheme.NoToolBar" />
 
         <activity android:name=".recipe.EmptyActivity"
+            android:label="@string/recipe"
             android:theme="@style/AppTheme.NoBar"/>
 
         <!-- COVID-19 ACTIVITIES -->
@@ -49,7 +50,7 @@
 
         <!-- Audio ACTIVITIES-->
         <activity android:name=".audio.AudioIndexActivity"
-            android:label="Audio Search API"
+            android:label="@string/audio"
             android:theme="@style/AppTheme.NoToolBar"/>
 
         <!-- TICKET ACTIVITIES -->

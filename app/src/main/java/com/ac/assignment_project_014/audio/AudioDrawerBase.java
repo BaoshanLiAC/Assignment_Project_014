@@ -14,7 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.ac.assignment_project_014.R;
 import com.ac.assignment_project_014.ToolBarBase;
-import com.ac.assignment_project_014.recipe.SearchHistoryActivity;
+import com.ac.assignment_project_014.recipe.RecipeSearchHistoryActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import static android.view.View.TEXT_ALIGNMENT_TEXT_START;
@@ -49,7 +49,7 @@ public abstract class AudioDrawerBase extends ToolBarBase implements NavigationV
                     startActivity(new Intent(this, RecipeMainActivity.class));
                     break;*/
                 case R.id.recipe_goto_search:
-                    startActivity(new Intent(this, SearchHistoryActivity.class));
+                    startActivity(new Intent(this, RecipeSearchHistoryActivity.class));
                     break;
                 case R.id.recipe_help:
                     text.setText("1. User could search Audio ." +
@@ -98,7 +98,7 @@ public abstract class AudioDrawerBase extends ToolBarBase implements NavigationV
                 startActivity(new Intent(this, RecipeMainActivity.class));
                 break;*/
             case R.id.recipe_goto_search:
-                startActivity(new Intent(this, SearchHistoryActivity.class));
+                startActivity(new Intent(this, RecipeSearchHistoryActivity.class));
                 break;
             case R.id.recipe_help:
                 text.setText("1. User could search Audio ." +

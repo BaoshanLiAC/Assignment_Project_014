@@ -88,19 +88,26 @@
                 tools:visibility="visible" />
         </LinearLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#F2F2F2"
+            android:orientation="horizontal">
 
         <ListView
             android:id="@+id/recipe_listView"
             android:layout_width="400dp"
-            android:layout_height="wrap_content"
-            android:textColor="#000"/>
-        <FrameLayout
-            android:id="@+id/fragmentLocation"
-            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/toolbar"
-            android:layout_toRightOf="@id/recipe_listView"
-            android:background="@color/colorAccent" />
+            android:textColor="#000" />
+
+            <FrameLayout
+                android:id="@+id/fragmentLocation"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@id/recipe_listView"
+                android:theme="@style/AppTheme.NoToolBar"
+                />
+        </RelativeLayout>
 
     </LinearLayout>
 

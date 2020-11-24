@@ -28,7 +28,7 @@ import java.util.ArrayList;
  * search key words.
  *
  */
-public class SearchHistoryActivity extends AppCompatActivity {
+public class RecipeSearchHistoryActivity extends AppCompatActivity {
 
     private ListView listView;
     private MyListAdapter adapter;
@@ -62,10 +62,10 @@ public class SearchHistoryActivity extends AppCompatActivity {
 
         searchView = (SearchView)findViewById(R.id.search_bar);
         searchView.onActionViewExpanded();
-        /* Used to accept user input */
+        /* Used to accept user input
         EditText searchText = findViewById(R.id.edit_text);
         searchText.getText();
-
+        */
         searchView.setQueryHint("Search Here");
         Intent goToSearchResult  = new Intent(getBaseContext(), RecipeMainActivity.class);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
