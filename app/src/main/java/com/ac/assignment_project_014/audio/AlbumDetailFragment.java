@@ -32,8 +32,13 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
- * this class shows the details of an Album
+ * This Class is the page to display the details of an Album.
+ * <p>
+ * <o>receive the data from empty, </>
+ * <o>and retrieve data from database</>
+ * @author chunyan ren
  */
 public class AlbumDetailFragment  extends Fragment {
     private String albumId;
@@ -43,8 +48,15 @@ public class AlbumDetailFragment  extends Fragment {
     private String gURL;
     private  ArrayList<TrackItem> tlist;
     private ListView listView;
+
     private Button btnStore;
+    /**
+     * define database opener
+     */
     private AudioOpener dbOpener;
+    /**
+     * define database opener
+     */
     private SQLiteDatabase sqldb;
 
     /**
@@ -54,6 +66,9 @@ public class AlbumDetailFragment  extends Fragment {
         this.currentAlbum = item;
     }
 
+    /**
+     * To get the current Album list
+     */
     public ArrayList<TrackItem> getTlist(){
         if(this.tlist==null)
             tlist = new ArrayList<TrackItem>();
@@ -62,7 +77,14 @@ public class AlbumDetailFragment  extends Fragment {
     }
 
 
-
+    /**
+     * Load the current view
+     * <p>
+     * @param savedInstanceState the State of current activity is saved in this parameter
+     * @param inflater to load the xml view
+     * @param container contain other children views
+     *
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View view=inflater.inflate(R.layout.audio_fragment_album_detail,container,false);
@@ -75,8 +97,6 @@ public class AlbumDetailFragment  extends Fragment {
 
             btnStore.setOnClickListener( click -> {
                 if(currentAlbum!=null) {
-
-
 
                     if (btnStore.getText().equals(this.getString(R.string.audio_save))) {
                         this.saveLocalAlbum(this.currentAlbum);
@@ -109,17 +129,17 @@ public class AlbumDetailFragment  extends Fragment {
                     //btnStore.setImageResource(R.drawable.ic_star_line);
                     btnStore.setText(this.getString(R.string.audio_save));
             }
-   // }
-
-
-
-       // }
 
         return view;
     }
 
 
-
+    /**
+     * Control the visible of current fragment
+     * <p>
+     * @param hidden to control the visible of this fragment
+     *
+     */
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
@@ -136,13 +156,14 @@ public class AlbumDetailFragment  extends Fragment {
                 new fetchTrack().execute();
                 text_album.setText(currentAlbum.getAlbumName() + " / " + currentAlbum.getArtistName());
                 new DownloadImageHelper(img_album).execute(currentAlbum.getAlbumImgUrl());
-
-
             }
 
         }
     }
 
+    /**
+     * connect DataBase
+     */
     private void connDataBase(){
         if(dbOpener==null) {
             dbOpener=new AudioOpener(getActivity());
@@ -154,16 +175,19 @@ public class AlbumDetailFragment  extends Fragment {
 
     }
 
+
+    /**
+     * To get all of the columns.
+     * <p>
+     * Look at AudioOpener.java for the definitions
+     * query all the results from the database
+     */
     private boolean checkSave(){
 
-        //AudioIndexActivity activity = (AudioIndexActivity) getActivity();
-        //get a database connection:
         connDataBase();
-        // We want to get all of the columns. Look at AudioOpener.java for the definitions:
         String [] columns = {AudioOpener.COL_ALBUMID, AudioOpener.COL_ALBUMNAME,
                 AudioOpener.COL_ARTIST, AudioOpener.COL_ALBUMIMGURL, AudioOpener.COL_ALBUMSTYLE};
-        //query all the results from the database:
-        //Cursor results = db.query(false, AudioOpener.TABLE_NAME, columns, null, null, null, null, null, null);
+
 
         Cursor results = sqldb.query("ALBUM_TABLE", new String[]{"_albumid,albumName,artist,imgURL,Style"},
                 "_albumid = ?", new String[]{currentAlbum.getAlbumId()}, null, null, null, null);
@@ -174,12 +198,14 @@ public class AlbumDetailFragment  extends Fragment {
             return false;
     }
 
+
+    /**
+     * Now provide a value for every database column defined in MyOpener.java.
+     */
     private void saveLocalAlbum(AlbumItem saveItem){
         connDataBase();
 
         ContentValues newRowValues = new ContentValues();
-
-        //Now provide a value for every database column defined in MyOpener.java:
         newRowValues.put(dbOpener.COL_ALBUMID, saveItem.getAlbumId());
         newRowValues.put(dbOpener.COL_ALBUMIMGURL, saveItem.getAlbumImgUrl());
         newRowValues.put(dbOpener.COL_ALBUMNAME, saveItem.getAlbumName());
@@ -189,71 +215,73 @@ public class AlbumDetailFragment  extends Fragment {
 
     }
 
+
+    /**
+     * remove the album from database
+     * @param delItem delItem
+     */
     private void removeLocalAlbum(AlbumItem delItem){
         connDataBase();
         sqldb.delete(dbOpener.TABLE_NAME_A,"_albumid=?",new String[]{delItem.getAlbumId()});
     }
 
 
-
-
-
-
-  /*  @Override
-    public void onHiddenChanged(boolean hidden) {
-        if (hidden){
-            text_album.setText(currentAlbum.getAlbumName()+" / "+currentAlbum.getArtistName());
-            new DownloadImageHelper(img_album).execute(currentAlbum.getAlbumImgUrl());
-        }
-        super.onHiddenChanged(hidden);
-    }*/
-
-
-
-    class TrackAdapter extends BaseAdapter {// implements Filterable
-
-        private Activity activity;
+    /**
+     * load data into ArrayList favourite list, and displayed on the page
+     */
+    class TrackAdapter extends BaseAdapter {
         private List<TrackItem> trackList;
         private LayoutInflater inflater;
-
         private TextView textview_track;
 
         public TrackAdapter(){
 
         }
-
+        /**
+         * constructor with one parameter
+         * @param  ti, the current list
+         */
         public TrackAdapter(List<TrackItem> ti) {
-            // super();
             trackList=ti;
-
-            //  inflater = (LayoutInflater) activity.getSystemService((Context.LAYOUT_INFLATER_SERVICE));
         }
 
-
+        /**
+         * get the total item
+         * @return the count number
+         */
     @Override
     public int getCount() {
         return trackList.size();
     }
-
+        /**
+         * get the current item
+         * @return the current item object
+         */
     @Override
     public Object getItem(int position) {
         return trackList.get(position);
     }
-
+        /**
+         * get the current item id
+         * @param position, the current item position
+         * @return the current item ID
+         */
     @Override
     public long getItemId(int position) {
         return position;
     }
-
+        /**
+         * get the view of current Item
+         * @param position, the current item position
+         * @param convertView
+         * @param parent this parent contains the children view
+         * @return the current view
+         */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if (inflater == null)
             inflater = getLayoutInflater();
-        //inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        //if (convertView == null)
-        // convertView = inflater.inflate(R.layout.audio_listview, null);
 
         View newView = inflater.inflate(R.layout.audio_tracklistview, null);
         textview_track = (TextView) newView.findViewById(R.id.textview_track);
@@ -265,18 +293,24 @@ public class AlbumDetailFragment  extends Fragment {
 
     }
 
-
 }
 
-
+    /**
+     * This class is used to load json data from remote server .
+     */
     public class fetchTrack extends AsyncTask<String, String, String> {
-
+        /**
+         * set the progressbar during the PreExecute stage
+         */
         @Override
         public void onPreExecute() {
             super.onPreExecute();
-
         }
 
+        /**
+         * the thread processed in the backed
+         * @param params is String type array
+         */
         @Override
         protected String doInBackground(String... params) {
             String result = null;
@@ -310,6 +344,10 @@ public class AlbumDetailFragment  extends Fragment {
             return result;
         }
 
+        /**
+         * the progressbar status updated when the thread is finished
+         * @param s is the url
+         */
         @Override
         public void onPostExecute(String s) {
             super .onPostExecute(s);

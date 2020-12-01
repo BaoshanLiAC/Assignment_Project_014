@@ -5,34 +5,44 @@
     android:paddingLeft="10dp"
     android:paddingRight="10dp">
 
-    <Button
+    <ImageButton
         android:id="@+id/btn_ticketmaster"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
+        android:background="#FFFFFF"
         android:layout_alignParentTop="true"
+        android:src = "@drawable/ic_ticket"
+        android:scaleType="fitCenter"
         android:text="TicketMaster event search" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btn_recipe"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:layout_below="@+id/btn_ticketmaster"
         android:layout_centerHorizontal="true"
+        android:src = "@drawable/ic_recipes"
+        android:scaleType="fitCenter"
         android:text="Recipe Search page" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btn_covid19"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:layout_height="150dp"
         android:layout_below="@+id/btn_recipe"
         android:layout_centerHorizontal="true"
+        android:src = "@drawable/ic_virus"
+        android:scaleType="fitCenter"
         android:text="Covid-19 case data" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btn_audio"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:layout_below="@+id/btn_covid19"
         android:layout_centerHorizontal="true"
+        android:src = "@drawable/ic_audio"
+        android:scaleType="fitCenter"
         android:text="The Audio Database api" />
 </RelativeLayout>

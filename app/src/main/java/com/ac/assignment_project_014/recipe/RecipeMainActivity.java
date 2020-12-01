@@ -38,31 +38,78 @@ import java.util.List;
  *
  *
  */
-
 public class RecipeMainActivity extends RecipeDrawerBase {
 
+    /**
+     * name of the List view, used to display recipe list
+     */
     public static  ListView mainlistView;
+    /**
+     * this list is used to save recipe Results list
+     */
     public static  List<JsonResults> searchResultsList =new ArrayList<JsonResults>();
+    /**
+     * this list is used to save favourite recipe list
+     */
     public static  List<JsonResults> favouritelist =new ArrayList<JsonResults>();
+    /**
+     * this adapter is used to load recipe result list
+     */
     static MyResultAdapter myResultAdapter;
+    /**
+     * this adapter is used to load favourite recipe result list
+     */
     static MyfavouriteAdapter myfavouriteAdapter;
+    /**
+     * define the progressbar
+     */
     public static  ProgressBar progressbar;
-    public static int viewLoadIndicator=0; // 1:  from searchlist; 0: from favourite list
+    /**
+     * to indicator to load which listview, 1:  from searchlist; 0: from favourite list
+     */
+    public static int viewLoadIndicator=0;
+    /**
+     * define and initial the search key words
+     */
     public static  String keyWorkd = "";
+    /**
+     * define image name
+     */
     public static  String THUMBNAIL = "thumbnail";
+    /**
+     * define recipe title name
+     */
     public static  String TITLE = "title";
+    /**
+     * define recipe ingredients name
+     */
     public static  String INGREDIENTS = "ingredients";
+    /**
+     * define recipe url name
+     */
     public static  String HREF = "href";
+    /**
+     * define recipe like button status name
+     */
     public static  String ISLIKE = "like";
+    /**
+     * define database handler
+     */
     public static SQLiteDatabase db;
+    /**
+     * define database opener
+     */
     public static DBOpener dbOpener;
     /*Above attributes are set to be static, can be manipulated in Jsonloader */
 
-    public static final String SHARED_PREFS = "shared Prefs";
-    public static final String SEARCH_HISTORY = "search_History";
+    /**
+     * define the button to load favourite list
+     */
     Button btn_myFavourite;
+    /**
+     * define the button to load search list
+     */
     Button btn_search;
-    DrawerLayout drawer;
 
 
     /**
@@ -224,12 +271,32 @@ public class RecipeMainActivity extends RecipeDrawerBase {
      *
      */
     class MyResultAdapter extends BaseAdapter {
+        /**
+         * get the total item
+         * @return the count number
+         */
         @Override
         public int getCount() { return searchResultsList.size(); }
+        /**
+         * get the current item
+         * @return the current item object
+         */
         @Override
         public Object getItem(int position) { return searchResultsList.get(position); }
+        /**
+         * get the current item id
+         * @param position, the current item position
+         * @return the current item ID
+         */
         @Override
         public long getItemId(int position) { return (long) position; }
+        /**
+         * get the view of current Item
+         * @param position, the current item position
+         * @param convertView
+         * @param parent this parent contains the children view
+         * @return the current view
+         */
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             LayoutInflater inflater = getLayoutInflater();
@@ -256,7 +323,7 @@ public class RecipeMainActivity extends RecipeDrawerBase {
 
         /**
          * get the total item
-         * @return favouritelist, which will load my favourite recipe
+         * @return the count number
          */
         @Override
         public int getCount() { return favouritelist.size(); }

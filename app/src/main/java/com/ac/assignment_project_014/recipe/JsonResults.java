@@ -7,8 +7,8 @@ package com.ac.assignment_project_014.recipe;
  * The entity class of Recipe
  * Auto-generated: 2020-11-03 21:17:14
  *
- * @author bejson.com (i@bejson.com)
- * @website http://www.bejson.com/java2pojo/
+ * @author chunyan ren
+ * reference http://www.bejson.com/java2pojo/
  */
 public class JsonResults {
     /**

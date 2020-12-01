@@ -16,6 +16,12 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+
+/**
+ * This class is used to load json data from remote server .
+ * @author chunyan ren
+ * reference: from InclassProject AsyncTaskExample.java
+ */
 public class Jsonloader extends AsyncTask<String,Integer,String> {
     /**
      * retrieve the favourite list
@@ -48,7 +54,6 @@ public class Jsonloader extends AsyncTask<String,Integer,String> {
 
     /**
      * set the progressbar during the PreExecute stage
-     * @param args is String type array
      */
         @Override
         protected void onPreExecute() {

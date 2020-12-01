@@ -17,15 +17,32 @@ import com.google.android.material.navigation.NavigationView;
 
 import static android.view.View.TEXT_ALIGNMENT_TEXT_START;
 
+
+/**
+ *
+ * define the Navigation drawer layout and actions on clicked the buttons.
+ * extends from the shared components ToolBarBase.
+ *
+ * @author chunyan ren
+ */
 public abstract class RecipeDrawerBase extends ToolBarBase implements NavigationView.OnNavigationItemSelectedListener{
 
+    /**
+     * define the drawer;
+     */
     protected DrawerLayout drawer;
+    /**
+     * used to implement NavigationDrawer;
+     */
     protected ActionBarDrawerToggle drawerToggle;
+    /**
+     * to implement the outlook view of NavigationView;
+     */
     protected NavigationView navigationView;
 
     /**
      * Called when initializing the Drawer, and set the response to the button on the drawer
-     * @param savedInstanceState
+     * @param savedInstanceState is to save the instance state
      */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,14 +94,13 @@ public abstract class RecipeDrawerBase extends ToolBarBase implements Navigation
     }
 
 
-
     protected boolean stayInSameActivity(int id){
         return getLayoutId() == id;
     }
 
     /**
      * set the response to the button on the drawer
-     * @param menuItem
+     * @param menuItem this menu is displayed on the navigation drawer
      */
     @Override
     public boolean onNavigationItemSelected(MenuItem menuItem) {

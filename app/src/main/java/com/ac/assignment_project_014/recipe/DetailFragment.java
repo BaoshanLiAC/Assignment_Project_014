@@ -21,18 +21,43 @@ import com.ac.assignment_project_014.R;
 import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
-
+/**
+ * This Class is the page to display the Detailed recipe page.
+ * <p>
+ * <o>receive the data from empty, </>
+ * <o>and retrieve data from database</>
+ * @author chunyan ren
+ */
 public class DetailFragment extends Fragment {
-
+    /**
+     * data passed from previous activity
+     */
     private Bundle dataFromActivity;
+    /**
+     * the parent activity
+     */
     private AppCompatActivity parentActivity;
+    /**
+     * the title,image,ingredients and url of the current recipe
+     */
     String title,thumbnail,ingredients,href;
+    /**
+     * if this recipe is saved in the favourite recipe
+     */
     Boolean isLike;
+    /**
+     * the button used to dispaly and response to the add to favourite list action
+     */
     ImageButton imageButton;
+    /**
+     * used to connect the database
+     */
     SQLiteDatabase db;
+    /**
+     * used to access the database
+     */
     DBOpener dbOpener;
-    private AlertDialog alertDialog;
-    TextView textView_Url;
+
 
     /**
      * called when this fragment is loaded

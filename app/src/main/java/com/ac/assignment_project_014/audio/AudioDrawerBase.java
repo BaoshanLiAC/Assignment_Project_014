@@ -19,12 +19,31 @@ import com.google.android.material.navigation.NavigationView;
 
 import static android.view.View.TEXT_ALIGNMENT_TEXT_START;
 
+/**
+ *
+ * define the Navigation drawer layout and actions on clicked the buttons.
+ * extends from the shared components ToolBarBase.
+ *
+ * @author Baoshan Li
+ */
 public abstract class AudioDrawerBase extends ToolBarBase implements NavigationView.OnNavigationItemSelectedListener{
+    /**
+     * define the drawer;
+     */
     protected DrawerLayout drawer;
+    /**
+     * used to implement NavigationDrawer;
+     */
     protected ActionBarDrawerToggle drawerToggle;
+    /**
+     * to implement the outlook view of NavigationView;
+     */
     protected NavigationView navigationView;
 
-
+    /**
+     * Called when initializing the Drawer, and set the response to the button on the drawer
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
@@ -86,6 +105,10 @@ public abstract class AudioDrawerBase extends ToolBarBase implements NavigationV
         return getLayoutId() == id;
     }
 
+    /**
+     * set the response to the button on the drawer
+     * @param menuItem this menu is displayed on the navigation drawer
+     */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         menuItem.setChecked(true);
@@ -110,7 +133,7 @@ public abstract class AudioDrawerBase extends ToolBarBase implements NavigationV
                 builder.create().show();
                 break;
             case R.id.recipe_about:
-                text.setText("Developed By: Chunyan Ren\nStudent No: 040980795");
+                text.setText("Developed By: Baoshan Li\nStudent No: 040976082");
                 text.setTextAlignment(TEXT_ALIGNMENT_TEXT_START);
                 builder.setView(view);
                 builder.create().show();
@@ -124,8 +147,6 @@ public abstract class AudioDrawerBase extends ToolBarBase implements NavigationV
             default:
                 break;
         }
-
-
 
         return true;
     }

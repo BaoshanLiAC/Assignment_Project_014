@@ -10,6 +10,8 @@ import android.database.sqlite.SQLiteOpenHelper;
  * <o>create a database table if not exist</>
  * <o>drop a old version table, and recreate a new table, the data in the table will lost also</>
  * <o>this function gets called if the database version on your device is higher than VERSION_NUM</>
+ *
+ * @author Chunyan Ren
  */
 public class DBOpener extends SQLiteOpenHelper {
 
