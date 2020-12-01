@@ -36,19 +36,41 @@ import java.util.List;
 /**
  * This Class is the page to display the details of an Album.
  * <p>
- * <o>receive the data from empty, </>
  * <o>and retrieve data from database</>
- * @author chunyan ren
+ * @author Baoshan Li
  */
 public class AlbumDetailFragment  extends Fragment {
+    /**
+     * the current album id
+     */
     private String albumId;
+    /**
+     * the current album object
+     */
     private AlbumItem currentAlbum;
+    /**
+     * the album content
+     */
     private TextView text_album;
+    /**
+     * the album image
+     */
     private ImageView img_album;
+    /**
+     * the album image url
+     */
     private String gURL;
+    /**
+     * define current TrackItem list
+     */
     private  ArrayList<TrackItem> tlist;
+    /**
+     * define current list view
+     */
     private ListView listView;
-
+    /**
+     * define button
+     */
     private Button btnStore;
     /**
      * define database opener
@@ -308,7 +330,7 @@ public class AlbumDetailFragment  extends Fragment {
         }
 
         /**
-         * the thread processed in the backed
+         * the thread processed in the backed to download album detail
          * @param params is String type array
          */
         @Override
@@ -345,7 +367,7 @@ public class AlbumDetailFragment  extends Fragment {
         }
 
         /**
-         * the progressbar status updated when the thread is finished
+         * Update the UI after data loaded
          * @param s is the url
          */
         @Override

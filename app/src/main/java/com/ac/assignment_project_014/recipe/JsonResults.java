@@ -1,4 +1,4 @@
-/**
+/*
   * Copyright 2020 bejson.com 
   */
 package com.ac.assignment_project_014.recipe;
@@ -28,7 +28,7 @@ public class JsonResults {
      */
     private String thumbnail;
     /**
-     * image of the Recipe
+     * the constructor of JsonResults
      */
     public JsonResults(String title, String href, String ingredients, String thumbnail) {
         this.title = title;

@@ -88,10 +88,6 @@ public class SearchnewFragment  extends Fragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-//todo:
-
-        //AlbumDetailFragment adFragment=new AlbumDetailFragment();
-        //adFragment.refresh();
 
     }
 
@@ -117,59 +113,63 @@ public class SearchnewFragment  extends Fragment {
 
       //  inflater = (LayoutInflater) activity.getSystemService((Context.LAYOUT_INFLATER_SERVICE));
     }
-
+        /**
+         * get the total album
+         * @return the count number
+         */
         @Override
         public int getCount() {
             return albumList.size();
         }
-
+        /**
+         * get the current item
+         * @return the current item object
+         */
         @Override
         public Object getItem(int position) {
             return albumList.get(position);
         }
-
+        /**
+         * get the current item id
+         * @return the current item position
+         */
         @Override
         public long getItemId(int position) {
             return position;
         }
-
+        /**
+         * get the view of current Item
+         * @return the current view
+         */
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            //return convertView;
-            //CheckBox b1=new CheckBox(parent);
-
-            //Button b=new Button(parent);
-            //b.setText("ABC");
-
 
             if (inflater == null)
                 inflater = getLayoutInflater();
-            //inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            //if (convertView == null)
-            // convertView = inflater.inflate(R.layout.audio_listview, null);
 
             View newView = inflater.inflate(R.layout.audio_listview, null);
             textview_album = (TextView) newView.findViewById(R.id.textview_album);
-            //textview_artist = (TextView) newView.findViewById(R.id.textview_artist);
 
             img_album=(ImageView) newView.findViewById(R.id.img_album);
-            //labCase = (img_album) convertView.findViewById(R.id.img_album);
 
             AlbumItem item = albumList.get(position);
             textview_album.setText(item.getAlbumName());
             new DownloadImageHelper(img_album).execute(item.getAlbumImgUrl());
 
             return newView;
-
-
         }
-
 
     }
 
-    public class fetchAlbum extends AsyncTask<String, Integer, String> {
 
+    /**
+     * This class is used to load json data from remote server .
+     */
+    public class fetchAlbum extends AsyncTask<String, Integer, String> {
+        /**
+         * set the progressbar during the PreExecute stage
+         */
         @Override
         public void onPreExecute() {
             super.onPreExecute();
@@ -177,14 +177,16 @@ public class SearchnewFragment  extends Fragment {
 
         }
 
-
         @Override
         protected void onProgressUpdate(Integer... integers) {
             super.onProgressUpdate(integers);
             SearchnewFragment.progressBar.setProgress(integers[0]);
         }
 
-
+        /**
+         * the thread processed in the backed
+         * @param params is String type array
+         */
         @Override
         protected String doInBackground(String... params) {
 
@@ -227,6 +229,10 @@ public class SearchnewFragment  extends Fragment {
             return result;
         }
 
+        /**
+         * the progressbar status updated when the thread is finished
+         * @param s is the url
+         */
         @Override
         public void onPostExecute(String s) {
             super .onPostExecute(s);

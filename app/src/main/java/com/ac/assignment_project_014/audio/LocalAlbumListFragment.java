@@ -23,26 +23,50 @@ import com.ac.assignment_project_014.R;
 
 import java.util.ArrayList;
 import java.util.List;
+/**
+ * This Class is the page to display the Album list.
 
+ * @author Baoshan Li
+ */
 public class LocalAlbumListFragment  extends Fragment {
 
 
-    private SearchnewFragment.AudioAdapter Adapter = null;
-
-
-    private ArrayList<AlbumItem> beanArrayList = new ArrayList<>();
-
-
-    private static int ACTIVITY_VIEW_CONTACT = 33;
-    private  ArrayList<AlbumItem> alist;
-    int positionClicked = 0;
+    /**
+     * the AlbumItem List
+     */
+    private ArrayList<AlbumItem> alist;
+    /**
+     * the database Opener.
+     */
     private AudioOpener dbOpener;
+    /**
+     * the database handler.
+     */
     private SQLiteDatabase sqldb;
+    /**
+     * the EditText to input the search key words
+     */
     private EditText text_search;
+    /**
+     * the listView
+     */
     private ListView listView;
+    /**
+     * the search button
+     */
     private ImageButton btn_search;
+    /**
+     * the search key words
+     */
     private String gCondition="";
-
+    /**
+     * Load the current view
+     * <p>
+     * @param savedInstanceState the State of current activity is saved in this parameter
+     * @param inflater to load the xml view
+     * @param container contain other children views
+     *
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View view=inflater.inflate(R.layout.audio_fragment_localalbum,container,false);
@@ -60,7 +84,12 @@ public class LocalAlbumListFragment  extends Fragment {
         return view;
     }
 
-
+    /**
+     * Control the visible of current fragment
+     * <p>
+     * @param hidden to control the visible of this fragment
+     *
+     */
     @Override
     public void onHiddenChanged(boolean hidden) {
 
@@ -72,7 +101,9 @@ public class LocalAlbumListFragment  extends Fragment {
 
     }
 
-
+    /**
+     * reload the Album list
+     */
     private void refreshList(){
 
         loadLocalAlbum(this.gCondition);
@@ -90,7 +121,9 @@ public class LocalAlbumListFragment  extends Fragment {
     }
 
 
-
+    /**
+     * connect DataBase
+     */
     private void connDataBase(){
         if(dbOpener==null) {
             dbOpener=new AudioOpener(getActivity());
@@ -102,8 +135,10 @@ public class LocalAlbumListFragment  extends Fragment {
 
     }
 
-
-
+    /**
+     * reload the Album from database by specified condition
+     * @param condition the keywords
+     */
     private void loadLocalAlbum(String condition)
     {
         this.connDataBase();
@@ -123,15 +158,6 @@ public class LocalAlbumListFragment  extends Fragment {
                     null, null, null, null, null, null);
         }
 
-
-       // Cursor results = sqldb.query("ALBUM_TABLE", new String[]{"_albumid,albumName,artist,imgURL,Style"},
-        //        selection, new String[]{text_search.getText().toString(), text_search.getText().toString()}, null, null, null, null);
-
-//
-
-
-        //Now the results object has rows of results that match the query.
-        //find the column indices:
         int idIndex = results.getColumnIndex(AudioOpener.COL_ALBUMID);
         int nameIndex = results.getColumnIndex(AudioOpener.COL_ALBUMNAME);
         int aritstIndex = results.getColumnIndex(AudioOpener.COL_ARTIST);
@@ -149,83 +175,69 @@ public class LocalAlbumListFragment  extends Fragment {
            this.alist.add(insertItem);
         }
 
-        //At this point, the contactsList array has loaded every row from the cursor.
-
-       // printCursor( results,db.getVersion());
     }
 
 
+    /**
+     * The adapter to bind data to listview
+     */
+    class AudioAdapter extends BaseAdapter {
 
-
-
-
-    class AudioAdapter extends BaseAdapter {// implements Filterable
-
-        private Activity activity;
         private List<AlbumItem> albumList;
         private LayoutInflater inflater;
 
         private TextView textview_album, textview_artist;
         private ImageView img_album;
-        public AudioAdapter(){
 
-        }
-
+        /**
+         * constructor with one parameter
+         * @param  ai, the current list
+         */
         public AudioAdapter(List<AlbumItem> ai) {
-            // super();
             albumList=ai;
-
-            //  inflater = (LayoutInflater) activity.getSystemService((Context.LAYOUT_INFLATER_SERVICE));
         }
-
+        /**
+         * get the total album
+         * @return the count number
+         */
         @Override
         public int getCount() {
             return albumList.size();
         }
-
+        /**
+         * get the current item
+         * @return the current item object
+         */
         @Override
         public Object getItem(int position) {
             return albumList.get(position);
         }
-
+        /**
+         * get the current item id
+         * @return the current item position
+         */
         @Override
         public long getItemId(int position) {
             return position;
         }
-
+        /**
+         * get the view of current Item
+         * @return the current view
+         */
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            //return convertView;
-            //CheckBox b1=new CheckBox(parent);
-
-            //Button b=new Button(parent);
-            //b.setText("ABC");
-
 
             if (inflater == null)
                 inflater = getLayoutInflater();
-            //inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            //if (convertView == null)
-            // convertView = inflater.inflate(R.layout.audio_listview, null);
 
             View newView = inflater.inflate(R.layout.audio_listview, null);
             textview_album = (TextView) newView.findViewById(R.id.textview_album);
-            //textview_artist = (TextView) newView.findViewById(R.id.textview_artist);
-
             img_album=(ImageView) newView.findViewById(R.id.img_album);
-            //labCase = (img_album) convertView.findViewById(R.id.img_album);
-
             AlbumItem item = albumList.get(position);
             textview_album.setText(item.getAlbumName());
             new DownloadImageHelper(img_album).execute(item.getAlbumImgUrl());
 
-
             return newView;
-
-
-
-
         }
 
 

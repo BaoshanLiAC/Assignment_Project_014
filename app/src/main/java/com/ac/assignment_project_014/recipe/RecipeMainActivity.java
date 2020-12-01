@@ -330,7 +330,7 @@ public class RecipeMainActivity extends RecipeDrawerBase {
 
         /**
          * get the current item
-         * @return the current item position
+         * @return the current item object
          */
         @Override
         public Object getItem(int position) { return favouritelist.get(position); }
@@ -343,7 +343,7 @@ public class RecipeMainActivity extends RecipeDrawerBase {
 
         /**
          * get the view of current Item
-         * @return the current item position
+         * @return the current view
          */
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {

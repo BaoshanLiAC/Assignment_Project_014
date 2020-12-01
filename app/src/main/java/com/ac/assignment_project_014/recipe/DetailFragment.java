@@ -61,8 +61,8 @@ public class DetailFragment extends Fragment {
 
     /**
      * called when this fragment is loaded
-     * @param inflater
-     * @param container
+     * @param inflater to load the view xml
+     * @param container the parent view contains children views
      * @param savedInstanceState the current saved stated
      * */
 

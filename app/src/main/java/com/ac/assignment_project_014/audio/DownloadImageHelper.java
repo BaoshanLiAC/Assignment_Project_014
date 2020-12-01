@@ -8,13 +8,27 @@ import android.widget.ImageView;
 
 import java.io.InputStream;
 
+
+/**
+ * This class is used to download Image from remote server .
+ * @author Baoshan Li
+ */
 class DownloadImageHelper extends AsyncTask<String, Void, Bitmap> {
+    /*
+     * the image to download
+     */
     ImageView bmImage;
+
+    /**
+     * the get the image
+     */
     public DownloadImageHelper(ImageView bmImage) {
         this.bmImage = bmImage;
     }
 
-
+    /**
+     * to download the image in background
+     */
     protected Bitmap doInBackground(String... urls) {
         String urldisplay = urls[0];
         Bitmap bmp = null;
