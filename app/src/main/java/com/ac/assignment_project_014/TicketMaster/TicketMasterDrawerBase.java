@@ -23,15 +23,12 @@ import static android.view.View.TEXT_ALIGNMENT_TEXT_START;
  */
 public abstract class TicketMasterDrawerBase extends ToolBarBase implements NavigationView.OnNavigationItemSelectedListener{
 
-    /**
-     *
-     */
     protected DrawerLayout drawer;
     protected ActionBarDrawerToggle drawerToggle;
     protected NavigationView navigationView;
 
     /**
-     *
+     * Called when initializing the Drawer, and set the response to the button on the drawer
      * @param savedInstanceState
      */
     @Override
@@ -92,6 +89,10 @@ public abstract class TicketMasterDrawerBase extends ToolBarBase implements Navi
         return getLayoutId() == id;
     }
 
+    /**
+     * set the response to the button on the drawer
+     * @param menuItem
+     */
     @Override
     public boolean onNavigationItemSelected(MenuItem menuItem) {
         menuItem.setChecked(true);

@@ -246,6 +246,61 @@ public class TicketMasterMainActivity extends TicketMasterDrawerBase {
         return R.layout.ticketmaster_activity_main;
     }
 
+    /**
+     * event adapter used by list view for event display
+     */
+    class EventsAdapter extends BaseAdapter {
+
+        /**
+         * getter of the size of the events
+         * @return size of the events
+         */
+        @Override
+        public int getCount() {
+            return events.size();
+        }
+
+        /**
+         * getter for event instance
+         * @param position index in event list
+         * @return the event instance with the index passed
+         */
+        @Override
+        public Event getItem(int position) {
+            return events.get(position);
+        }
+
+        /**
+         * getter for database id
+         * @param position the index in event list
+         * @return the database id
+         */
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        /**
+         * getter for view
+         * @param position index
+         * @param convertView view
+         * @param parent parent view
+         * @return the view
+         */
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LayoutInflater layoutInflater = getLayoutInflater();
+            View view = layoutInflater.inflate(R.layout.ticketmaster_event_item, parent, false);
+            TextView eventDateTV = view.findViewById(R.id.event_date_tv);
+            TextView eventNameTV = view.findViewById(R.id.event_name_tv);
+
+            Event event = getItem(position);
+            eventNameTV.setText(event.getName());
+            eventDateTV.setText(event.getDate());
+
+            return view;
+        }
+    }
 
     /**
      * class of AsyncTask to get events information from server
@@ -348,62 +403,6 @@ public class TicketMasterMainActivity extends TicketMasterDrawerBase {
         }
     }
 
-
-    /**
-     * event adapter used by list view for event display
-     */
-    class EventsAdapter extends BaseAdapter {
-
-        /**
-         * getter of the size of the events
-         * @return size of the events
-         */
-        @Override
-        public int getCount() {
-            return events.size();
-        }
-
-        /**
-         * getter for event instance
-         * @param position index in event list
-         * @return the event instance with the index passed
-         */
-        @Override
-        public Event getItem(int position) {
-            return events.get(position);
-        }
-
-        /**
-         * getter for database id
-         * @param position the index in event list
-         * @return the database id
-         */
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        /**
-         * getter for view
-         * @param position index
-         * @param convertView view
-         * @param parent parent view
-         * @return the view
-         */
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            LayoutInflater layoutInflater = getLayoutInflater();
-            View view = layoutInflater.inflate(R.layout.ticketmaster_event_item, parent, false);
-            TextView eventDateTV = view.findViewById(R.id.event_date_tv);
-            TextView eventNameTV = view.findViewById(R.id.event_name_tv);
-
-            Event event = getItem(position);
-            eventNameTV.setText(event.getName());
-            eventDateTV.setText(event.getDate());
-
-            return view;
-        }
-    }
 
 }
 

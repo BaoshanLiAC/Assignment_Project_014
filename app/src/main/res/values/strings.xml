@@ -25,10 +25,8 @@
     <string name="ticketmaster_yes">Yes</string>
     <string name="ticketmaster_no">No</string>
     <string name="ticketmaster_save_success">Save successfully </string>
-    <string name="ticketmaster_save_fail">Failed to save</string>
     <string name="ticketmaster_remove_confirm">Would you like to remove this event? </string>
     <string name="ticketmaster_remove_success">Remove successfully </string>
-    <string name="ticketmaster_remove_fail">Failed to Remove</string>
     <string name="ticketmaster_go_to_saved">Go to Saved Events </string>
     <string name="ticketmaster_alert_title">Alert: </string>
     <string name="ticketmaster_alert_message">City Name and Radius can not be empty</string>
@@ -36,7 +34,7 @@
     <string name="ticketmaster_help_infor">Please enter city name and radius to search the events</string>
     <string name="ticketmaster_about">Developed By: Xingan Wang
                                       \nStudent No: 040981582</string>
-    <string name="ticketmaster_go_to_search">Go search by country and date.</string>
+    <string name="ticketmaster_go_to_search">Go search by Country and Radius.</string>
     <string name="ticketmaster_title">TicketMaster Event Search</string>
     <string name="ticketmaster_auther">Xingan Wang</string>
 

@@ -4,6 +4,14 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/**
+ * This Class is a database manipulation helper.
+ *  <p>
+ *  <o>create a database table if not exist</>
+ *  <o>drop a old version table, and recreate a new table, the data in the table will lost also</>
+ *  <o>this function gets called if the database version on your device is higher than VERSION_NUM</>
+ */
+
 public class EventOpenHelper extends SQLiteOpenHelper {
 
     /**

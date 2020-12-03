@@ -16,7 +16,6 @@ public class TicketMasterEventDetailsActivity extends TicketMasterDrawerBase {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.ticketmaster_event_details);
 
         Bundle dataToPass = getIntent().getBundleExtra("EVENT_DETAIL");
 

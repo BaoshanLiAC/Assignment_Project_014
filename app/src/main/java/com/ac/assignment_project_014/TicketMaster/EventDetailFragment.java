@@ -2,7 +2,6 @@ package com.ac.assignment_project_014.TicketMaster;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -28,26 +27,94 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * A simple {@link Fragment} subclass
- * creat an instance of this fragment
+ * A simple Fragment subclass
+ * Create an instance of this fragment
  */
 public class EventDetailFragment extends Fragment {
 
+    /**
+     * if the device is tablet
+     */
     private boolean isTablet;
+
+    /**
+     * if the event is saved
+     */
     private boolean isSaved;
+
+    /**
+     * event id
+     */
     private long id;
+
+    /**
+     * event name
+     */
     private String eventName;
+
+    /**
+     * event date
+     */
     private String eventDate;
+
+    /**
+     * min price of the event
+     */
     private String eventMinPrice;
+
+    /**
+     * max price of the event
+     */
     private String eventMaxPrice;
+
+    /**
+     * url of the event
+     */
     private String eventURL;
+
+    /**
+     * image of the event
+     */
     private String eventImage;
 
+    /**
+     * ProgressBar to show when loading
+     */
     private ProgressBar progressBar;
+
+    /**
+     * image view of the event
+     */
     private ImageView imgPromotion;
+
     private Bundle dataFromActivity;
+
     private AppCompatActivity parentActivity;
 
+    /**
+     * communicate with the saved event activity
+     * reference： https://stackoverflow.com/questions/32346704/how-to-communicate-between-fragments
+     */
+    private CallBack myCallBack;
+
+    //defining interface
+    public interface CallBack {
+        void removeEvent(long eventId);
+    }
+
+    public void setMyCallBack(CallBack myCallBack) {
+        this.myCallBack = myCallBack;
+    }
+
+
+
+    /**
+     * called when this fragment is loaded
+     * @param inflater
+     * @param container
+     * @param savedInstanceState the current saved stated
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -111,39 +178,43 @@ public class EventDetailFragment extends Fragment {
     }
 
 
+    /**
+     *
+     * @param context the current activity context
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        //context will either be FragmentExample for a tablet, or EmptyActivity for phone
         parentActivity = (AppCompatActivity)context;
     }
 
 
-
-
+    /**
+     * method to remove the saved event from database
+     * @param db
+     * @param button
+     */
     private void removeSavedEvent(SQLiteDatabase db, Button button) {
-        int number = db.delete(TicketMasterMainActivity.EVENT_SAVED_TABLE, TicketMasterMainActivity.COL_ID + " = ?", new String[]{String.valueOf(id)});
-        if (number > 0) {
-            Snackbar snackbar = Snackbar.make(this.imgPromotion,
-                    R.string.ticketmaster_remove_success,
-                    Snackbar.LENGTH_LONG);
-            button.setEnabled(false);
-            snackbar.show();
-            if (!isTablet) {
-                snackbar.setAction(R.string.ticketmaster_go_to_saved, v -> {
-                    Intent intent = new Intent(parentActivity, TicketMasterSavedEventsActivity.class);
-                    parentActivity.startActivity(intent);
-                });
-            }
+        db.delete(TicketMasterMainActivity.EVENT_SAVED_TABLE, TicketMasterMainActivity.COL_ID + " = ?", new String[]{String.valueOf(id)});
 
-        } else {
-            Snackbar snackbar = Snackbar.make(this.imgPromotion,
-                    R.string.ticketmaster_remove_fail,
-                    Snackbar.LENGTH_LONG);
-            snackbar.show();
+        Snackbar snackbar = Snackbar.make(this.imgPromotion,
+                R.string.ticketmaster_remove_success,
+                Snackbar.LENGTH_LONG);
+        button.setEnabled(false);
+        snackbar.show();
+
+        //update parent activity
+        if (this.myCallBack != null) {
+            myCallBack.removeEvent(id);
         }
+
     }
 
+    /**
+     * method to save event to the database
+     * @param db
+     * @param button
+     */
     private void save(SQLiteDatabase db, Button button) {
         ContentValues newRowValue = new ContentValues();
         newRowValue.put(TicketMasterMainActivity.COL_NAME, eventName);
@@ -153,32 +224,18 @@ public class EventDetailFragment extends Fragment {
         newRowValue.put(TicketMasterMainActivity.COL_URL, eventURL);
         newRowValue.put(TicketMasterMainActivity.COL_IMAGE, eventImage);
 
-        long newId = db.insert(TicketMasterMainActivity.EVENT_SAVED_TABLE, null, newRowValue);
-        Snackbar snackbar;
-        if (newId >= 0) {
-            snackbar = Snackbar.make(this.imgPromotion,
-                    R.string.ticketmaster_save_success,
-                    Snackbar.LENGTH_LONG);
-            if (!isTablet) {
-                snackbar.setAction(R.string.ticketmaster_go_to_saved, v -> {
-                    Intent intent = new Intent(parentActivity, TicketMasterSavedEventsActivity.class);
-                    parentActivity.startActivity(intent);
-                });
-            }
-
-            button.setEnabled(false);
-        } else {
-            snackbar = Snackbar.make(this.imgPromotion,
-                    R.string.ticketmaster_save_fail,
-                    Snackbar.LENGTH_LONG);
-        }
+        db.insert(TicketMasterMainActivity.EVENT_SAVED_TABLE, null, newRowValue);
+        Snackbar snackbar = Snackbar.make(this.imgPromotion,
+                R.string.ticketmaster_save_success,
+                Snackbar.LENGTH_LONG);
+        button.setEnabled(false);
         snackbar.show();
     }
 
     /**
      * a class used to get image from the server
      */
-    class GetImage extends AsyncTask<String, Integer, String> {
+    private class GetImage extends AsyncTask<String, Integer, String> {
 
         /**
          * the image that will get from the server
