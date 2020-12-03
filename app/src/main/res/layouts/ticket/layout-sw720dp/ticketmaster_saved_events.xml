@@ -19,7 +19,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/ticketmaster_favorite_title"
         android:textSize="30dp"
         android:paddingBottom="20dp"/>
 
@@ -30,7 +29,7 @@
 
         <ListView
             android:id="@+id/savedListView"
-            android:layout_width="240dp"
+            android:layout_width="400dp"
             android:layout_height="match_parent" />
 
         <FrameLayout

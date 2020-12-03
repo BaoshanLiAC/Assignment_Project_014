@@ -11,12 +11,14 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+
 import com.ac.assignment_project_014.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TicketMasterSavedEventsActivity extends TicketMasterDrawerBase{
+public class TicketMasterSavedEventsActivity extends TicketMasterDrawerBase implements EventDetailFragment.CallBack{
 
     /**
      * data holder of saved events
@@ -34,13 +36,12 @@ public class TicketMasterSavedEventsActivity extends TicketMasterDrawerBase{
     private SQLiteDatabase db;
 
     /**
-     * onCreat method
+     * onCreate method
      * @param savedInstanceState saved instance state
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.ticketmaster_saved_events);
 
         ListView savedEventsLV = findViewById(R.id.savedListView);
 
@@ -97,7 +98,7 @@ public class TicketMasterSavedEventsActivity extends TicketMasterDrawerBase{
     /**
      * method to load saved events
      */
-    private void loadSavedEvent() {
+    public void loadSavedEvent() {
         events.clear();
         String[] columns = {TicketMasterMainActivity.COL_ID, TicketMasterMainActivity.COL_NAME, TicketMasterMainActivity.COL_DATE, TicketMasterMainActivity.COL_MINPRICE, TicketMasterMainActivity.COL_MAXPRICE,TicketMasterMainActivity.COL_URL,TicketMasterMainActivity.COL_IMAGE};
         Cursor results = db.query(false, TicketMasterMainActivity.EVENT_SAVED_TABLE, columns,
@@ -116,6 +117,34 @@ public class TicketMasterSavedEventsActivity extends TicketMasterDrawerBase{
         }
 
         myEventsAdapter.notifyDataSetChanged();
+    }
+
+
+    /**
+     * communicate with EventDetailFragment by interface
+     * reference： https://stackoverflow.com/questions/32346704/how-to-communicate-between-fragments
+     * @param fragment
+     */
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+        if (fragment instanceof EventDetailFragment) {
+            ((EventDetailFragment)fragment).setMyCallBack(this);
+        }
+    }
+
+    @Override
+    public void removeEvent(long eventId) {
+        Event event = null;
+        for (Event e : events) {
+            if (e.getId() == eventId) {
+                event = e;
+                break;
+            }
+        }
+        if (event != null) {
+            events.remove(event);
+            myEventsAdapter.notifyDataSetChanged();
+        }
     }
 
     /**

@@ -26,10 +26,8 @@
     <string name="ticketmaster_yes">是</string>
     <string name="ticketmaster_no">否</string>
     <string name="ticketmaster_save_success">保存成功 </string>
-    <string name="ticketmaster_save_fail">保存失败</string>
     <string name="ticketmaster_remove_confirm">确认移除此活动吗? </string>
     <string name="ticketmaster_remove_success">移除成功 </string>
-    <string name="ticketmaster_remove_fail">移除失败</string>
     <string name="ticketmaster_go_to_saved">去收藏夹 </string>
     <string name="ticketmaster_alert_title">警告: </string>
     <string name="ticketmaster_alert_message">城市名字或半径不能为空</string>
