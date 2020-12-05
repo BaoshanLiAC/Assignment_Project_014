@@ -73,8 +73,8 @@ public class Covid19ChartFragment extends Fragment {
         List<Covid19ProvinceData> list = country.getDataList();
         SET_LABEL = country.getCountryName() + " on " + country.getSearchDateTime();
         Collections.sort(list, (a,b)->a.getCaseNumber()-b.getCaseNumber());
-        if(list.size() > 10){
-            dataList = list.subList(0, 10);
+        if(list.size() > 30){
+            dataList = list.subList(0, 30);
         }
         else{
             dataList = list;

@@ -148,6 +148,8 @@
         android:layout_width="wrap_content"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        app:itemTextColor="#F6F5F2"
+        android:background="#85011A1E"
         app:headerLayout="@layout/covid19_nav_header"
         app:menu="@menu/covid19_drawer_menu"
         android:id="@+id/covid_nav_view"/>

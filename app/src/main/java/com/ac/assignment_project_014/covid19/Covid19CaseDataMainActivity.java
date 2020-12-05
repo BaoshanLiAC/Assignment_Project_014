@@ -57,22 +57,31 @@ public class Covid19CaseDataMainActivity extends Covid19DrawerBase {
     private String date = "2020-10-10";
     private Button search;
     private SharedPreferences sharedpreferences;
+    private EditText nameString ,dateString;
 
    // @RequiresApi(api = Build.VERSION_CODES.O_MR1)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        nameString = findViewById(R.id.covid19_search_country_name);
+        dateString = findViewById(R.id.covid19_search_date);
         //initial class fields
         sharedpreferences = getSharedPreferences(COVID_PREFERENCES, Context.MODE_PRIVATE);
+
+        
+        if(sharedpreferences.getString("country", null) != null){
+            nameString.setText(sharedpreferences.getString("country", null));
+            dateString.setText(sharedpreferences.getString("date",null));
+        }
         search = findViewById(R.id.covid_data_search_btn);
+
         search.setOnClickListener(e->{
-            EditText name = findViewById(R.id.covid19_search_country_name);
-            setCountryName(name.getText().toString());
-            EditText date = findViewById(R.id.covid19_search_date);
+
+            setCountryName(nameString.getText().toString());
+
             Pattern DATE_PATTERN = Pattern.compile("^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$");
                     //input validation.
-                    if(DATE_PATTERN.matcher(date.getText().toString()).matches()){
-                        setDate(date.getText().toString());
+                    if(DATE_PATTERN.matcher(dateString.getText().toString()).matches()){
+                        setDate(dateString.getText().toString());
                         setUrl("https://api.covid19api.com/country/{0}/status/confirmed/live?from={1}T00:00:00Z&to={2}T00:00:00Z");
                         Covid19Server server = new Covid19Server();
                         server.execute();
@@ -81,7 +90,7 @@ public class Covid19CaseDataMainActivity extends Covid19DrawerBase {
                         androidx.appcompat.app.AlertDialog.Builder builder = new AlertDialog.Builder(this);
                         builder.setTitle("Error")
                                 .setMessage("Please enter date in correct format: (YYYY-MM-DD)")
-                                .setPositiveButton("OK", (click, arg) -> {date.setText("");})
+                                .setPositiveButton("OK", (click, arg) -> {dateString.setText("");})
                                 .create().show();
                     }
         });
