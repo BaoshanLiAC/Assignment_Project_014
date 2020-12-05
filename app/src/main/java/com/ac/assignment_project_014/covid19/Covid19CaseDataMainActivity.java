@@ -224,6 +224,10 @@ public class Covid19CaseDataMainActivity extends Covid19DrawerBase {
             return null;
         }
 
+        /**
+         * packing data into Presentation layer
+         * @param jsonObject
+         */
         @Override
         protected void onPostExecute(JSONArray jsonObject)
         {
@@ -265,6 +269,9 @@ public class Covid19CaseDataMainActivity extends Covid19DrawerBase {
             showResult.putExtra("search_result", data);
             startActivity(showResult);
 
+            /**
+             * keep last search in sharedpreferences
+             */
             editor = sharedpreferences.edit();
             editor.putString("country",getCountryName());
             editor.putString("date", getDate());

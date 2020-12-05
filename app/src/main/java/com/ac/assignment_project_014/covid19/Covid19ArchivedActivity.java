@@ -32,14 +32,30 @@ import java.util.ArrayList;
 public class Covid19ArchivedActivity extends Covid19DrawerBase {
 
     /**
-     * fields
+     * archived country data list
      */
     protected ArrayList<Covid19CountryData> dataList = new ArrayList<>();
+    /**
+     * List view
+     */
     protected ListView listView;
+    /**
+     * implement of arrayAdapter
+     */
     protected CountryList dataAdapter;
+    /**
+     * db helper
+     */
     protected Covid19DateHelper data;
+    /**
+     * database
+     */
     protected SQLiteDatabase db;
 
+    /**
+     * onCreate
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -80,7 +96,10 @@ public class Covid19ArchivedActivity extends Covid19DrawerBase {
     }
 
 
-
+    /**
+     * get layout id to set in upper Drawer and upper toolbar
+     * @return
+     */
     @Override
     protected int getLayoutId() {
         return R.layout.covid19_activity_archived_data;
@@ -146,6 +165,9 @@ public class Covid19ArchivedActivity extends Covid19DrawerBase {
         }
     }
 
+    /**
+     * get archived data from DB
+     */
     private void loadData(){
         data = new Covid19DateHelper(this);
         db = data.getWritableDatabase();
@@ -183,9 +205,10 @@ public class Covid19ArchivedActivity extends Covid19DrawerBase {
     }
 
 
-
-
-
+    /**
+     * wipe out all data in DB
+     * @param view
+     */
     public void clearDb(View view) {
         db.execSQL("delete from "+ data.TABLE_NAME);
         dataAdapter.notifyDataSetChanged();
