@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="120dp"
-    android:background="#00B8D4"
+    android:background="#AA4E0A"
     android:gravity="bottom"
     android:orientation="vertical"
     android:paddingBottom="5dp"
@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:text="Author"
+        android:text="COVID-19 CASE DATA"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView

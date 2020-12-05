@@ -33,11 +33,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+
+
+
 /**
- * A simple {@link Fragment} subclass.
-
+ * a subclass of Fragment, in where a chart data sit with top 30 rows
  */
-
 public class Covid19ChartFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
@@ -64,17 +65,26 @@ public class Covid19ChartFragment extends Fragment {
     public Covid19ChartFragment() {
         // Required empty public constructor
     }
+
+    /**
+     * cutomized constructor
+     * @param leftLayout
+     */
     public Covid19ChartFragment(LinearLayout leftLayout) {
         layout = leftLayout;
     }
 
+    /**
+     * customized chart data set
+     * @param country
+     */
     private void setData(Covid19CountryData country){
 
         List<Covid19ProvinceData> list = country.getDataList();
         SET_LABEL = country.getCountryName() + " on " + country.getSearchDateTime();
         Collections.sort(list, (a,b)->a.getCaseNumber()-b.getCaseNumber());
-        if(list.size() > 10){
-            dataList = list.subList(0, 10);
+        if(list.size() > 30){
+            dataList = list.subList(0, 30);
         }
         else{
             dataList = list;
@@ -90,7 +100,11 @@ public class Covid19ChartFragment extends Fragment {
         MIN_Y_VALUE = getCeil(min);
     }
 
-
+    /**
+     * calculate WHOLE INTEGER value
+     * @param num
+     * @return
+     */
     private int getCeil(int num){
         int lengthMax = String.valueOf(num).length();
         int dv = (int) Math.pow(10, lengthMax-1);
@@ -98,16 +112,27 @@ public class Covid19ChartFragment extends Fragment {
         return ceil * dv;
     }
 
-
+    /**
+     * set device
+     * @param isTablet
+     */
     protected void setTablet(boolean isTablet){
         this.isTablet = isTablet;
     }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
 
+    /**
+     * onCreate fragment view
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -131,6 +156,9 @@ public class Covid19ChartFragment extends Fragment {
         return view;
     }
 
+    /**
+     * config
+     */
     private void configureChartAppearance() {
 
         chart.setDrawGridBackground(false);
@@ -157,6 +185,10 @@ public class Covid19ChartFragment extends Fragment {
         rightAxis.setTextColor(Color.WHITE);
     }
 
+    /**
+     * create chart data from dataList
+     * @return
+     */
     private BarData createChartData() {
         ArrayList<BarEntry> values = new ArrayList<>();
 
@@ -181,12 +213,20 @@ public class Covid19ChartFragment extends Fragment {
         return data;
     }
 
+    /**
+     * prepare BarData
+     * @param data
+     */
     private void prepareChartData(BarData data) {
         data.setValueTextSize(12f);
         chart.setData(data);
         chart.invalidate();
     }
 
+    /**
+     * build relation with parent context
+     * @param context
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -194,6 +234,10 @@ public class Covid19ChartFragment extends Fragment {
         parentActivity = (AppCompatActivity)context;
     }
 
+    /**
+     * update UI layout
+     * @param para1
+     */
     public void setLayOutParameter(ViewGroup.LayoutParams para1) {
         this.layoutParam = (RelativeLayout.LayoutParams) para1;
     }

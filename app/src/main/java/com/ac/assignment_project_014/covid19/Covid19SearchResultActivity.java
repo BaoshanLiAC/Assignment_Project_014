@@ -94,7 +94,7 @@ public class Covid19SearchResultActivity extends Covid19DrawerBase {
                         //change layout dynamics
                         LinearLayout left = findViewById(R.id.covid19_result_top);
                         ViewGroup.LayoutParams para1 = left.getLayoutParams();
-                        RelativeLayout.LayoutParams para2 = new RelativeLayout.LayoutParams(-1, 100);
+                        RelativeLayout.LayoutParams para2 = new RelativeLayout.LayoutParams(-1, 600);
 
                         left.setLayoutParams(para2);
                         Covid19ChartFragment chartFragment = new Covid19ChartFragment(left);

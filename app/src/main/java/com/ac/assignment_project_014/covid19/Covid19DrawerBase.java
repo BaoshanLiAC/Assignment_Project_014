@@ -20,8 +20,15 @@ import com.google.android.material.navigation.NavigationView;
 
 import static android.view.View.TEXT_ALIGNMENT_TEXT_START;
 
+/**
+ * app level layout base, extends project level toolbar base
+ *
+ */
 public abstract class Covid19DrawerBase extends ToolBarBase{
 
+    /**
+     * fields
+     */
     protected DrawerLayout drawer;
     protected ActionBarDrawerToggle drawerToggle;
     protected NavigationView navigationView;
@@ -59,7 +66,7 @@ public abstract class Covid19DrawerBase extends ToolBarBase{
                     break;
                 case R.id.covid_nav_help:
                     text.setText("1. Query date from https://api.covid19api.com/country by input country and date." +
-                            "\n2. User could save result to archive for later analysis." +
+                            "\n2. User could save result to archive for later analysis. A fragment handles chart displaying" +
                             "\n3. User could navigate to archived tap to view saved record and manipulate data.");
                     text.setTextAlignment(TEXT_ALIGNMENT_TEXT_START);
                     builder.setView(view);
@@ -67,7 +74,7 @@ public abstract class Covid19DrawerBase extends ToolBarBase{
 
                     break;
                 case R.id.covid_nav_about:
-                    text.setText("Developed By: Li Sha Wu\nStudent No: **********");
+                    text.setText("Developed By: Li Sha Wu\nStudent No: 040980947");
                     text.setTextAlignment(TEXT_ALIGNMENT_TEXT_START);
                     builder.setView(view);
                     builder.create().show();
@@ -84,9 +91,15 @@ public abstract class Covid19DrawerBase extends ToolBarBase{
 
             return true;
         });
+        /**
+         * customized toolbar backgroundcolor only for covid-19 app
+         */
         toolbar.setBackgroundColor(Color.parseColor("#FFFF6D00"));
     }
 
-
+    /**
+     * abstractly declaration to get sub layout.
+     * @return
+     */
     protected abstract int getLayoutId();
 }

@@ -7,6 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.ac.assignment_project_014.R;
 import com.ac.assignment_project_014.recipe.DetailFragment;
 
+/**
+ * link Fragment activity within an empty activity to handle phone device.
+ */
 public class Covid19EmptyActivity extends Covid19DrawerBase {
 
     @Override
