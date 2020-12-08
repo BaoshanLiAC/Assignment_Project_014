@@ -114,6 +114,12 @@
     <string name="covid_country_change_header">Daily</string>
     <string name="covid_date_header">Date</string>
     <string name="covid_archived_data_description">Click to see detail and Long click to delete item.</string>
+    <string name="covid19_navi_search_data">Search Data</string>
+    <string name="covid19_navi_last_review">Last Review</string>
+    <string name="covid19_navi_archived_data">Archived Data</string>
+    <string name="covid19_navi_help">Help</string>
+    <string name="covid19_navi_about">About</string>
+    <string name="covid19_navi_version">Version</string>
 
 
     <!-- ToolBar-->
